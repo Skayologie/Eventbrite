@@ -12,6 +12,7 @@ require realpath(__DIR__ . "/../vendor/autoload.php");
 $router = new Router();
 
 $router->get("/",HomeController::class, "index");
+$router->get("/Login",HomeController::class, "index");
 
 
 $router->dispatch();
