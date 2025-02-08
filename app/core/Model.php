@@ -5,8 +5,6 @@ use App\core\Database;
 use PDO;
 
 require realpath(__DIR__ . "/../../vendor/autoload.php");
-
-
 class Model
 {
     private PDO $conn;
