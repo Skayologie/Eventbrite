@@ -12,6 +12,10 @@ class Auth
         $database = new Database();
         $this->db = $database->getConnection();
     }
+
+    public function index(){
+        View::render("front/AuthPage",[]);
+    }
     public function register($name , $email , $password)
     {
 
