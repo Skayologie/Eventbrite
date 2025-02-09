@@ -12,8 +12,15 @@ class Auth
 
     }
 
-    public function index(){
-        View::render("front/AuthPage",[]);
+    public function index($type){
+        if ($type === "Login"){
+            View::render("front/AuthPage",["type"=>"false"]);
+        }else if($type === "Register"){
+            View::render("front/AuthPage",["type"=>"true"]);
+        }else{
+            View::render("layouts/404",[]);
+
+        }
     }
     public function register()
     {

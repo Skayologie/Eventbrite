@@ -43,6 +43,9 @@ class UserController
             View::render("front/AuthPage",["message"=>$message]);
         }
     }
+
+
+
 //    public function loginUser()
 //    {
 //        $user = new Participant("jawad","jawadboulmal@gmail.com","man","hellow rodl","2003","hello");

@@ -4,23 +4,25 @@
         <div class="flex flex-wrap items-center justify-between gap-4">
             <div class="flex w-full items-center justify-between">
                 <!-- Logo -->
-                <div
-                        class="flex items-center space-x-2 transition-transform hover:scale-105 mr-3">
-                    <svg
-                            class="h-8 w-8 text-orange-600"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24">
-                        <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                    <span class="text-xl font-bold text-orange-600 hidden xl:flex"
-                    >Evently</span
-                    >
-                </div>
+                <a href="/">
+                    <div
+                            class="flex items-center space-x-2 transition-transform hover:scale-105 mr-3">
+                        <svg
+                                class="h-8 w-8 text-orange-600"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24">
+                            <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <span class="text-xl font-bold text-orange-600 hidden xl:flex"
+                        >Evently</span
+                        >
+                    </div>
+                </a>
 
                 <!-- Search & Location Bars -->
                 <div class="w-full ml-3" x-data="{ showLocation: false }">
@@ -125,8 +127,8 @@
                     <ul class="flex flex-row justify-end items-center gap-8 p-0 list-none">
                         <li class="block p-0 m-0 text-[#39364F] no-underline cursor-auto">Show All Events</li>
                         <li class="block p-0 m-0 text-[#39364F] no-underline cursor-auto">Create events</li>
-                        <li class="block p-0 m-0 text-[#39364F] no-underline cursor-auto">Login</li>
-                        <li class="block p-0 m-0 text-[#39364F] no-underline cursor-auto">Register</li>
+                        <a href="Auth/Login"><li class="block p-0 m-0 text-[#39364F] no-underline cursor-auto">Login</li></a>
+                        <a href="Auth/Register"><li class="block p-0 m-0 text-[#39364F] no-underline cursor-auto">Register</li></a>
                     </ul>
                 </div>
                 {% endif  %}
@@ -225,16 +227,26 @@
 
                     <!-- Dropdown Menu -->
                     <div
-                            class="absolute right-0 top-full mt-2 w-48 origin-top-right rounded-lg bg-white py-2 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-600 transform translate-y-2 group-hover:translate-y-0">
+                            class="absolute right-0 top-full mt-2 w-60 origin-top-right rounded-lg bg-white py-2 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-600 transform translate-y-2 group-hover:translate-y-0">
                         <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
-                        >Browse events</a
+                                class="flex gap-2 items-center block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
+                        ><i class="fa-solid fa-eye"></i>Browse events</a
                         >
                         <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
-                        >Manage my events</a
+                                class="flex gap-2 items-center block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
+                        ><i class="fa-solid fa-list-check"></i> Manage my events</a
+                        >
+                        <a
+                                href="/CreateEvent"
+                                class=" flex gap-2 items-center block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
+                        ><i class="fa-solid fa-plus"></i>Create Event</a
+                        >
+                        <a
+                                href="/CreateEvent"
+                                class="flex gap-2 items-center block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
+                        ><i class="fa-solid fa-repeat"></i>Switch Role</a
                         >
                         <a
                                 href="#"
@@ -258,11 +270,11 @@
                         >
                         <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
-                        >Account settings</a
+                                class="flex gap-2 items-center block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
+                        ><i class="fa-solid fa-gear"></i>Account settings</a
                         >
                         <a
-                                href="#"
+                                href="logout"
                                 class="block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
                         >Log out</a
                         >
