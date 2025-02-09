@@ -13,7 +13,7 @@ CREATE Table users(
       lname VARCHAR (255),
       email VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL ,
-      status ENUM('active','suspend'),
+      status ENUM('active','suspend') DEFAULT 'active',
       role_id int ,
       photo VARCHAR(255),
       birthdate DATE,
@@ -55,6 +55,15 @@ CREATE TABLE  events(
         FOREIGN KEY (event_category) REFERENCES categories(categorie_id),
         FOREIGN KEY (promo_code) REFERENCES promo_codes(code_id)
 );
+
+CREATE Table event_tags(
+       event_id INT,
+       tag_id INT,
+       PRIMARY KEY (event_id ,tag_id ),
+       FOREIGN KEY (tag_id) REFERENCES Tags(tag_id) on DELETE CASCADE,
+       FOREIGN KEY (event_id) REFERENCES events(event_id) on DELETE CASCADE
+);
+
 CREATE TABLE promo_codes(
          code_id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
          code VARCHAR(25),
@@ -62,23 +71,23 @@ CREATE TABLE promo_codes(
          expiring_date DATE
 );
 
-CREATE Table event_tags(
+
+CREATE TABLE Tickets(
+       ticket_id int PRIMARY KEY AUTO_INCREMENT NOT NULL ,
        event_id INT,
-       tag_id INT,
-       PRIMARY KEY (event_id ,tag_id ),
-       FOREIGN KEY (tag_id) REFERENCES tags(id) on DELETE CASCADE,
-       FOREIGN KEY (event_id) REFERENCES events(id) on DELETE CASCADE,
-
-
+       buyer_id INT,
+       promo_code_id INT,
+       QR_code VARCHAR(255),
+       Foreign Key (event_id) REFERENCES events(event_id) on DELETE CASCADE,
+       Foreign Key (buyer_id) REFERENCES users(user_id) on DELETE CASCADE,
+       Foreign Key (promo_code_id) REFERENCES promo_codes(code_id) on DELETE CASCADE
 );
 
 CREATE Table Notification(
-     notification_id INT AUTO_INCREMENT NOT NULL,
-     notification_message VARCHAR(255)
-         time TIME,
-     is_read BOOLEAN,
-     receiver_id INT,
-     event_id INT,
-     FOREIGN KEY (receiver_id) REFERENCES user(id) on DELETE CASCADE,
-
+     notification_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+     notification_message VARCHAR(255),
+     notification_time TIME,
+     is_read BOOLEAN default false,
+     receiver_id INT  ,
+     FOREIGN KEY (receiver_id) REFERENCES users(user_id) on DELETE CASCADE
 )

@@ -50,8 +50,8 @@ class Router {
                 return;
             }
         }
-        echo $this->twig->render("front/404.twig",[
-            'role'=> Session::get("message")["role"]
+        echo $this->twig->render("layouts/404.twig",[
+            'role'=> Session::get("message")["role"] ?? ""
         ]);
     }
 }

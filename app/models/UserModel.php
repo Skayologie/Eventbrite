@@ -4,73 +4,37 @@ namespace App\models;
 
 use App\core\Auth;
 use App\core\Database;
+use App\core\Model;
 use App\core\Validator;
 use DateTime;
 use Exception;
 use PDO;
 
-abstract class User
+class UserModel
 {
-    private int $user_id;
-    private string $lastName;
-    private string $firstName;
-    private string $email;
-    private string $status;
-    private string $gender;
-    protected string $role;
-    private string $password;
-    private string $photo;
-    private string $birthdate;
-    private string $bio;
-    private DateTime $joined_at;
     private PDO $db;
-    private Auth $Auth;
+    private $CRUD;
 
 
-    public function __construct(string $firstName,string $lastName, string $email,  string $gender, string $role, string $password, string $photo, string $birthdate, string $bio)
+    public function __construct()
     {
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->email = $email;
-        $this->gender = $gender;
-        $this->role = $role;
-        $this->password = $password;
-        $this->birthdate = $birthdate;
-        $this->bio = $bio;
-        $this->photo = $photo;
-        $UserDatabase = new Database();
-        $this->Auth = new Auth();
-    }
-
-    public function setLastName(string $lastName): void
-    {
-        $this->lastName = $lastName;
-    }
-
-    public function setFirstName(string $firstName): void
-    {
-        $this->firstName = $firstName;
-    }
-
-    public function setEmail(string $email): void
-    {
-        $result = Validator::validate_email($email);
-        if (!$result){
-            throw new Exception("Invalid email format.");
-        }
-        $this->email = htmlspecialchars(strip_tags($email));
-    }
-
-    public function setPassword(string $password): void
-    {
-        $this->password = $password;
+        $DB = new Database();
+        $this->CRUD = new Model($DB->getConnection());
+        $this->db = $DB->getConnection();
     }
 
 
-
-    public function register(){
-        $hashedPassword = password_hash($this->password,PASSWORD_BCRYPT);
-        return $this->Auth->register($this->firstName,$this->lastName,$this->email,$this->gender,$hashedPassword,$this->photo,$this->birthdate,$this->bio);
+    public function save(RegisteredUser $user)
+    {
+        $CRUD       = $this->CRUD;
+        $fname      = $user->getFirstName();
+        $lname      = $user->getLastName();
+        $email      = $user->getEmail();
+        $password   = $user->getPassword();
+        $birthdate  = $user->getBirthdate();
+        $bio        = $user->getBio();
+        $roleID     = $user->getRoleid();
+        return $CRUD->Add("users",["fname","lname","email","password","role_id","birthdate","bio"],[$fname,$lname,$email,$password,$roleID,$birthdate,$bio]);
     }
 
     public function login(){

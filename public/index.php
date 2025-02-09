@@ -1,6 +1,7 @@
 <?php
 
 use App\controllers\HomeController;
+use App\controllers\UserController;
 use App\core\Auth;
 use App\core\Router;
 use Twig\Environment;
@@ -14,6 +15,8 @@ $router = new Router();
 
 $router->get("/",HomeController::class, "index");
 $router->get("/Auth",Auth::class, "index");
+$router->post("/register",UserController::class, "register");
+$router->post("/login",UserController::class, "loginUser");
 
 
 $router->dispatch();

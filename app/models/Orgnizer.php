@@ -2,7 +2,7 @@
 
 namespace App\models;
 
-class Orgnizer
+class Orgnizer extends User
 {
 
 }

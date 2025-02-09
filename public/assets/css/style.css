@@ -24,3 +24,90 @@ body {
 .carousel-indicators button.active {
     background-color: rgba(255, 255, 255, 1);
 }
+
+.form-section {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.image-section {
+    background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.image-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.7) 0%,
+            rgba(0, 0, 0, 0.5) 100%
+    );
+}
+
+.input-group {
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideUp 0.5s ease forwards;
+}
+
+@keyframes slideUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.input-group:nth-child(1) {
+    animation-delay: 0.1s;
+}
+.input-group:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.input-group:nth-child(3) {
+    animation-delay: 0.3s;
+}
+.input-group:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.form-switch-enter {
+    animation: formEnter 0.6s ease forwards;
+}
+
+.form-switch-exit {
+    animation: formExit 0.6s ease forwards;
+}
+
+@keyframes formEnter {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes formExit {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@media (min-width: 1024px) {
+    .image-section {
+        height: 100vh;
+    }
+}

@@ -3,100 +3,7 @@
     Authentication
 {% endblock  %}
 {% block content %}
-<style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
 
-        .form-section {
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .image-section {
-            background-image: url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .image-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                    135deg,
-                    rgba(0, 0, 0, 0.7) 0%,
-                    rgba(0, 0, 0, 0.5) 100%
-            );
-        }
-
-        .input-group {
-            transform: translateY(20px);
-            opacity: 0;
-            animation: slideUp 0.5s ease forwards;
-        }
-
-        @keyframes slideUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .input-group:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-        .input-group:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        .input-group:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-        .input-group:nth-child(4) {
-            animation-delay: 0.4s;
-        }
-
-        .form-switch-enter {
-            animation: formEnter 0.6s ease forwards;
-        }
-
-        .form-switch-exit {
-            animation: formExit 0.6s ease forwards;
-        }
-
-        @keyframes formEnter {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes formExit {
-            from {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .image-section {
-                height: 100vh;
-            }
-        }
-    </style>
-</head>
-<body class="bg-gray-50">
 <div x-data="{ isSignUp: true }" class="min-h-screen">
     <!-- Shared Form Content -->
     <template x-if="true">
@@ -124,132 +31,98 @@
                     </div>
 
                     <!-- Dynamic Form -->
+                    {{ message }}
                     <div class="space-y-6">
                         <!-- Form Header -->
-                        <div class="text-center mb-6">
-                            <h2
-                                    class="text-2xl font-bold text-gray-900"
-                                    x-text="isSignUp ? 'Create Account' : 'Welcome Back'"></h2>
-                            <p
-                                    class="mt-2 text-gray-600"
-                                    x-text="isSignUp ? 'Join our community of event enthusiasts' : 'Sign in to your account'"></p>
-                        </div>
-
-                        <form class="space-y-4">
-                            <!-- Sign Up Fields -->
-                            <template x-if="isSignUp">
+                        <div x-data="{ isSignUp: false }">
+                            <!-- Registration Form -->
+                            <form x-show="isSignUp" class="space-y-4" method="post" action="register" enctype="multipart/form-data">
                                 <div class="space-y-4">
-                                    <div
-                                            class="input-group grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="input-group grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block text-sm font-medium text-gray-700"
-                                            >First Name</label
-                                            >
-                                            <input
-                                                    type="text"
-                                                    title="Enter your first name"
-                                                    placeholder="Enter your first name"
-                                                    class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                            <label class="block text-sm font-medium text-gray-700">First Name</label>
+                                            <input name="Registerfname" type="text" title="Enter your first name" placeholder="Enter your first name" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                         </div>
                                         <div>
-                                            <label class="block text-sm font-medium text-gray-700"
-                                            >Last Name</label
-                                            >
-                                            <input
-                                                    type="text"
-                                                    title="Enter your last name"
-                                                    placeholder="Enter your last name"
-                                                    class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                            <label class="block text-sm font-medium text-gray-700">Last Name</label>
+                                            <input name="Registerlname" type="text" title="Enter your last name" placeholder="Enter your last name" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                         </div>
                                     </div>
+
                                     <div class="input-group">
-                                        <label class="block text-sm font-medium text-gray-700"
-                                        >Email</label
-                                        >
-                                        <input
-                                                type="email"
-                                                title="Enter your email address"
-                                                placeholder="name@example.com"
-                                                class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                        <label class="block text-sm font-medium text-gray-700">Email</label>
+                                        <input name="Registeremail" type="email" title="Enter your email address" placeholder="name@example.com" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label class="block text-sm font-medium text-gray-700">Birthdate</label>
+                                        <input name="Registerbirthdate" type="date" title="Enter your birthdate" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                     </div>
                                     <div class="input-group">
-                                        <label class="block text-sm font-medium text-gray-700"
-                                        >Password</label
-                                        >
-                                        <input
-                                                type="password"
-                                                title="Enter your password"
-                                                placeholder="Enter your password"
-                                                class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                        <label class="block text-sm font-medium text-gray-700">Gender</label>
+                                        <select name="Registergender" title="Select your gender" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200">
+                                            <option value="" disabled selected>Select your gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
                                     </div>
                                     <div class="input-group">
-                                        <label class="block text-sm font-medium text-gray-700"
-                                        >Confirm Password</label
-                                        >
-                                        <input
-                                                type="password"
-                                                title="Confirm your password"
-                                                placeholder="Confirm your password"
-                                                class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                        <label class="block text-sm font-medium text-gray-700">Bio</label>
+                                        <textarea name="Registerbio" rows="3" title="Tell us about yourself" placeholder="Tell us about yourself" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200"></textarea>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label class="block text-sm font-medium text-gray-700">Profile Photo</label>
+                                        <input name="Registerphoto" type="file" title="Upload your profile photo" accept="image/*" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label class="block text-sm font-medium text-gray-700">Password</label>
+                                        <input name="Registerpassword" type="password" title="Enter your password" placeholder="Enter your password" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                                        <input type="password" title="Confirm your password" placeholder="Confirm your password" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                     </div>
                                 </div>
-                            </template>
-
-                            <!-- Sign In Fields -->
-                            <template x-if="!isSignUp">
+                                <button name="submit" type="submit" class="w-full py-2 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-300">Sign Up</button>
+                            </form>
+                            <!-- Login Form -->
+                            <form x-show="!isSignUp" class="space-y-4" method="post" action="login">
                                 <div class="space-y-4">
                                     <div class="input-group">
-                                        <label class="block text-sm font-medium text-gray-700"
-                                        >Email</label
-                                        >
-                                        <input
-                                                type="email"
-                                                title="Enter your email address"
-                                                placeholder="name@example.com"
-                                                class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                        <label class="block text-sm font-medium text-gray-700">Email</label>
+                                        <input name="Loginemail" type="email" title="Enter your email address" placeholder="name@example.com"
+                                               class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                     </div>
                                     <div class="input-group">
-                                        <label class="block text-sm font-medium text-gray-700"
-                                        >Password</label
-                                        >
-                                        <input
-                                                type="password"
-                                                title="Enter your password"
-                                                placeholder="Enter your password"
-                                                class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                        <label class="block text-sm font-medium text-gray-700">Password</label>
+                                        <input name="Loginpassword" type="password" title="Enter your password" placeholder="Enter your password"
+                                               class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                     </div>
                                     <div class="flex items-center justify-between text-sm">
                                         <label class="flex items-center">
-                                            <input
-                                                    type="checkbox"
-                                                    class="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded" />
+                                            <input type="checkbox" class="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded" />
                                             <span class="ml-2 text-gray-700">Remember me</span>
                                         </label>
-                                        <a
-                                                href="#"
-                                                class="text-orange-600 hover:text-orange-500"
-                                        >Forgot password?</a
-                                        >
+                                        <a href="#" class="text-orange-600 hover:text-orange-500">Forgot password?</a>
                                     </div>
                                 </div>
-                            </template>
+                                <button name="submit" type="submit"
+                                        class="w-full py-2 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-300">
+                                    Sign In
+                                </button>
+                            </form>
 
-                            <button
-                                    type="submit"
-                                    class="w-full py-2 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-300"
-                                    x-text="isSignUp ? 'Sign Up' : 'Sign In'"></button>
-                        </form>
-
-                        <!-- Toggle Form Type -->
-                        <div class="text-center text-sm">
-                            <p class="text-gray-600">
-                    <span
-                            x-text="isSignUp ? 'Already have an account?' : 'Don't have an account?'"></span>
-                                <button
-                                        @click="isSignUp = !isSignUp"
-                                        class="text-orange-600 hover:text-orange-500 font-medium ml-1"
-                                        x-text="isSignUp ? 'Sign In' : 'Sign Up'"></button>
-                            </p>
+                            <!-- Toggle Form Type -->
+                            <div class="text-center text-sm">
+                                <p class="text-gray-600">
+                                    <span x-text="isSignUp ? 'Already have an account?' : 'Don\'t have an account?'"></span>
+                                    <button @click="isSignUp = !isSignUp"
+                                            class="text-orange-600 hover:text-orange-500 font-medium ml-1"
+                                            x-text="isSignUp ? 'Sign In' : 'Sign Up'"></button>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
