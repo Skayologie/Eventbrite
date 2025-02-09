@@ -7,6 +7,7 @@ use Twig\Environment;
 
 class Router {
     protected $routes = [];
+    private Environment $twig;
 
     public function __construct() {
         $loader = new FilesystemLoader(__DIR__ . '/../views');
@@ -49,8 +50,8 @@ class Router {
                 return;
             }
         }
-        echo $this->twig->render("front/404.twig",[
-            'role'=> Session::get("message")["role"]
+        echo $this->twig->render("layouts/404.twig",[
+            'role'=> Session::get("message")["role"] ?? ""
         ]);
     }
 }
