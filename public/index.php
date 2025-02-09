@@ -5,12 +5,13 @@ use App\controllers\HomeController;
 use App\controllers\UserController;
 use App\core\Auth;
 use App\core\Router;
+use App\core\Session;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-session_start();
 require_once "../app/Core/Router.php";
 require_once "../app/Core/Controller.php";
 require realpath(__DIR__ . "/../vendor/autoload.php");
+Session::start();
 
 $router = new Router();
 

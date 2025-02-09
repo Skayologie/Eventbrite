@@ -33,9 +33,9 @@ class UserController
 
             $userModel = new UserModel();
             if ($userModel->save($user)){
-                View::render("front/AuthPage",["message"=>"googx"]);
+                header("Location:Auth/Login");
             }else{
-                View::render("front/AuthPage",["message"=>"goodddgx"]);
+                header("Location:Auth/Register");
             }
         }catch (\Exception $e){
             Session::set("Error",$e->getMessage());
@@ -44,7 +44,26 @@ class UserController
         }
     }
 
+    public function login(){
+        try {
+            extract($_POST);
 
+            $user = new RegisteredUser();
+            $user->setEmail($Registeremail);
+            $user->setPassword($Registerpassword);
+
+            $userModel = new UserModel();
+            if ($userModel->save($user)){
+                header("Location:Auth/Login");
+            }else{
+                header("Location:Auth/Register");
+            }
+        }catch (\Exception $e){
+            Session::set("Error",$e->getMessage());
+            $message = Session::get("Error");
+            View::render("front/AuthPage",["message"=>$message]);
+        }
+    }
 
 //    public function loginUser()
 //    {

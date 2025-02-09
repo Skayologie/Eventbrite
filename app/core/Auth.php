@@ -18,7 +18,8 @@ class Auth
         }else if($type === "Register"){
             View::render("front/AuthPage",["type"=>"true"]);
         }else{
-            View::render("layouts/404",[]);
+            View::render("layouts/404",["type"=>"true"]);
+
 
         }
     }

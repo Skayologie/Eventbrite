@@ -37,9 +37,8 @@ class UserModel
         return $CRUD->Add("users",["fname","lname","email","password","role_id","birthdate","bio"],[$fname,$lname,$email,$password,$roleID,$birthdate,$bio]);
     }
 
-    public function login(){
-        $result = $this->Auth->login($this->email,$this->password);
-        return $result;
+    public function check(){
+
     }
 
     public function update_profile(){

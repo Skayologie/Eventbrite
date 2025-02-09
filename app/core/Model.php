@@ -41,6 +41,17 @@ class Model
         }
     }
 
+    public function GetCheck($table , $Column , $Value){
+        $conn = $this->conn;
+        $sql = "SELECT * FROM $table WHERE $Column = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt->execute([$Value])) {
+            return $stmt->fetchAll();
+        } else {
+            return false;
+        }
+    }
+
     public function Edit($id,$table,$data){
         try {
             $conn = $this->conn;

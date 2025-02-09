@@ -31,12 +31,13 @@
                     </div>
 
                     <!-- Dynamic Form -->
+
                     {{ message }}
                     <div class="space-y-6">
                         <!-- Form Header -->
                         <div x-data="{ isSignUp: {{ type }} }">
                             <!-- Registration Form -->
-                            <form x-show="isSignUp" class="space-y-4" method="post" action="register" enctype="multipart/form-data">
+                            <form x-show="isSignUp" class="space-y-4" method="post" action="../register" enctype="multipart/form-data">
                                 <div class="space-y-4">
                                     <div class="input-group grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div>
@@ -130,7 +131,6 @@
 
             <!-- Image Side -->
             <div class="h-[300px] lg:h-auto lg:w-1/2 image-section relative">
-                <img src="" />
                 <div
                         class="absolute inset-0 flex items-center justify-center text-white z-10 px-4 lg:px-12">
                     <div class="max-w-md text-center">
@@ -147,5 +147,7 @@
         </div>
     </template>
 </div>
+<script>
+</script>
 {% endblock %}
 
