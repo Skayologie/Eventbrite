@@ -19,7 +19,8 @@ $router->get("/",HomeController::class, "index");
 $router->get("/Auth/{type}",Auth::class, "index");
 $router->post("/register",UserController::class, "register");
 $router->post("/login",UserController::class, "login");
-$router->get("/CreateEvent",EventController::class, "index");
+$router->get("/Event/{event_id}",EventController::class, "index");
+$router->get("/CreateEvent",EventController::class, "createEvent");
 $router->get("/logout",UserController::class, "logout");
 
 
