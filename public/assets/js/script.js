@@ -399,3 +399,58 @@ function updateCounter() {
       });
     });
 
+    // user management
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Search functionality
+      const searchInput = document.querySelector('input[placeholder="Search users..."]');
+      searchInput.addEventListener('input', e => {
+        const searchTerm = e.target.value.toLowerCase();
+        // Implement search logic here
+        console.log('Searching for:', searchTerm);
+      });
+
+      // Status filter
+      const statusFilter = document.querySelector('select');
+      statusFilter.addEventListener('change', () => {
+        const selectedStatus = statusFilter.value;
+        // Implement filter logic here
+        console.log('Filtering by:', selectedStatus);
+      });
+
+      // Action buttons
+      const actionButtons = document.querySelectorAll('button');
+      actionButtons.forEach(button => {
+        const action = button.textContent.trim();
+        if (['Ban', 'Activate', 'Approve', 'Reject'].includes(action)) {
+          button.addEventListener('click', e => {
+            e.preventDefault();
+            handleUserAction(action, button.closest('tr'));
+          });
+        }
+      });
+    });
+
+    function handleUserAction(action, userRow) {
+      const userName = userRow.querySelector('.text-gray-900').textContent;
+      console.log(`${action} user: ${userName}`);
+      
+      // Update UI based on action
+      const statusBadge = userRow.querySelector('.rounded-full');
+      switch(action) {
+        case 'Ban':
+          statusBadge.className = 'px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800';
+          statusBadge.textContent = 'Banned';
+          break;
+        case 'Activate':
+          statusBadge.className = 'px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800';
+          statusBadge.textContent = 'Active';
+          break;
+        case 'Approve':
+        case 'Reject':
+          userRow.remove(); 
+          break;
+      }
+    }
+
+
