@@ -22,9 +22,10 @@ $router->post("/register",UserController::class, "register");
 $router->post("/login",UserController::class, "login");
 $router->get("/Event/{event_id}",EventController::class, "index");
 $router->get("/CreateEvent",EventController::class, "createEvent");
-$router->get("/logout",UserController::class, "logout");
+$router->get("/logout",Auth::class, "logout");
 $router->get("/Admin/Dashboard",DashboardController::class, "index");
 $router->get("/Admin/Users",UserController::class, "index");
+$router->get("/checkRole",UserController::class, "checkRole");
 
 
 $router->dispatch();
