@@ -7,6 +7,7 @@ use Twig\Environment;
 
 class Router {
     protected $routes = [];
+    private $twig;
 
     public function __construct() {
         $loader = new FilesystemLoader(__DIR__ . '/../views');
