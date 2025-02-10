@@ -24,6 +24,7 @@ $router->get("/Event/{event_id}",EventController::class, "index");
 $router->get("/CreateEvent",EventController::class, "createEvent");
 $router->get("/logout",UserController::class, "logout");
 $router->get("/Admin/Dashboard",DashboardController::class, "index");
+$router->get("/Admin/Users",UserController::class, "index");
 
 
 $router->dispatch();

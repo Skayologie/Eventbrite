@@ -4,8 +4,8 @@
 {% endblock  %}
 {% block content %}
     <div class="flex">
-        {% include 'layouts/aside.twig' with {'isAuth': true , "email" : "jawadboulmal@gmail.com", "username":"Skayologie" }  %}
-        <div class="max-w-7xl mx-auto my-10">
+        {% include 'layouts/aside.twig' with {active:"dashboard"}  %}
+        <div class="my-10 w-[80%] mx-auto">
             <!-- Header -->
             {% include 'layouts/adminheader.twig'   %}
 
