@@ -49,25 +49,29 @@ class UserController
             extract($_POST);
 
             $user = new RegisteredUser();
-            $user->setEmail($Registeremail);
-            $user->setPassword($Registerpassword);
+            $user->setEmail($Loginemail);
 
             $userModel = new UserModel();
-            if ($userModel->save($user)){
-                header("Location:Auth/Login");
+            if ($userModel->check($user , $Loginpassword)){
+                $result = $userModel->check($user , $Loginpassword);
+                Session::set("userID",$result["id"]);
+                Session::set("roleID",$result["role_id"]);
+                Session::set("email",$result["email"]);
+                Session::set("avatar",$result["photo"]);
+                Session::set("isAuth",true);
+                header("Location:../../");
             }else{
-                header("Location:Auth/Register");
+                Session::set("isAuth",false);
+                header("Location:Auth/Login");
             }
         }catch (\Exception $e){
+            Session::set("isAuth",false);
             Session::set("Error",$e->getMessage());
             $message = Session::get("Error");
-            View::render("front/AuthPage",["message"=>$message]);
+          View::render("front/AuthPage",["message"=>$message]);
+            header("Location:Auth/Login");
         }
+
     }
 
-//    public function loginUser()
-//    {
-//        $user = new Participant("jawad","jawadboulmal@gmail.com","man","hellow rodl","2003","hello");
-//        echo $user->login();
-//    }
 }

@@ -15,6 +15,7 @@ class Router {
             'cache' =>  "",
             'debug' => true
         ]);
+        $this->twig->addGlobal('session', $_SESSION);
     }
 
     private function addRoute($route, $controller, $action, $method)
@@ -50,6 +51,7 @@ class Router {
                 return;
             }
         }
+
         echo $this->twig->render("layouts/404.twig",[
             'role'=> Session::get("message")["role"] ?? ""
         ]);

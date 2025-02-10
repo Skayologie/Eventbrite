@@ -37,7 +37,7 @@
                         <!-- Form Header -->
                         <div x-data="{ isSignUp: {{ type }} }">
                             <!-- Registration Form -->
-                            <form x-show="isSignUp" class="space-y-4" method="post" action="../register" enctype="multipart/form-data">
+                            <form x-show="isSignUp" class="space-y-4" method="post" action="../../../register" enctype="multipart/form-data">
                                 <div class="space-y-4">
                                     <div class="input-group grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div>
@@ -89,7 +89,7 @@
                                 <button name="submit" type="submit" class="w-full py-2 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-300">Sign Up</button>
                             </form>
                             <!-- Login Form -->
-                            <form x-show="!isSignUp" class="space-y-4" method="post" action="login">
+                            <form x-show="!isSignUp" class="space-y-4" method="post" action="../../../login">
                                 <div class="space-y-4">
                                     <div class="input-group">
                                         <label class="block text-sm font-medium text-gray-700">Email</label>
