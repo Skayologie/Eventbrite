@@ -71,7 +71,5 @@ class UserController
           View::render("front/AuthPage",["message"=>$message]);
             header("Location:Auth/Login");
         }
-
     }
-
 }
