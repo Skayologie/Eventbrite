@@ -1,5 +1,6 @@
 <?php
 
+use App\controllers\DashboardController;
 use App\controllers\EventController;
 use App\controllers\HomeController;
 use App\controllers\UserController;
@@ -21,6 +22,7 @@ $router->post("/register",UserController::class, "register");
 $router->post("/login",UserController::class, "login");
 $router->get("/CreateEvent",EventController::class, "index");
 $router->get("/logout",UserController::class, "logout");
+$router->get("/Admin/Dashboard",DashboardController::class, "index");
 
 
 $router->dispatch();
