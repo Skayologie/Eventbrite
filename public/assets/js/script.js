@@ -167,3 +167,23 @@ function updateCounter() {
         progressCircle.style.stroke = '#22c55e'; // green
     }
 }
+
+
+// event single page
+
+      // Ticket quantity controls
+      const decreaseBtn = document.getElementById('decreaseTickets');
+      const increaseBtn = document.getElementById('increaseTickets');
+      const quantityInput = document.querySelector('input[type="number"]');
+
+      decreaseBtn.addEventListener('click', () => {
+        if (quantityInput.value > 1) {
+          quantityInput.value = parseInt(quantityInput.value) - 1;
+        }
+      });
+
+      increaseBtn.addEventListener('click', () => {
+        if (quantityInput.value < 10) {
+          quantityInput.value = parseInt(quantityInput.value) + 1;
+        }
+      });
