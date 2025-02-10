@@ -13,12 +13,12 @@
                         stroke-width="2"
                         d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
-            <span class="text-xl font-bold text-gray-900">Evently</span>
+            <span class="text-xl font-bold text-gray-900">Evently | Admin</span>
         </div>
         <nav class="space-y-2">
             <a
-                    href="#"
-                    class="flex items-center gap-3 px-4 py-3 text-orange-600 bg-orange-50 rounded-lg">
+                    href="../../../../Admin/Dashboard"
+                    class="flex items-center gap-3 px-4 py-3 {% if active == "dashboard" %}text-orange-600 bg-orange-50{% endif %} rounded-lg">
                 <svg
                         class="w-5 h-5"
                         fill="none"
@@ -33,8 +33,8 @@
                 Dashboard
             </a>
             <a
-                    href="#"
-                    class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+                    href="../../../../Admin/Users"
+                    class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors {% if active == "users" %}text-orange-600 bg-orange-50{% endif %}">
                 <svg
                         class="w-5 h-5"
                         fill="none"

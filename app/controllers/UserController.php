@@ -18,6 +18,9 @@ class UserController
     public function __construct(){
         $UserDatabase = new Database();
     }
+    public function index(){
+        View::render("back/users",[]);
+    }
     public function register(){
         try {
             extract($_POST);
