@@ -3,6 +3,7 @@
 use App\controllers\DashboardController;
 use App\controllers\EventController;
 use App\controllers\HomeController;
+use App\controllers\TagController;
 use App\controllers\UserController;
 use App\core\Auth;
 use App\core\Router;
@@ -27,6 +28,9 @@ $router->get("/logout",Auth::class, "logout");
 $router->get("/Admin/Dashboard",DashboardController::class, "index");
 $router->get("/Admin/Users",UserController::class, "index");
 $router->get("/checkRole",UserController::class, "checkRole");
+
+//Tag
+$router->get("/Tag",TagController::class, "index");
 
 $router->get("/SendWelcome",WelcomeMail::class, "Send");
 
