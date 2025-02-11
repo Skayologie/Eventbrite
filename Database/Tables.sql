@@ -90,4 +90,14 @@ CREATE Table Notification(
      is_read BOOLEAN default false,
      receiver_id INT  ,
      FOREIGN KEY (receiver_id) REFERENCES users(user_id) on DELETE CASCADE
+);
+
+
+
+CREATE TABLE sponsors (
+      sponsor_id INT PRIMARY KEY AUTO_INCREMENT,
+      event_id INT ,
+      sponsor_name Varchar(25),
+      sponsor_logo VARCHAR(255),
+        FOREIGN KEY (event_id) REFERENCES events(event_id)
 )

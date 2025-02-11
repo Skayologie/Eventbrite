@@ -76,4 +76,17 @@ class Statistique {
                                    ORDER BY mois ASC");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getCategories(){
+        $stmt = $this->pdo->query("SELECT categorie_name  FROM categories;");
+        $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $categories;
+    }
+
+    public function PieChart(){
+
+
+
+    }
 }
