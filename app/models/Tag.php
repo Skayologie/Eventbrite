@@ -1,28 +1,28 @@
 <?php
-namespace App\Models;
-require_once __DIR__.'/../../vendor/autoload.php';
-use Config\Database;
-use App\Core\Model;
+namespace App\models;
+
+
+use App\core\Database;
+use App\core\Model;
 
 class Tag extends Model {
     private $table = 'Tag';
-    private $conn; 
 
     public function __construct() {
-        $this->conn = Database::getConnection();
+        parent::__construct();
     }
 
    
-    public function showTag():array {
-        return parent::all($this->table);
+    public function showTag() {
+        return parent::Get($this->table);
     }
 
     public function addTag($data) {
-        return parent::add($this->table, $data);
+        return parent::Add($this->table, ["tag_name"] , $data);
     }
 
     public function updateTags($id, $data) {
-        return parent::update($this->table, $id, $data); // Appel de la méthode update du modèle parent
+        return parent::Edit($id,$this->table , $data); // Appel de la méthode update du modèle parent
     }
 
     public function deleteTag($id) {
@@ -30,7 +30,7 @@ class Tag extends Model {
     }
 
     public function deleteCourseTags($coursId) {
-        $stmt = $this->conn->prepare("DELETE FROM courstag WHERE cours_id = ?");
+        $stmt = parent::$conn->prepare("DELETE FROM courstag WHERE cours_id = ?");
         return $stmt = $stmt->execute([$coursId]);
     }
 
@@ -54,4 +54,4 @@ class Tag extends Model {
         return parent::exists($this->table, $conditions);
     }
 }
-?>
+

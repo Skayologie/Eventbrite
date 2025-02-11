@@ -9,9 +9,10 @@ require realpath(__DIR__ . "/../../vendor/autoload.php");
 
 class Model
 {
-    private PDO $conn;
+    protected PDO $conn;
 
-    public function __construct(Database $db){
+    public function __construct(){
+        $db = new Database();
         $this->conn = $db->getConnection();
     }
 
@@ -58,6 +59,62 @@ class Model
             $result = $th->getMessage();
         }
         return $result;
+    }
+    public function delete($table,$id){
+        $conn = $this->conn;
+        $sql = "DELETE FROM $table WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        return $stmt->execute();
+    }
+    public function exists($table, $conditions) {
+        $conn = $this->conn;
+        $where = [];
+        foreach ($conditions as $key => $value) {
+            $where[] = "$key = :$key";
+        }
+        $sql = "SELECT COUNT(*) AS total FROM $table WHERE " . implode(" AND ", $where);
+        $stmt = $conn->prepare($sql);
+
+        foreach ($conditions as $key => $value) {
+            $stmt->bindValue(":$key", $value);
+        }
+
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC)['total'] > 0;
+    }
+
+    public function findBy($table, $conditions) {
+        $conn = $this->conn;
+
+        $where = [];
+        foreach ($conditions as $key => $value) {
+            $where[] = "$key = :$key";
+        }
+        $sql = "SELECT * FROM $table WHERE " . implode(" AND ", $where);
+        $stmt = $conn->prepare($sql);
+
+        foreach ($conditions as $key => $value) {
+            $stmt->bindValue(":$key", $value);
+        }
+
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function find($table, $id){
+        $conn = $this->conn;
+        $sql="SELECT * FROM $table WHERE id= :id" ;
+        try {
+            $stmt = $conn->prepare($sql);
+            // $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+            $stmt->execute([':id' => $id]);
+            $result =  $stmt->fetch(\PDO::FETCH_ASSOC);
+            return $result;
+        } catch (\PDOException $e) {
+            echo "Erreur SQL: " . $e->getMessage();
+            return null;
+        }
     }
 
 }
