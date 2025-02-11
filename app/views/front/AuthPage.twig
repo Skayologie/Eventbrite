@@ -9,8 +9,13 @@
     <template x-if="true">
         <div class="form-content" :class="{'lg:flex min-h-screen': true}">
             <!-- Form Side -->
-            <div
-                    class="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-12 bg-white">
+            <div class=" relative w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-12 bg-white">
+                <div id="SpinnerLoader" class="hidden w-[100%] z-10 h-[100%] absolute bg-orange-600/50 flex justify-center items-center" role="status">
+                    <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                    </svg>
+                </div>
                 <div class="w-full max-w-md">
                     <!-- Logo -->
                     <div class="flex items-center justify-center mb-8">
@@ -32,36 +37,35 @@
 
                     <!-- Dynamic Form -->
 
-                    {{ message }}
                     <div class="space-y-6">
                         <!-- Form Header -->
                         <div x-data="{ isSignUp: {{ type }} }">
                             <!-- Registration Form -->
-                            <form x-show="isSignUp" class="space-y-4" method="post" action="../../../register" enctype="multipart/form-data">
+                            <form x-show="isSignUp" class="space-y-4" method="post"  enctype="multipart/form-data">
                                 <div class="space-y-4">
                                     <div class="input-group grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">First Name</label>
-                                            <input name="Registerfname" type="text" title="Enter your first name" placeholder="Enter your first name" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                            <input id="Registerfname" name="Registerfname" type="text" title="Enter your first name" placeholder="Enter your first name" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700">Last Name</label>
-                                            <input name="Registerlname" type="text" title="Enter your last name" placeholder="Enter your last name" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                            <input id="Registerlname" name="Registerlname" type="text" title="Enter your last name" placeholder="Enter your last name" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                         </div>
                                     </div>
 
                                     <div class="input-group">
                                         <label class="block text-sm font-medium text-gray-700">Email</label>
-                                        <input name="Registeremail" type="email" title="Enter your email address" placeholder="name@example.com" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                        <input id="Registeremail" name="Registeremail" type="email" title="Enter your email address" placeholder="name@example.com" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                     </div>
 
                                     <div class="input-group">
                                         <label class="block text-sm font-medium text-gray-700">Birthdate</label>
-                                        <input name="Registerbirthdate" type="date" title="Enter your birthdate" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                        <input id="Registerbirthdate" name="Registerbirthdate" type="date" title="Enter your birthdate" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                     </div>
                                     <div class="input-group">
                                         <label class="block text-sm font-medium text-gray-700">Gender</label>
-                                        <select name="Registergender" title="Select your gender" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200">
+                                        <select id="Registergender" name="Registergender" title="Select your gender" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200">
                                             <option value="" disabled selected>Select your gender</option>
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
@@ -69,36 +73,36 @@
                                     </div>
                                     <div class="input-group">
                                         <label class="block text-sm font-medium text-gray-700">Bio</label>
-                                        <textarea name="Registerbio" rows="3" title="Tell us about yourself" placeholder="Tell us about yourself" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200"></textarea>
+                                        <textarea id="Registerbio" name="Registerbio" rows="3" title="Tell us about yourself" placeholder="Tell us about yourself" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200"></textarea>
                                     </div>
 
                                     <div class="input-group">
                                         <label class="block text-sm font-medium text-gray-700">Profile Photo</label>
-                                        <input name="Registerphoto" type="file" title="Upload your profile photo" accept="image/*" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                        <input id="Registerphoto" name="Registerphoto" type="file" title="Upload your profile photo" accept="image/*" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                     </div>
 
                                     <div class="input-group">
                                         <label class="block text-sm font-medium text-gray-700">Password</label>
-                                        <input name="Registerpassword" type="password" title="Enter your password" placeholder="Enter your password" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                        <input id="Registerpassword" name="Registerpassword" type="password" title="Enter your password" placeholder="Enter your password" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                     </div>
                                     <div class="input-group">
                                         <label class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                                        <input type="password" title="Confirm your password" placeholder="Confirm your password" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                                        <input id="password" type="password" title="Confirm your password" placeholder="Confirm your password" class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                     </div>
                                 </div>
-                                <button name="submit" type="submit" class="w-full py-2 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-300">Sign Up</button>
+                                <button id="registerButton" name="submit" type="button" class="w-full py-2 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-300">Sign Up</button>
                             </form>
                             <!-- Login Form -->
-                            <form x-show="!isSignUp" class="space-y-4" method="post" action="../../../login">
+                            <form x-show="!isSignUp" class="space-y-4" method="post" >
                                 <div class="space-y-4">
                                     <div class="input-group">
                                         <label class="block text-sm font-medium text-gray-700">Email</label>
-                                        <input name="Loginemail" type="email" title="Enter your email address" placeholder="name@example.com"
+                                        <input id="LoginEmail" name="Loginemail" type="email" title="Enter your email address" placeholder="name@example.com"
                                                class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                     </div>
                                     <div class="input-group">
                                         <label class="block text-sm font-medium text-gray-700">Password</label>
-                                        <input name="Loginpassword" type="password" title="Enter your password" placeholder="Enter your password"
+                                        <input id="LoginPass" name="Loginpassword" type="password" title="Enter your password" placeholder="Enter your password"
                                                class="mt-1 block w-full rounded-full border border-gray-300 px-4 py-2 bg-gray-50 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
                                     </div>
                                     <div class="flex items-center justify-between text-sm">
@@ -109,7 +113,7 @@
                                         <a href="#" class="text-orange-600 hover:text-orange-500">Forgot password?</a>
                                     </div>
                                 </div>
-                                <button name="submit" type="submit"
+                                <button id="loginButton" name="submit" type="button"
                                         class="w-full py-2 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-300">
                                     Sign In
                                 </button>
@@ -128,7 +132,79 @@
                     </div>
                 </div>
             </div>
+<script>
 
+    // or via CommonJS
+
+    $("#loginButton").click(function(){
+        $("#SpinnerLoader").removeClass("hidden");
+        let email = $("#LoginEmail").val();
+        let password = $("#LoginPass").val();
+        $.ajax({
+            url: "http://localhost:4444/login",
+            method:"POST",
+            data:{
+                Loginemail : email,
+                Loginpassword : password
+            },
+            success: function(result){
+                $("#SpinnerLoader").addClass("hidden");
+                $("#MessageSection").html(result.message);
+                let icon = result.status ? "success" : "error" ;
+                swal({
+                    position: "top-end",
+                    icon: icon,
+                    title: result.message,
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(()=>{
+                    if (result.status){
+                        window.location.href = "../../../checkRole"; // Change to your desired page
+                    }
+                })
+            }});
+    });
+    $("#registerButton").click(function(){
+        $("#SpinnerLoader").removeClass("hidden");
+        let fname = $("#Registerfname").val();
+        let lname = $("#Registerlname").val();
+        let bio = $("#Registerbio").val();
+        let gender = $("#Registergender").val();
+        let email = $("#Registeremail").val();
+        let birthdate = $("#Registerbirthdate").val();
+        let photo = $("#Registerphoto").val();
+        let password = $("#Registerpassword").val();
+        $.ajax({
+            url: "http://localhost:4444/register",
+            method:"POST",
+            data:{
+                Registerfname : fname,
+                Registerlname : lname,
+                Registerbio : bio,
+                Registergender : gender,
+                Registeremail : email,
+                Registerbirthdate : birthdate,
+                Registerphoto : photo,
+                Registerpassword : password
+            },
+            success: function(result){
+                $("#SpinnerLoader").addClass("hidden");
+                $("#MessageSection").html(result.message);
+                let icon = result.status ? "success" : "error" ;
+                swal({
+                    position: "top-end",
+                    icon: icon,
+                    title: result.message,
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(()=>{
+                    if (result.status){
+                        window.location.href = "../../../Auth/Login"; // Change to your desired page
+                    }
+                })
+            }});
+    });
+</script>
             <!-- Image Side -->
             <div class="h-[300px] lg:h-auto lg:w-1/2 image-section relative">
                 <div
