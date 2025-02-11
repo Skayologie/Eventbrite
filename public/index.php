@@ -7,6 +7,7 @@ use App\controllers\UserController;
 use App\core\Auth;
 use App\core\Router;
 use App\core\Session;
+use App\mail\WelcomeMail;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 require_once "../app/Core/Router.php";
@@ -26,6 +27,8 @@ $router->get("/logout",Auth::class, "logout");
 $router->get("/Admin/Dashboard",DashboardController::class, "index");
 $router->get("/Admin/Users",UserController::class, "index");
 $router->get("/checkRole",UserController::class, "checkRole");
+
+$router->get("/SendWelcome",WelcomeMail::class, "Send");
 
 
 $router->dispatch();

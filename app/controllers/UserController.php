@@ -6,6 +6,7 @@ use App\core\Auth;
 use App\core\Database;
 use App\core\Session;
 use App\core\View;
+use App\mail\WelcomeMail;
 use App\models\Participant;
 use App\models\RegisteredUser;
 use App\models\User;
@@ -37,11 +38,14 @@ class UserController
 
             $userModel = new UserModel();
             if ($userModel->save($user)){
+                $WelcomeMail = new WelcomeMail();
+                $WelcomeMail->Send($user);
                 $resultQ = [
                     "status"=>true,
                     "role" => "admin",
                     "message"=>"Account Created Successfully !"
                 ];
+
             }else{
                 $resultQ = [
                     "status"=>false,
