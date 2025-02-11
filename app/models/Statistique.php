@@ -1,6 +1,8 @@
 <?php
+namespace App\models;
+use PDO;
 
-class ModelStatistique {
+class Statistique {
     private $pdo;
     
     public function __construct($pdo) {
@@ -21,13 +23,13 @@ class ModelStatistique {
 
     // Nombre total de billets vendus
     public function getTotalBilletsVendus() {
-        $stmt = $this->pdo->query("SELECT COUNT(*) AS total FROM reservations WHERE status = 'confirmed'");
+        $stmt = $this->pdo->query("SELECT COUNT(*) AS total FROM tickets");
         return $stmt->fetch()['total'];
     }
 
     // Revenu total généré par les ventes de billets
     public function getRevenuTotal() {
-        $stmt = $this->pdo->query("SELECT SUM(event_price) AS total FROM reservations JOIN events ON reservations.event_id = events.event_id WHERE reservations.status = 'confirmed'");
+        $stmt = $this->pdo->query("SELECT SUM(event_price) AS total FROM tickets JOIN events ON tickets.event_id = events.event_id");
         return $stmt->fetch()['total'] ?: 0;
     }
 
