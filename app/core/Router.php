@@ -52,8 +52,6 @@ class Router {
             }
         }
 
-        echo $this->twig->render("layouts/404.twig",[
-            'role'=> Session::get("message")["role"] ?? ""
-        ]);
+        header("Location:/");
     }
 }

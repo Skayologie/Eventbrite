@@ -9,6 +9,8 @@
     "twig/twig": "^3.19",
     "ext-pdo": "*",
     "google/apiclient": "^2.0",
+    "phpmailer/phpmailer": "^6.9"
+    "google/apiclient": "^2.0",
     "stripe/stripe-php": "^16.5"
   }
 }

@@ -13,14 +13,17 @@ class Auth
     }
 
     public function index($type){
+        $isAuth = Session::get("isAuth");
+        if ($isAuth){
+            header("Location:/");
+            return;
+        }
         if ($type === "Login"){
             View::render("front/AuthPage",["type"=>"false"]);
         }else if($type === "Register"){
             View::render("front/AuthPage",["type"=>"true"]);
         }else{
             View::render("layouts/404",["type"=>"true"]);
-
-
         }
     }
     public function register()
@@ -34,6 +37,7 @@ class Auth
     }
     public function logout(){
         session_destroy();
+        header("location:/Auth/Login");
     }
 }
 

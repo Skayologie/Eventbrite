@@ -18,11 +18,21 @@ class EventController
     public function __construct(){
         $UserDatabase = new Database();
     }
-    public function index(){
-        View::render("front/create_event",[
+    public function index($event_id){
+        View::render("front/Event",[
             "title"=>"Home",
-
         ]);
     }
+    public function createEvent(){
+        if (Session::has("isAuth") && Session::get("isAuth")){
+            View::render("front/create_event",[
+                "title"=>"Home",
+            ]);
+        }else{
+            header("Location:Auth/Login");
+        }
+
+    }
+
 
 }
