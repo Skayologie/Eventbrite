@@ -1,4 +1,4 @@
-CREATE DATABASE Eventbrite;
+-- CREATE DATABASE Eventbrite;
 
 use Eventbrite;
 

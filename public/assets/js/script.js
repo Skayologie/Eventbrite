@@ -453,4 +453,31 @@ function updateCounter() {
       }
     }
 
+    // modification home
+
+    // Category slider functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      const container = document.querySelector('.categories-container');
+      const prevBtn = document.getElementById('prevCategory');
+      const nextBtn = document.getElementById('nextCategory');
+      const scrollAmount = 300; // Adjust scroll amount as needed
+
+      if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+          container.scrollBy({
+            left: -scrollAmount,
+            behavior: 'smooth'
+          });
+        });
+
+        nextBtn.addEventListener('click', () => {
+          container.scrollBy({
+            left: scrollAmount,
+            behavior: 'smooth'
+          });
+        });
+      }
+    });
+
+
 
