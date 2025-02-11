@@ -6,6 +6,7 @@ use App\controllers\UserController;
 use App\core\Auth;
 use App\core\Router;
 use App\core\Session;
+use App\models\Discount;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 require_once "../app/Core/Router.php";

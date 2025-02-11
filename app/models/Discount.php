@@ -16,9 +16,10 @@ class Discount {
     private $pdo;
     private $model;
 
-    public function __construct(PDO $pdo) {
-        $this->pdo = $pdo;
-        $this->model = new Model($pdo);
+    public function __construct() {
+        $DB = new Database();
+        $this->pdo = $DB->getConnection();
+        $this->model = new Model($this->pdo);
     }
 
 
@@ -71,12 +72,14 @@ class Discount {
         
         $discount = $this->model->GetCheck('promo_codes', 'code', $discountCode);
         if (!$discount) {
+            echo"there is no discount match !";
             return false;
         }
 
         $discountPercentage = $discount[0]['discount'];
 
         $discountedPrice = $price - ($price * ($discountPercentage / 100));
+        echo $discountedPrice;
         return $discountedPrice;
     }
 }
