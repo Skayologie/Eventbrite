@@ -43,7 +43,10 @@ class Event{
         $values = [$event_id,$event_creator,$event_title,$event_description,$event_city,$event_link,$event_price,$event_address,$event_capacity,$event_category,$event_type,$event_status,$event_date,$created_at,$promo_code,$available_seats,$thumbnail];
 
         return $this->model->Add($table, $columns, $values);
+    }
 
+    public function updateEvent(){
+        
     }
 
 }
