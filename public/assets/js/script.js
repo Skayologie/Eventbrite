@@ -42,7 +42,22 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(showNextImage, 5000); // Interval duration set to 5000ms (5 seconds)
 });
 
+// Open modal
+$("#openModal").on("click", function () {
+    $("#tagModal").removeClass("hidden").addClass("flex");
+});
 
+// Close modal
+$("#closeModal").on("click", function () {
+    $("#tagModal").addClass("hidden");
+});
+
+// Close modal when clicking outside
+$(document).on("click", function (event) {
+    if ($(event.target).closest("#tagModal > div").length === 0 && !$(event.target).is("#openModal")) {
+        $("#tagModal").addClass("hidden");
+    }
+});
 
 
 

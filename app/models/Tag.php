@@ -6,7 +6,7 @@ use App\core\Database;
 use App\core\Model;
 
 class Tag extends Model {
-    private $table = 'Tag';
+    private $table = 'Tags';
 
     public function __construct() {
         parent::__construct();
@@ -26,7 +26,7 @@ class Tag extends Model {
     }
 
     public function deleteTag($id) {
-        return parent::delete($this->table, $id);
+        return parent::delete($this->table, $id,"tag_id");
     }
 
     public function deleteCourseTags($coursId) {

@@ -1,0 +1,120 @@
+{% extends("layouts/master.twig") %}
+{% block title %}
+    Categories Management
+{% endblock  %}
+
+{% block content %}
+<div class="flex">
+    {% include 'layouts/aside.twig' with {active:"dashboard"}  %}
+    <div class="my-10 w-[80%] mx-auto">
+        <button id="openModal"
+                class="px-4 py-2 my-5 bg-orange-600 text-white rounded-md shadow-md hover:bg-orange-700 transition">
+            + Add Categorie
+        </button>
+
+        <div id="tagModal" class="fixed inset-0 bg-black/40 bg-opacity-50 hidden flex items-center justify-center">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-800">Add a New Category</h2>
+                    <button id="closeModal" class="text-gray-500 hover:text-red-500 text-xl">&times;</button>
+                </div>
+
+                <form id="addTagForm">
+                    <!-- Tag Name Input -->
+                    <div class="relative mb-4">
+                        <input type="text" id="tagName" name="tagName" required
+                               class="peer w-full p-3 border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 outline-none"
+                               placeholder=" " />
+                        <label for="tagName"
+                               class="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-[-10px] peer-focus:bg-white peer-focus:px-2 peer-focus:text-sm peer-focus:text-blue-500">
+                            Category Name
+                        </label>
+                        <p class="text-red-500 text-xs mt-1 hidden" id="errorTag">Category name is required.</p>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit"
+                            class="w-full px-4 py-2 text-white bg-orange-600 rounded-md shadow-md hover:bg-orange-700 transition">
+                        Add Category
+                    </button>
+                </form>
+            </div>
+        </div>
+        <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg overflow-hidden">
+            <thead class="bg-gray-100 text-gray-700">
+            <tr>
+                <th class="px-6 py-3 text-left text-sm font-semibold border-b">ID</th>
+                <th class="px-6 py-3 text-left text-sm font-semibold border-b">Category Name</th>
+                <th class="px-6 py-3 text-left text-sm font-semibold border-b">Actions</th>
+            </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+            {% for Categorie in Categories %}
+                <tr class="hover:bg-gray-50 transition">
+                    <td class="px-6 py-4 text-gray-700">{{ Categorie.categorie_id }}</td>
+                    <td class="px-6 py-4 text-gray-700">{{ Categorie.categorie_name }}</td>
+                    <td class="px-6 py-4">
+                        <button
+                                class="delete-tag px-4 py-2 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-md shadow-sm transition"
+                                data-id="{{ Categorie.categorie_id }}">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="hidden" id="alertSection">
+    <div id="toast-default" class=" flex fixed  top-10 left-10  items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800" role="alert">
+        <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-blue-500 bg-blue-100 rounded-lg dark:bg-blue-800 dark:text-blue-200">
+            <i class="fa-solid fa-circle-exclamation"></i>
+        </div>
+        <div class="ms-3 text-sm font-normal">Set yourself free.</div>
+        <button id="closebtn" type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-default" aria-label="Close">
+            <span class="sr-only">Close</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+        </button>
+    </div>
+</div>
+<script>
+
+    $(".delete-tag").each(function() {
+        $(this).on("click", function() {
+            let button = $(this)
+            let CategorieId = $(this).attr("data-id");
+            button.addClass("cursor-not-allowed");
+            $.ajax({
+                url: "http://localhost:4444/DeleteCategorie/"+CategorieId,
+                method:"POST",
+                success: function(response){
+                    button.removeClass("cursor-not-allowed");
+                    $(this).remove();
+                    response = JSON.parse(response)
+                    if (response.status) {
+                        // Remove the row smoothly
+                        button.closest("tr").fadeOut(300, function() {
+                            $(this).remove();
+                        });
+                    } else {
+                        alert("Error deleting tag: " + response.message);
+                    }
+                    $("#MessageSection").html(response.message);
+                    let icon = response.status ? "success" : "error" ;
+                    swal({
+                        position: "top-end",
+                        icon: icon,
+                        title: response.message,
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                }});
+        });
+    });
+</script>
+
+{% endblock %}
+

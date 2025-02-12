@@ -60,9 +60,9 @@ class Model
         }
         return $result;
     }
-    public function delete($table,$id){
+    public function delete($table,$id ,$column="id"){
         $conn = $this->conn;
-        $sql = "DELETE FROM $table WHERE id = :id";
+        $sql = "DELETE FROM $table WHERE $column = :id";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':id', $id);
         return $stmt->execute();
@@ -116,5 +116,14 @@ class Model
             return null;
         }
     }
-
+    public function GetCheck($table , $Column , $Value){
+        $conn = $this->conn;
+        $sql = "SELECT * FROM $table WHERE $Column = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt->execute([$Value])) {
+            return $stmt->fetchAll();
+        } else {
+            return false;
+        }
+    }
 }

@@ -90,4 +90,18 @@ CREATE Table Notification(
      is_read BOOLEAN default false,
      receiver_id INT  ,
      FOREIGN KEY (receiver_id) REFERENCES users(user_id) on DELETE CASCADE
+);
+
+CREATE Table Comments
+(
+    comment_id      INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    user_id         INT,
+    event_id        INT,
+    comment_content varchar(255),
+    commented_at    datetime DEFAULT CURRENT_TIMESTAMP
 )
+
+
+
+
+

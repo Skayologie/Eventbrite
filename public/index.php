@@ -1,5 +1,6 @@
 <?php
 
+use App\controllers\CategorieController;
 use App\controllers\DashboardController;
 use App\controllers\EventController;
 use App\controllers\HomeController;
@@ -30,7 +31,15 @@ $router->get("/Admin/Users",UserController::class, "index");
 $router->get("/checkRole",UserController::class, "checkRole");
 
 //Tag
-$router->get("/Tag",TagController::class, "index");
+$router->get("/Tags",TagController::class, "index");
+$router->post("/DeleteTag/{id}",TagController::class, "deleteTag");
+$router->get("/GetTags",TagController::class, "GetTags");
+$router->post("/AddTag",TagController::class, "addTag");
+
+//Categories
+$router->get("/Categories",CategorieController::class, "index");
+$router->post("/DeleteCategorie/{id}",CategorieController::class, "deleteCategorie");
+
 
 $router->get("/SendWelcome",WelcomeMail::class, "Send");
 
