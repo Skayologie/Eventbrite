@@ -20,7 +20,7 @@ class UserModel
     public function __construct()
     {
         $DB = new Database();
-        $this->CRUD = new Model($DB->getConnection());
+        $this->CRUD = new Model();
         $this->db = $DB->getConnection();
     }
 

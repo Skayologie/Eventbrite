@@ -268,17 +268,12 @@
                                     aria-label="City"
                                     placeholder="City"
                                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 input-transition" />
-                            <select
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 input-transition"
-                                    title="Select your country"
-                                    aria-label="Select your country"
-                                    name="country"
-                                    id="country">
-                                <option value="" disabled selected>Select Country</option>
-                                <option value="MA">Morocco</option>
-                                <option value="US">United States</option>
-                                <option value="GB">United Kingdom</option>
-                            </select>
+                            <input
+                                    type="text"
+                                    title="Enter country name"
+                                    aria-label="country"
+                                    placeholder="country"
+                                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 input-transition" />
                         </div>
                     </div>
 
@@ -296,6 +291,59 @@
                                 placeholder="Additional access instructions (optional)"
                                 class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 input-transition"></textarea>
                     </div>
+                </div>
+
+                <!-- Sponsors -->
+                <div class="space-y-4 animate-slide-up" style="animation-delay: 0.6s">
+                    <label class="block font-medium text-gray-900"> Sponsors </label>
+
+                    <!-- Sponsor Entries Container -->
+                    <div id="sponsors-container">
+                        <!-- Initial Sponsor Entry -->
+                        <div class="sponsor-entry space-y-4 mb-2">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <input
+                                        type="text"
+                                        title="Enter sponsor name"
+                                        aria-label="Sponsor name"
+                                        placeholder="Sponsor Name"
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 input-transition" />
+
+                                <!-- Logo Upload Container -->
+                                <div class="relative">
+                                    <div class="upload-container">
+                                        <input
+                                                type="file"
+                                                title="Upload sponsor logo"
+                                                aria-label="Sponsor logo"
+                                                accept="image/*"
+                                                class="logo-input hidden" />
+
+                                        <!-- Upload Button -->
+                                        <button
+                                                type="button"
+                                                class="upload-button w-full px-4 py-3 rounded-lg border border-gray-300 hover:border-orange-500 text-gray-500 hover:text-orange-500 transition-colors">
+                                            Upload Logo
+                                        </button>
+
+                                        <!-- Image Preview -->
+                                        <div class="image-preview hidden mt-2">
+                                            <img
+                                                    class="h-20 w-20 object-contain rounded-lg border" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Another Sponsor Button -->
+                    <button
+                            type="button"
+                            id="add-sponsor"
+                            class="w-full py-2 px-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:text-orange-500 hover:border-orange-500 transition-colors">
+                        + Add Another Sponsor
+                    </button>
                 </div>
 
                 <!-- Pricing -->
@@ -372,6 +420,7 @@
             </form>
         </div>
     </div>
+
     {% include 'layouts/footer.twig' %}
 
 {% endblock %}
