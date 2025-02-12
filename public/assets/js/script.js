@@ -454,3 +454,72 @@ function updateCounter() {
     }
 
 
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let firstName = document.getElementById("firstName").value.trim();
+        let lastName = document.getElementById("lastName").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let password = document.getElementById("password").value.trim();
+        let confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+        let nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,}$/;
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+
+        if (!nameRegex.test(firstName)) {
+            alert("First name must contain only letters and be at least 2 characters.");
+            return;
+        }
+
+        if (!nameRegex.test(lastName)) {
+            alert("Last name must contain only letters and be at least 2 characters.");
+            return;
+        }
+
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
+        if (!passwordRegex.test(password)) {
+            alert("Password must be at least 8 characters and include a number.");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
+
+        alert("Form submitted successfully!");
+        this.submit();
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        let email = document.getElementById("signInEmail").value.trim();
+        let password = document.getElementById("signInPassword").value.trim();
+
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let passwordRegex = /^.{8,}$/;
+        if (!emailRegex.test(email)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
+        if (!passwordRegex.test(password)) {
+            alert("Password must be at least 8 characters long.");
+            return;
+        }
+
+        alert("Sign-in successful!");
+        this.submit();
+    });
+});
+
