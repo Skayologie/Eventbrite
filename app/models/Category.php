@@ -1,20 +1,20 @@
 <?php
-namespace App\Models;
+namespace App\models;
 require_once __DIR__.'/../../vendor/autoload.php';
-use Config\Database;
+
+use App\core\Database;
 use App\Core\Model;
 
 class Category extends Model {
-    protected $table = 'Categorie';
-    protected $conn;
+    protected $table = 'categories';
 
     public function __construct() {
-        $this->conn = Database::getConnection();
+        parent::__construct();
     }
 
    
     public function showCategorie() {
-        return parent::all($this->table);
+        return parent::Get($this->table);
     }
 
     public function addCategorie($data) {
@@ -26,7 +26,7 @@ class Category extends Model {
     }
 
     public function deleteCategory($id) {
-        return parent::delete($this->table, $id);
+        return parent::delete($this->table, $id,"categorie_id");
     }
     public function findCategoryById($id) {
         return parent::find($this->table, $id);
@@ -48,4 +48,4 @@ class Category extends Model {
         return parent::exists($this->table, $conditions);
     }
 }
-?>
+
