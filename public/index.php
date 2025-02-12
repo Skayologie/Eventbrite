@@ -30,5 +30,10 @@ $router->get("/checkRole",UserController::class, "checkRole");
 
 $router->get("/SendWelcome",WelcomeMail::class, "Send");
 
+//$TESTS
+$router->get("/TEST",EventController::class, "testEvent");
+
+
+
 
 $router->dispatch();

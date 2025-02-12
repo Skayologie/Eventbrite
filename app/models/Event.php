@@ -9,7 +9,7 @@ use PDOException;
 
 class Event{
 
-    private $evetn_id;
+    private $event_id;
     private $user_id;
     private $title;
     private $thumbnail;
@@ -37,10 +37,10 @@ class Event{
         $this->model = new Model($this->pdo);
     }
 
-    public function addEvent($event_id,$event_creator,$event_title,$event_description,$event_city,$event_link,$event_price,$event_address,$event_capacity,$event_category,$event_type,$event_status,$event_date,$created_at,$promo_code,$available_seats,$thumbnail){
+    public function addEvent($event_creator,$event_title,$event_description,$event_city,$event_link,$event_price,$event_address,$event_capacity,$event_category,$event_type,$event_status,$event_date,$available_seats,$thumbnail,$promo_code=""){
         $table = 'events';
-        $columns = ["event_id","event_creator","event_title","event_description","event_city","event_link","event_price","event_address","event_capacity","event_category","event_type","event_status","event_date","created_at","promo_code","available_seats","thumbnail"];
-        $values = [$event_id,$event_creator,$event_title,$event_description,$event_city,$event_link,$event_price,$event_address,$event_capacity,$event_category,$event_type,$event_status,$event_date,$created_at,$promo_code,$available_seats,$thumbnail];
+        $columns = ["event_creator","event_title","event_description","event_city","event_link","event_price","event_address","event_capacity","event_category","event_type","event_status","event_date","promo_code","available_seats","thumbnail"];
+        $values  = [$event_creator,$event_title,$event_description,$event_city,$event_link,$event_price,$event_address,$event_capacity,$event_category,$event_type,$event_status,$event_date,$promo_code,$available_seats,$thumbnail];
 
         return $this->model->Add($table, $columns, $values);
     }
@@ -81,10 +81,10 @@ class Event{
 
 
     public function show_events($conditions = []) {
-        $query = "SELECT events.*, users.name as event_creator, categories.category_name as category_name, users.photo
+        $query = "SELECT events.*, users.fname as event_creator, categories.categorie_name as category_name, users.photo
             FROM events
-            LEFT JOIN users ON users.user_id = events.user_id
-            LEFT JOIN categories ON categories.id = events.event_category
+            LEFT JOIN users ON users.user_id = events.event_creator
+            LEFT JOIN categories ON categories.categorie_id = events.event_category
             LEFT JOIN region ON events.event_region = region.id
             LEFT JOIN ville ON events.event_city = ville.id";
         
@@ -130,13 +130,6 @@ class Event{
     }
     
     
-    }
-    
 
-
-    
-
-
-
-    }
+}
 
