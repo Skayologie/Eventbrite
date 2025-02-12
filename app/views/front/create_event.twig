@@ -41,6 +41,7 @@
                             id="uploadArea"
                             class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-orange-500 transition-colors">
                         <input
+
                                 type="file"
                                 id="imageInput"
                                 class="hidden"
@@ -69,10 +70,11 @@
                 <!-- Event Title -->
                 <div class="space-y-4 animate-slide-up" style="animation-delay: 0.1s">
                     <label class="block font-medium text-gray-900">
-                        What's the name of your event?
+                        What's the name of your event ?
                         <span class="text-orange-500">*</span>
                     </label>
                     <input
+                            name="event_title"
                             type="text"
                             title="Enter event title"
                             aria-label="Event title"
@@ -81,18 +83,17 @@
                 </div>
 
                 <!-- Event Description -->
-                <div
-                        class="space-y-4 animate-slide-up"
-                        style="animation-delay: 0.15s">
+                <div class="space-y-4 animate-slide-up" style="animation-delay: 0.15s">
                     <label class="block font-medium text-gray-900">
                         Describe your event
                         <span class="text-orange-500">*</span>
                         <span class="text-sm text-gray-500 font-normal ml-2">
-                Help people understand what makes your event unique
+                        Help people understand what makes your event unique
               </span>
                     </label>
                     <div class="relative">
               <textarea
+                      name="event_description"
                       id="description"
                       placeholder="Share the details that make your event special..."
                       maxlength="200"
@@ -174,6 +175,7 @@
                                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                             <input
+                                    name="event_date[]"
                                     type="date"
                                     title="Select event date"
                                     aria-label="Event date"
@@ -192,6 +194,7 @@
                                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             <input
+                                    name="event_date[]"
                                     type="time"
                                     title="Select start time"
                                     aria-label="Start time"
@@ -210,6 +213,7 @@
                                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             <input
+
                                     type="time"
                                     title="Select end time"
                                     aria-label="End time"
@@ -249,6 +253,7 @@
                                 class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 input-transition" />
                         <div class="grid md:grid-cols-2 gap-4">
                             <input
+                                    name="event_address"
                                     type="text"
                                     placeholder="Address 1"
                                     title="Enter address line 1"
@@ -263,6 +268,7 @@
                         </div>
                         <div class="grid md:grid-cols-2 gap-4">
                             <input
+                                    name="event_city"
                                     type="text"
                                     title="Enter city name"
                                     aria-label="City"
@@ -280,6 +286,7 @@
                     <!-- Online Event Fields -->
                     <div id="online-fields" class="space-y-4 animate-fade-in hidden">
                         <input
+                                name="eventlink"
                                 type="url"
                                 title="Enter meeting link"
                                 aria-label="Meeting link"
@@ -366,6 +373,7 @@
                                         d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             <input
+                                    name="event_price"
                                     type="number"
                                     title="Enter ticket price"
                                     aria-label="Ticket price"
@@ -374,6 +382,7 @@
                         </div>
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input
+                                    name="freeBoxCheck"
                                     type="checkbox"
                                     title="Free tickets option"
                                     aria-label="Free tickets"
@@ -402,6 +411,7 @@
                                     d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
                         <input
+                                name="event_capacity"
                                 type="number"
                                 title="Enter event capacity"
                                 aria-label="Event capacity"

@@ -43,5 +43,10 @@ $router->post("/DeleteCategorie/{id}",CategorieController::class, "deleteCategor
 
 $router->get("/SendWelcome",WelcomeMail::class, "Send");
 
+//$TESTS
+$router->get("/TEST",EventController::class, "testEvent");
+
+
+
 
 $router->dispatch();
