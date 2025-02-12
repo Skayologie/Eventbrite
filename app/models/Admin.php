@@ -30,5 +30,7 @@ class Admin extends User {
         
     }
 
-    public function 
+    public function delete_user(){
+        
+    }
 }
