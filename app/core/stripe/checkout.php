@@ -10,7 +10,7 @@ $stripe_secret_key ="sk_test_51QqwsCKabufyYHDhhkwGsNPRFcskyaFR2FcAQGvRkzhzeaf7nC
 $checkout_session= \Stripe\Checkout\Session::create(
     [
         "mode"=>"payment",
-        "success_url"=>"http://localhost/STRIPT/success.php",
+        "success_url"=>"http://localhost:4444/STRIPT/success.php",
         "line_items"=> [
             [
                 "quantity"=> 3,
@@ -28,4 +28,3 @@ $checkout_session= \Stripe\Checkout\Session::create(
 );
 http_response_code(303);
 header("Location: " . $checkout_session->url);
-?>
