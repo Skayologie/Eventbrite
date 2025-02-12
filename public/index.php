@@ -8,6 +8,7 @@ use App\core\Auth;
 use App\core\Router;
 use App\core\Session;
 use App\mail\WelcomeMail;
+use App\controllers\PaymentController;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 require_once "../app/Core/Router.php";
@@ -29,6 +30,12 @@ $router->get("/Admin/Users",UserController::class, "index");
 $router->get("/checkRole",UserController::class, "checkRole");
 
 $router->get("/SendWelcome",WelcomeMail::class, "Send");
+
+$router->get("/payment",PaymentController::class, "index");
+
+$router->get("/payment/checkout/{event_id}/{user_id}/{quantity}/{total}", PaymentController::class, "checkout");
+
+$router->get("/payment/success", PaymentController::class, "success");
 
 
 $router->dispatch();
