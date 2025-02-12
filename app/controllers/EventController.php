@@ -4,6 +4,7 @@ namespace App\controllers;
 
 use App\core\Auth;
 use App\core\Database;
+use App\core\Model;
 use App\core\Session;
 use App\core\View;
 use App\models\Event;
@@ -39,7 +40,7 @@ class EventController
     public function AddEvent(){
         extract($_POST);
         $EventCreator = Session::get("userID");
-        $result = $this->event->addEvent($EventCreator,$event_title,$event_description,$event_city,$eventlink,$event_price,$event_address,$event_capacity,$event_category,$event_type,"pending",$event_date,$event_seats,$event_cover,$promo_code);
+        $result = $this->event->addEvent($EventCreator,$event_title,$event_description,$event_city,$eventlink,$event_price,$event_address,$event_capacity,$event_category,$event_type,"pending",$event_date[],"",$event_cover,$promo_code);
         if ($result){
             $return = [
                 "status"=>true,
