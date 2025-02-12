@@ -70,7 +70,7 @@ const uploadedImage = document.getElementById('uploadedImage');
 const removeImage = document.getElementById('removeImage');
 
 uploadArea.addEventListener('click', () => {
-    imageInput.click();
+  imageInput.click();
 });
 
 uploadArea.addEventListener('dragover', (e) => {
@@ -79,23 +79,23 @@ uploadArea.addEventListener('dragover', (e) => {
 });
 
 uploadArea.addEventListener('dragleave', () => {
-    uploadArea.classList.remove('border-orange-500');
+  uploadArea.classList.remove('border-orange-500');
 });
 
 uploadArea.addEventListener('drop', (e) => {
-    e.preventDefault();
-    uploadArea.classList.remove('border-orange-500');
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) {
-        handleImage(file);
-    }
+  e.preventDefault();
+  uploadArea.classList.remove('border-orange-500');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    handleImage(file);
+  }
 });
 
 imageInput.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-        handleImage(file);
-    }
+  const file = e.target.files[0];
+  if (file) {
+    handleImage(file);
+  }
 });
 
 removeImage.addEventListener('click', () => {
@@ -494,8 +494,65 @@ function updateCounter() {
       }
     });
 
+// sponsor create form
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('sponsors-container');
 
+  // Handle image upload and preview
+  container.addEventListener('change', (e) => {
+    if (e.target.classList.contains('logo-input')) {
+      const file = e.target.files[0];
+      const preview = e.target
+        .closest('.upload-container')
+        .querySelector('.image-preview');
+      const img = preview.querySelector('img');
+      const reader = new FileReader();
 
+      reader.onload = (e) => {
+        img.src = e.target.result;
+        preview.classList.remove('hidden');
+        e.target
+          .closest('.upload-container')
+          .querySelector('.upload-button')
+          .classList.add('hidden');
+      };
+
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Handle upload button clicks
+  container.addEventListener('click', (e) => {
+    if (
+      e.target.classList.contains('upload-button') ||
+      e.target.classList.contains('change-logo')
+    ) {
+      const input = e.target
+        .closest('.upload-container')
+        .querySelector('.logo-input');
+      input.click();
+    }
+  });
+
+  // Add new sponsor field
+  document.getElementById('add-sponsor').addEventListener('click', () => {
+    const newEntry = container.querySelector('.sponsor-entry').cloneNode(true);
+    newEntry.querySelector('input[type="text"]').value = '';
+    newEntry.querySelector('.logo-input').value = '';
+    newEntry.querySelector('.image-preview').classList.add('hidden');
+    newEntry.querySelector('.upload-button').classList.remove('hidden');
+
+    // Add remove button
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'text-sm text-red-500 hover:text-red-700 mt-2';
+    removeBtn.innerHTML = 'Remove Sponsor';
+    removeBtn.onclick = () => newEntry.remove();
+
+    newEntry.querySelector('.grid').appendChild(removeBtn);
+    container.appendChild(newEntry);
+  });
+});
 
 
 document.addEventListener("DOMContentLoaded", function () {
