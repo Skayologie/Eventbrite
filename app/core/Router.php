@@ -15,7 +15,6 @@ class Router {
             'cache' =>  "",
             'debug' => true
         ]);
-        $this->twig->addGlobal('session', $_SESSION);
     }
 
     private function addRoute($route, $controller, $action, $method)
