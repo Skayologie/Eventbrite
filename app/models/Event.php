@@ -37,10 +37,11 @@ class Event{
         $this->model = new Model($this->pdo);
     }
 
-    public function addEvent($event_creator,$event_title,$event_description,$event_city,$event_link,$event_price,$event_address,$event_capacity,$event_category,$event_type,$event_status,$event_date,$available_seats,$thumbnail,$promo_code=""){
+    public function addEvent($event_creator,$event_title,$event_description,$event_city,$event_link,$event_price,$event_address,$event_capacity,$event_category,$event_type,$event_status,$event_date,$available_seats,$thumbnail,$promo_code){
         $table = 'events';
-        $columns = ["event_creator","event_title","event_description","event_city","event_link","event_price","event_address","event_capacity","event_category","event_type","event_status","event_date","promo_code","available_seats","thumbnail"];
-        $values  = [$event_creator,$event_title,$event_description,$event_city,$event_link,$event_price,$event_address,$event_capacity,$event_category,$event_type,$event_status,$event_date,$promo_code,$available_seats,$thumbnail];
+        $date = $event_date[0];
+        $columns = ["event_creator","event_title","event_description","event_city","event_link","event_price","event_address","event_capacity","event_category","event_type","event_status","event_date","available_seats","thumbnail","promo_code"];
+        $values  = [$event_creator,$event_title,$event_description,$event_city,$event_link,$event_price,$event_address,$event_capacity,$event_category,$event_type,$event_status,$date,$available_seats,$thumbnail,$promo_code];
 
         return $this->model->Add($table, $columns, $values);
     }

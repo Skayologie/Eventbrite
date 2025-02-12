@@ -25,6 +25,7 @@ $router->post("/register",UserController::class, "register");
 $router->post("/login",UserController::class, "login");
 $router->get("/Event/{event_id}",EventController::class, "index");
 $router->get("/CreateEvent",EventController::class, "createEvent");
+$router->post("/CreateEvent",EventController::class, "AddEvent");
 $router->get("/logout",Auth::class, "logout");
 $router->get("/Admin/Dashboard",DashboardController::class, "index");
 $router->get("/Admin/Users",UserController::class, "index");
@@ -39,6 +40,9 @@ $router->post("/AddTag",TagController::class, "addTag");
 //Categories
 $router->get("/Categories",CategorieController::class, "index");
 $router->post("/DeleteCategorie/{id}",CategorieController::class, "deleteCategorie");
+
+$router->get("/checkRole",UserController::class, "checkRole");
+
 
 
 $router->get("/SendWelcome",WelcomeMail::class, "Send");

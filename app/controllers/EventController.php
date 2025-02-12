@@ -31,6 +31,8 @@ class EventController
         if (Session::has("isAuth") && Session::get("isAuth")){
             View::render("front/create_event",[
                 "title"=>"Home",
+                "Categories"=>CategorieController::getAllCategories(),
+                "Tags"=>TagController::GetAllTags()
             ]);
         }else{
             header("Location:Auth/Login");
@@ -39,8 +41,9 @@ class EventController
 
     public function AddEvent(){
         extract($_POST);
-        $EventCreator = Session::get("userID");
-        $result = $this->event->addEvent($EventCreator,$event_title,$event_description,$event_city,$eventlink,$event_price,$event_address,$event_capacity,$event_category,$event_type,"pending",$event_date[],"",$event_cover,$promo_code);
+        $EventCreator = 1;
+        $promo_code = 3;
+        $result = $this->event->addEvent($EventCreator,$event_title,$event_description,$event_city,$eventlink,$event_price,$event_address,$event_capacity,intval($event_category),$event_type,"pending",$event_date,"",$event_cover="Cover",$promo_code);
         if ($result){
             $return = [
                 "status"=>true,
@@ -52,7 +55,7 @@ class EventController
                 "message"=>"Failed , Event  Successfully",
             ];
         }
-        echo json_encode($return);
+        var_dump($return);
     }
     public function testEvent(){
         View::render("front/test",[

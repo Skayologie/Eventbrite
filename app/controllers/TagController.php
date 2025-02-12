@@ -65,4 +65,8 @@ class TagController
         }
         echo json_encode($result);
     }
+    public static function GetAllTags(){
+        $Tag = new Tag();
+        return $Tag->showTag();
+    }
 }

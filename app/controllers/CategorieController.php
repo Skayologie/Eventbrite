@@ -32,4 +32,9 @@ class CategorieController
         }
         echo json_encode($result);
     }
+
+    public static function getAllCategories(){
+        $category = new Category();
+        return $category->showCategorie();
+    }
 }

@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <form class="space-y-8">
+            <form class="space-y-8" method="POST" action="/CreateEvent">
                 <!-- Event Title -->
                 <div class="space-y-4 animate-slide-up" style="animation-delay: 0.1s">
                     <label class="block font-medium text-gray-900">
@@ -81,7 +81,24 @@
                             placeholder="Enter event title"
                             class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 input-transition" />
                 </div>
-
+                <div>
+                    <div class="space-y-4 animate-slide-up" style="animation-delay: 0.2s">
+                        <label class="block font-medium text-gray-900">
+                            Select a category
+                            <span class="text-orange-500">*</span>
+                        </label>
+                        <select
+                                name="event_category"
+                                title="Select event category"
+                                aria-label="Event category"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 input-transition bg-white">
+                            <option value="" disabled selected>Select a category</option>
+                            {% for category in Categories %}
+                                <option value="{{ category.categorie_id }}"  >{{ category.categorie_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
                 <!-- Event Description -->
                 <div class="space-y-4 animate-slide-up" style="animation-delay: 0.15s">
                     <label class="block font-medium text-gray-900">
@@ -147,13 +164,69 @@
                                 >• What attendees can expect</span
                                 >
                                 <span class="block ml-4">• Special guests or highlights</span>
-                                <span class="block ml-4"
-                                >• Any prerequisites or requirements</span
-                                >
+                                <span class="block ml-4">• Any prerequisites or requirements</span>
                             </p>
                         </div>
                     </div>
                 </div>
+
+
+                <div class="space-y-4 animate-slide-up" style="animation-delay: 0.3s">
+                    <label class="block font-medium text-gray-900">
+                        Add Tags
+                        <span class="text-orange-500">*</span>
+                    </label>
+                    <div class="w-full px-4 py-3 border border-gray-300 rounded-lg focus-within:border-orange-500 focus-within:ring-2 focus-within:ring-orange-200 input-transition bg-white">
+                        <div id="tag-container" class="flex flex-wrap gap-2 min-h-[40px]">
+                            <!-- Tags added dynamically -->
+                        </div>
+                        <input
+                                name="event_tags"
+                                type="text"
+                                id="tag-input"
+                                placeholder="Type to search or press Enter"
+                                class="w-full px-2 py-1 outline-none bg-transparent text-gray-900"
+                        />
+                    </div>
+
+                    <!-- Suggested Tags (Filtered in real-time) -->
+                    <ul id="tag-suggestions" class="hidden z-10 absolute mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-lg">
+                        {% for tag in Tags %}
+                            <li class="tag-item px-4 py-2 cursor-pointer hover:bg-orange-100" data-name="{{ tag.tag_name }}">
+                                {{ tag.tag_name }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+
+                <div class="space-y-4 animate-slide-up" style="animation-delay: 0.4s">
+                    <label class="block font-medium text-gray-900">
+                        Add Code Promo for this event
+                    </label>
+                    <div class="flex items-center gap-3">
+                        <!-- Promo Code Checkbox -->
+                        <input type="checkbox" id="promo-checkbox" class="hidden peer">
+                        <label for="promo-checkbox" class="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg cursor-pointer transition hover:bg-orange-100 peer-checked:bg-orange-200">
+                            <span class="text-gray-900 font-medium">Click To add Code promo</span>
+                        </label>
+                    </div>
+
+                    <!-- Promo Code Input (Hidden by Default) -->
+                    <div id="promo-code-container" class="hidden">
+                        <label class="block font-medium text-gray-900 mt-2">
+                            Enter Promo Code:
+                        </label>
+                        <input
+                                name="promo_code"
+                                type="text"
+                                id="promo-code-input"
+                                placeholder="Enter your promo code"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 input-transition bg-white"
+                        />
+                    </div>
+                </div>
+
 
                 <!-- Date and Time -->
                 <div class="space-y-4 animate-slide-up" style="animation-delay: 0.2s">
@@ -300,97 +373,42 @@
                     </div>
                 </div>
 
-                <!-- Sponsors -->
-                <div class="space-y-4 animate-slide-up" style="animation-delay: 0.6s">
+                <!-- Sponsors Checkbox -->
+                <div class="space-y-4 animate-slide-up" style="animation-delay: 0.5s">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="has-sponsors" class="hidden peer">
+                        <span class="w-5 h-5 border border-gray-400 rounded flex items-center justify-center peer-checked:bg-orange-500 peer-checked:border-orange-500">
+            <svg class="w-4 h-4 text-white hidden peer-checked:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="5"/>
+            </svg>
+        </span>
+                        <span class="text-gray-900 font-medium">Has Sponsors</span>
+                    </label>
+                </div>
+
+                <!-- Sponsors Inputs (Initially Hidden) -->
+                <div id="sponsors-container" class="hidden">
                     <label class="block font-medium text-gray-900"> Sponsors </label>
-
-                    <!-- Sponsor Entries Container -->
-                    <div id="sponsors-container">
-                        <!-- Initial Sponsor Entry -->
-                        <div class="sponsor-entry space-y-4 mb-2">
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <input
-                                        type="text"
-                                        title="Enter sponsor name"
-                                        aria-label="Sponsor name"
-                                        placeholder="Sponsor Name"
-                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 input-transition" />
-
-                                <!-- Logo Upload Container -->
-                                <div class="relative">
-                                    <div class="upload-container">
-                                        <input
-                                                type="file"
-                                                title="Upload sponsor logo"
-                                                aria-label="Sponsor logo"
-                                                accept="image/*"
-                                                class="logo-input hidden" />
-
-                                        <!-- Upload Button -->
-                                        <button
-                                                type="button"
-                                                class="upload-button w-full px-4 py-3 rounded-lg border border-gray-300 hover:border-orange-500 text-gray-500 hover:text-orange-500 transition-colors">
-                                            Upload Logo
-                                        </button>
-
-                                        <!-- Image Preview -->
-                                        <div class="image-preview hidden mt-2">
-                                            <img
-                                                    class="h-20 w-20 object-contain rounded-lg border" />
-                                        </div>
+                    <div class="sponsor-entry space-y-4 mb-2">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <input type="text" title="Enter sponsor name" aria-label="Sponsor name" placeholder="Sponsor Name"
+                                   class="w-full px-4 py-3 rounded-lg border border-gray-300">
+                            <div class="relative">
+                                <div class="upload-container">
+                                    <input type="file" title="Upload sponsor logo" aria-label="Sponsor logo" accept="image/*" class="logo-input hidden">
+                                    <button type="button" class="upload-button w-full px-4 py-3 rounded-lg border border-gray-300 hover:border-orange-500 text-gray-500 hover:text-orange-500 transition-colors">
+                                        Upload Logo
+                                    </button>
+                                    <div class="image-preview hidden mt-2">
+                                        <img class="h-20 w-20 object-contain rounded-lg border">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Add Another Sponsor Button -->
-                    <button
-                            type="button"
-                            id="add-sponsor"
-                            class="w-full py-2 px-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:text-orange-500 hover:border-orange-500 transition-colors">
-                        + Add Another Sponsor
-                    </button>
                 </div>
 
-                <!-- Pricing -->
-                <div class="space-y-4 animate-slide-up" style="animation-delay: 0.4s">
-                    <label class="block font-medium text-gray-900">
-                        How much do you want to charge for tickets?
-                        <span class="text-orange-500">*</span>
-                    </label>
-                    <div class="flex items-center gap-4">
-                        <div class="relative flex-1">
-                            <svg
-                                    class="absolute left-3 top-3 w-5 h-5 text-gray-400"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <input
-                                    name="event_price"
-                                    type="number"
-                                    title="Enter ticket price"
-                                    aria-label="Ticket price"
-                                    placeholder="Price"
-                                    class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 input-transition" />
-                        </div>
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input
-                                    name="freeBoxCheck"
-                                    type="checkbox"
-                                    title="Free tickets option"
-                                    aria-label="Free tickets"
-                                    class="w-4 h-4 text-orange-500 rounded focus:ring-orange-500" />
-                            <span class="text-gray-700">My tickets are free</span>
-                        </label>
-                    </div>
-                </div>
+
 
                 <!-- Capacity -->
                 <div class="space-y-4 animate-slide-up" style="animation-delay: 0.5s">
@@ -420,6 +438,48 @@
                     </div>
                 </div>
 
+
+
+                <div class="space-y-4 animate-slide-up" style="animation-delay: 0.3s">
+                    <label class="block font-medium text-gray-900">
+                        Select Ticket Type <span class="text-orange-500">*</span>
+                    </label>
+                    <div class="w-full px-4 py-3 border border-gray-300 rounded-lg focus-within:border-orange-500 focus-within:ring-2 focus-within:ring-orange-200 input-transition bg-white">
+                        <div id="ticket-type-container" class="flex flex-wrap gap-3">
+                            <!-- Radio Buttons -->
+                            {% for type in ['vip', 'free', 'paid', 'earlybird'] %}
+                                <label class="flex items-center gap-2 px-3 py-2 bg-gray-100 rounded-lg cursor-pointer transition hover:bg-orange-100">
+                                    <input type="radio" name="event_type" value="{{ type }}" class="hidden peer" onchange="togglePriceInput()">
+                                    <span class="w-5 h-5 border border-gray-400 rounded-full flex items-center justify-center peer-checked:bg-orange-500 peer-checked:border-orange-500">
+                    <svg class="w-4 h-4 text-white hidden peer-checked:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="5"/>
+                    </svg>
+                </span>
+                                    <span class="text-gray-900 font-medium capitalize">{{ type }}</span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing Section (Hidden if "Free" is selected) -->
+                <div class="space-y-4 animate-slide-up" style="animation-delay: 0.4s" id="pricing-container">
+                    <label class="block font-medium text-gray-900">
+                        How much do you want to charge for tickets? <span class="text-orange-500">*</span>
+                    </label>
+                    <div class="relative flex-1">
+                        <svg class="absolute left-3 top-3 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <input name="event_price" type="number" title="Enter ticket price" aria-label="Ticket price"
+                               placeholder="Price" class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300
+               focus:border-orange-500 focus:ring-2 focus:ring-orange-200 input-transition"/>
+                    </div>
+                </div>
+
+
+
                 <!-- Submit Button -->
                 <button
                         type="submit"
@@ -431,6 +491,99 @@
         </div>
     </div>
 
+    <script>
+        function togglePriceInput() {
+            const selectedType = document.querySelector('input[name="event_type"]:checked').value;
+            const priceContainer = document.getElementById('pricing-container');
+            if (selectedType === 'free') {
+                priceContainer.style.display = 'none';
+            } else {
+                priceContainer.style.display = 'block';
+            }
+        }
+
+        function togglePromoInput() {
+            const promoInput = document.getElementById('promo-input');
+            const promoCheckbox = document.getElementById('promo-checkbox');
+            promoInput.style.display = promoCheckbox.checked ? 'block' : 'none';
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const hasSponsorsCheckbox = document.getElementById("has-sponsors");
+            const sponsorsContainer = document.getElementById("sponsors-container");
+
+            hasSponsorsCheckbox.addEventListener("change", function() {
+                if (this.checked) {
+                    sponsorsContainer.classList.remove("hidden");
+                } else {
+                    sponsorsContainer.classList.add("hidden");
+                }
+            });
+
+
+            document.getElementById("promo-checkbox").addEventListener("change", function() {
+                let promoContainer = document.getElementById("promo-code-container");
+                promoContainer.classList.toggle("hidden", !this.checked);
+            });
+
+            const tagInput = document.getElementById("tag-input");
+            const tagContainer = document.getElementById("tag-container");
+            const tagSuggestions = document.getElementById("tag-suggestions");
+            const tagItems = document.querySelectorAll(".tag-item");
+
+            // Function to add a tag
+            function addTag(tagText) {
+                if (!tagText.trim()) return;
+
+                // Check if tag already exists
+                const existingTags = tagContainer.querySelectorAll(".tag-badge");
+                for (let tag of existingTags) {
+                    if (tag.innerText.trim() === tagText) return;
+                }
+
+                // Create tag element
+                const tagElement = document.createElement("span");
+                tagElement.classList = "tag-badge px-3 py-1 bg-orange-500 text-white text-sm rounded-lg flex items-center gap-2";
+                tagElement.innerHTML = `${tagText} <button class="remove-tag text-white font-bold">&times;</button>`;
+
+                // Append tag
+                tagContainer.appendChild(tagElement);
+                tagInput.value = "";
+
+                // Remove tag on click
+                tagElement.querySelector(".remove-tag").addEventListener("click", function () {
+                    tagElement.remove();
+                });
+            }
+
+            // Handle tag addition on Enter key
+            tagInput.addEventListener("keydown", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    addTag(tagInput.value);
+                }
+            });
+
+            // Handle live search filtering
+            tagInput.addEventListener("input", function () {
+                const searchText = tagInput.value.toLowerCase();
+                tagSuggestions.classList.toggle("hidden", searchText === "");
+
+                tagItems.forEach(tag => {
+                    const text = tag.dataset.name.toLowerCase();
+                    tag.style.display = text.includes(searchText) ? "block" : "none";
+                });
+            });
+
+            // Handle tag selection from suggestions
+            tagItems.forEach(tag => {
+                tag.addEventListener("click", function () {
+                    addTag(tag.dataset.name);
+                    tagSuggestions.classList.add("hidden");
+                });
+            });
+        });
+    </script>
     {% include 'layouts/footer.twig' %}
 
 {% endblock %}
