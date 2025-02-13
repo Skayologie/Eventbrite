@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 $dotenv = Dotenv::createImmutable(__DIR__."/../../");
 $dotenv->load();
-class WelcomeMail
+class Mail
 {
     private PHPMailer $mail;
 
@@ -48,7 +48,6 @@ class WelcomeMail
         }
     }
     public function SupportRecieveMessage($email , $fullname){
-
         try {
             //Recipients
             $this->mail->setFrom('Eventbrite@gmail.com', 'EventBrite | Support');

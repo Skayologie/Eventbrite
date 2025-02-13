@@ -7,7 +7,7 @@ use App\core\Database;
 use App\core\Model;
 use App\core\Session;
 use App\core\View;
-use App\mail\WelcomeMail;
+use App\mail\Mail;
 use App\models\Orgnizer;
 use App\models\Participant;
 use App\models\RegisteredUser;
@@ -40,7 +40,7 @@ class UserController
 
             $userModel = new UserModel();
             if ($userModel->save($user)){
-                $WelcomeMail = new WelcomeMail();
+                $WelcomeMail = new Mail();
                 $WelcomeMail->Send($user);
                 $resultQ = [
                     "status"=>true,

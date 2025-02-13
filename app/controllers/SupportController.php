@@ -3,6 +3,8 @@
 namespace App\controllers;
 
 use App\core\Session;
+use App\mail\Mail;
+use App\mail\WelcomeMail;
 use App\models\Support;
 
 class SupportController
@@ -29,6 +31,8 @@ class SupportController
                     "status"=>true,
                     "message"=>"Your Message has been sent successfully"
                 ];
+                $Email = new Mail();
+                $Email->SupportRecieveMessage($senderMail,$fullname);
             }else{
                 $return = [
                     "status"=>false,
