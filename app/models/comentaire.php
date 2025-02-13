@@ -54,24 +54,3 @@ class comments {
 
 }
 
-// CREATE TABLE `comments` (
-//     `comment_id` int(11) NOT NULL,
-//     `user_id` int(11) DEFAULT NULL,
-//     `event_id` int(11) DEFAULT NULL,
-//     `comment_content` varchar(255) DEFAULT NULL,
-//     `commented_at` datetime DEFAULT current_timestamp()
-//   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-// CREATE TABLE `users` (
-//     `user_id` int(11) NOT NULL,
-//     `fname` varchar(255) DEFAULT NULL,
-//     `lname` varchar(255) DEFAULT NULL,
-//     `email` varchar(255) NOT NULL,
-//     `password` varchar(255) NOT NULL,
-//     `status` enum('active','suspend') DEFAULT 'active',
-//     `role_id` int(11) DEFAULT NULL,
-//     `photo` varchar(255) DEFAULT NULL,
-//     `birthdate` date DEFAULT NULL,
-//     `bio` varchar(255) DEFAULT NULL,
-//     `joined_at` timestamp NOT NULL DEFAULT current_timestamp()
-//   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-  
