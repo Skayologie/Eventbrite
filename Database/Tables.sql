@@ -109,14 +109,15 @@ CREATE TABLE `event_tags` (
 -- Structure de la table `notification`
 --
 
-CREATE TABLE `notification` (
-  `notification_id` int(11) NOT NULL,
-  `notification_message` varchar(255) DEFAULT NULL,
-  `notification_time` time DEFAULT NULL,
-  `is_read` tinyint(1) DEFAULT 0,
-  `receiver_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- SERIAL devient AUTO_INCREMENT en MySQL
+    user_id INT NOT NULL, -- ID de l'utilisateur concerné
+    message TEXT NOT NULL, -- Contenu de la notification
+    type VARCHAR(50) NOT NULL, -- Type de notification (email, site, etc.)
+    is_read BOOLEAN DEFAULT FALSE, -- Si la notification a été lue
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date de création
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
 -- --------------------------------------------------------
 
 --

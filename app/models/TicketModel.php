@@ -37,7 +37,7 @@ class TicketModel
             if ($eventCheck->rowCount() == 0) return ['success' => false, 'message' => "Vous avez déjà un ticket pour cet événement."];
          
               // Inserer le ticket 
-              $stmt = $this->pdo->prepare("INSERT INTO tickets (event_id, buyer_id, promo_code_id) VALUES (?, ?, ?)");
+              $stmt = $this->db->prepare("INSERT INTO tickets (event_id, buyer_id, promo_code_id) VALUES (?, ?, ?)");
               $stmt->execute([$eventId, $buyerId, $promoCodeId]);
               $ticketId = $this->db->lastInsertId();
 
