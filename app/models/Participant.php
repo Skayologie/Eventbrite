@@ -3,6 +3,7 @@ namespace App\models;
 
 use App\core\Database;
 use App\core\Model;
+use App\core\Session;
 use App\models\User;
 use App\core\interfaces\SwitchRole;
 use PDO;
@@ -19,8 +20,9 @@ class Participant extends User implements SwitchRole {
         $this->model = new Model($this->pdo);
     }
 
-    public function switch_role($user_id) {
-        $data = ['role' => 'organizer'];
+    public function switch_role() {
+        $user_id = Session::get("userID");
+        $data = ['role' => 2];//to be organizer
         $table = 'users';
         return $this->model->Edit($user_id, $table, $data);
     }

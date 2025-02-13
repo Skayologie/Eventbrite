@@ -252,12 +252,13 @@
                                 class="flex gap-2 items-center block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
                         ><i class="fa-solid fa-eye"></i>Browse events</a
                         >
+
+                        {% if role == 2 %}
                         <a
                                 href="#"
                                 class="flex gap-2 items-center block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
                         ><i class="fa-solid fa-list-check"></i> Manage my events</a
                         >
-                        {% if role == 2 %}
                         <a
                                 href="/CreateEvent"
                                 class=" flex gap-2 items-center block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
@@ -265,9 +266,9 @@
                         >
                         {% endif %}
                         <a
-                                href="/CreateEvent"
+                                href="/ChangeRole"
                                 class="flex gap-2 items-center block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
-                        ><i class="fa-solid fa-repeat"></i>Switch Role</a
+                        ><i class="fa-solid fa-repeat"></i>Switch Role </a
                         >
                         {% if role == 1 %}
                         <a
