@@ -82,13 +82,7 @@ class Event{
 
 
     public function show_events($conditions = []) {
-        $query = "SELECT events.*, users.fname as event_creator, categories.categorie_name as category_name, users.photo
-            FROM events
-            LEFT JOIN users ON users.user_id = events.event_creator
-            LEFT JOIN categories ON categories.categorie_id = events.event_category
-            LEFT JOIN region ON events.event_region = region.id
-            LEFT JOIN ville ON events.event_city = ville.id";
-        
+        $query = "SELECT events.*, users.fname as creator_name, categories.categorie_name as category_name, users.photo FROM events INNER JOIN users ON users.user_id = events.event_creator LEFT JOIN categories ON categories.categorie_id = events.event_category LEFT JOIN ville ON events.event_city = ville.id";
         if (!empty($conditions)) {
             $whereConditions = [];
             foreach ($conditions as $key => $val) {
@@ -129,6 +123,8 @@ class Event{
         
         return $result;
     }
+
+
     
     
 

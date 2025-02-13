@@ -23,9 +23,12 @@ class EventController
         $this->event = new Event();
     }
     public function index($event_id){
+        $event = new Event();
         View::render("front/Event",[
             "title"=>"Home",
+            "eventInfo"=>$event->show_events(["event_id"=>$event_id])[0]
         ]);
+
     }
     public function createEvent(){
         if (Session::has("isAuth") && Session::get("isAuth")){
@@ -37,6 +40,16 @@ class EventController
         }else{
             header("Location:Auth/Login");
         }
+    }
+
+    public function getEventByCategorie($category){
+        $eventsGettedByCategorie = [];
+        foreach ($this->event->show_events() as $event){
+            if ($event["category_name"]===$category){
+                $eventsGettedByCategorie[]=$event;
+            }
+        }
+        return $eventsGettedByCategorie;
     }
 
     public function AddEvent(){
