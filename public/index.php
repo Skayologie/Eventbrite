@@ -10,7 +10,7 @@ use App\controllers\UserController;
 use App\core\Auth;
 use App\core\Router;
 use App\core\Session;
-use App\mail\WelcomeMail;
+use App\mail\Mail;
 use App\controllers\PaymentController;
 use App\models\Participant;
 use Twig\Environment;
@@ -50,11 +50,11 @@ $router->get("/checkRole",UserController::class, "checkRole");
 
 
 
-$router->get("/SendWelcome",WelcomeMail::class, "Send");
+$router->get("/SendWelcome",Mail::class, "Send");
 
 $router->get("/payment",PaymentController::class, "index");
 
-$router->get("/payment/checkout/{event_id}/{user_id}/{quantity}/{total}", PaymentController::class, "checkout");
+$router->get("/payment/checkout/{event_id}/{pricePerTicket}/{quantity}", PaymentController::class, "checkout");
 
 $router->get("/payment/success", PaymentController::class, "success");
 $router->get("/payment/cancel", PaymentController::class, "cancel");

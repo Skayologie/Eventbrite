@@ -15,8 +15,8 @@ class TicketModel
 
     public function createTicket($eventId, $userId, $quantity, $totalPrice, $stripeSessionId)
     {
-        $sql = "INSERT INTO tickets (event_id, user_id, quantity, total_price, stripe_session_id, status) 
-                VALUES (:event_id, :user_id, :quantity, :total_price, :stripe_session_id, 'pending')";
+        $sql = "INSERT INTO tickets (event_id, buyer_id,promo_code_id,QR_code) 
+                VALUES (:event_id, :buyer_id, :promo_code_id, :QR_code)";
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute([

@@ -17,18 +17,19 @@ class PaymentController
         $this->ticketModel=new TicketModel();
 
     }
-      public function index(){
+      public function index($price,$quantity,$event_id){
         View::render("front/events",[
             "title"=>"Home",
             "event"=>[
-                "id"=>"1",
-                "price"=>"22",
+                "id"=>$event_id,
+                "price"=>$price,
             ],
-            "id"=>2
+            "id"=>2,
+            "quantity"=>$quantity
         ]);
       }
 
-    public function checkout($eventId,$userId,$quantity,$pricePerTicket){
+    public function checkout($eventId,$quantity,$pricePerTicket){
         Stripe::setApikey('sk_test_51QqwsCKabufyYHDhhkwGsNPRFcskyaFR2FcAQGvRkzhzeaf7nCmzSX9RM43aIuRlkCgUmeYbk9mVw9slhMoNRWJP00dU51vbNx');
 
 
@@ -37,7 +38,7 @@ class PaymentController
             'payment_method_types' => ['card'],
             'line_items' => [[
                 'price_data' => [
-                    'currency' => 'usd',
+                    'currency' => 'mad',
                     'product_data' => [
                         'name' => "Billet pour l'événement #$eventId",
                     ],
@@ -72,8 +73,10 @@ class PaymentController
         $quantity = $quantity ?? '';
         $totalPrice = $totalPrice ?? '';
         $session = Session::retrieve($session_id);
+        echo "<pre>";
         var_dump($session);
-        if ($session && $session->payment_status === 'paid') {
+        echo "</pre>";
+        if ($session && $session['payment_status'] === 'paid') {
             // Enregistrer le ticket dans la base de données après paiement réussi
             $this->ticketModel->createTicket($eventId, $userId, $quantity, $totalPrice / 100, $session_id);
             echo "Paiement réussi !  Votre billet est confirmé.";
