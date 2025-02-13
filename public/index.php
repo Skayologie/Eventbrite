@@ -4,6 +4,7 @@ use App\controllers\CategorieController;
 use App\controllers\DashboardController;
 use App\controllers\EventController;
 use App\controllers\HomeController;
+use App\controllers\SupportController;
 use App\controllers\TagController;
 use App\controllers\UserController;
 use App\core\Auth;
@@ -49,6 +50,9 @@ $router->get("/checkRole",UserController::class, "checkRole");
 
 
 $router->get("/SendWelcome",WelcomeMail::class, "Send");
+
+
+$router->post("/Support/SendMessage",SupportController::class,'sendMessage');
 
 //$TESTS
 $router->get("/TEST",EventController::class, "testEvent");

@@ -4,6 +4,7 @@ namespace App\controllers;
 
 use App\core\Auth;
 use App\core\Database;
+use App\core\Model;
 use App\core\Session;
 use App\core\View;
 use App\mail\WelcomeMail;
@@ -76,8 +77,9 @@ class UserController
 
             $userModel = new UserModel();
             if ($userModel->check($user , $Loginpassword)){
-                $result = $userModel->check($user , $Loginpassword);
-                Session::set("userID",$result["id"]??"");
+                $Crud = new Model();
+                $result = $Crud->GetCheck("users" , "email",$Loginemail)[0];
+                Session::set("userID",$result["user_id"]??"");
                 Session::set("roleID",$result["role_id"]);
                 Session::set("email",$result["email"]);
                 Session::set("avatar",$result["photo"]);
@@ -101,7 +103,7 @@ class UserController
                 $resultQ = [
                     "status"=>false,
                     "role" => "notLogged",
-                    "message"=>"Failed , Informations incorrect !"
+                    "message"=>"Failed , Informations incorrect !",
                 ];
 
             }
