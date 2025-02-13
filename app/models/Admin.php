@@ -30,7 +30,31 @@ class Admin extends User {
         
     }
 
-    public function delete_user(){
-        
+    public function delete_user($user_id){
+        $query= "DELETE FROM users
+                WHERE user_id= ? ";
+
+        $stmt= $this->pdo->prepare($query);
+        $result= $stmt->execute([$user_id]);
+        return $result;
+
     }
+
+    public function validate_event($id){
+        
+        $table="events";
+        $data =["event_status"=>"accepted"];
+
+        $this->model->Edit($id,$table,$data);
+    }
+
+    public function reject_event($id){
+        
+        $table="events";
+        $data =["event_status"=>"rejected"];
+
+        $this->model->Edit($id,$table,$data);
+    }
+
+    
 }
