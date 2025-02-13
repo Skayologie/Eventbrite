@@ -25,6 +25,7 @@ abstract class User
     private $joined_at;
 
 
+
     public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
@@ -107,12 +108,6 @@ abstract class User
     {
         $this->roleid = $id;
     }
-
-
-
-    abstract public function register();
-
-
 
     public function update_profile(){
 

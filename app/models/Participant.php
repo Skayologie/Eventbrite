@@ -1,17 +1,41 @@
 <?php
-//
-//namespace App\models;
-//
-//class Participant extends User
-//{
-//    public function __construct(string $fname,string $lname, string $email, string $gender, string $password,string $photo, string $birthdate, string $bio){
-//        $this->role = "participant";
-//        $fullName = $fname." ".$lname;
-//        parent::__construct($fname,$lname,$email,$gender,$this->role,$password,$photo,$birthdate,$bio);
-//    }
-//
-//    public function register()
-//    {
-//        // TODO: Implement register() method.
-//    }
-//}
+namespace App\models;
+
+use App\core\Database;
+use App\core\Model;
+use App\models\User;
+use App\core\interfaces\SwitchRole;
+use PDO;
+use PDOException;
+
+class Participant extends User implements SwitchRole {
+
+    private $pdo;
+    private $model;
+
+    public function __construct() {
+        $DB = new Database();
+        $this->pdo = $DB->getConnection();
+        $this->model = new Model($this->pdo);
+    }
+
+    public function switch_role($user_id) {
+        $data = ['role' => 'organizer'];
+        $table = 'users';
+        return $this->model->Edit($user_id, $table, $data);
+    }
+
+    public function show_participants_list($event_id) {
+        $query = "SELECT tickets.*, users.name as participant_name, events.event_title 
+                  FROM tickets
+                  LEFT JOIN users ON users.user_id = tickets.user_id
+                  LEFT JOIN events ON events.event_id = tickets.event_id
+                  WHERE tickets.event_id = ?";
+        
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([$event_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+}

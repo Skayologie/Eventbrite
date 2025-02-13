@@ -2,6 +2,7 @@
 namespace App\core;
 
 use App\core\Database;
+
 use PDO;
 
 require realpath(__DIR__ . "/../../vendor/autoload.php");
