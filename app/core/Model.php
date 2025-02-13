@@ -27,10 +27,11 @@ class Model
             } else {
                 $result = false;
             }
+            return $result;
+
         }catch(\PDOException $e){
-            $result = false;
+            echo  $e->getMessage();
         }
-        return $result;
     }
 
     public function Get($table){
