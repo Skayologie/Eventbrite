@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Details - Evently</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet" />
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header (reuse from home.html) -->
+
+    <main class="container mx-auto px-4 py-8">
+      <!-- Event Hero Section -->
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Event Image and Details -->
+        <div class="lg:col-span-2">
+          <div class="relative rounded-2xl overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30"
+              alt="Event"
+              class="w-full h-[400px] object-cover" />
+            <div class="absolute top-4 right-4 flex gap-2">
+              <span
+                class="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold text-gray-700">
+                $99.00
+              </span>
+              <span
+                class="bg-red-500/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold text-white flex items-center gap-2">
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                20% OFF
+              </span>
+            </div>
+          </div>
+
+          <!-- Event Details -->
+          <div class="mt-8">
+            <div class="flex items-center gap-4 mb-4">
+              <span
+                class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm font-semibold"
+                >Music</span
+              >
+              <div class="flex items-center gap-2 text-gray-500">
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                125/200 spots left
+              </div>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">
+              Summer Music Festival 2024
+            </h1>
+            <div class="flex gap-6 mb-6">
+              <div class="flex items-center gap-2 text-gray-600">
+                <svg
+                  class="w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                March 15, 2024
+              </div>
+              <div class="flex items-center gap-2 text-gray-600">
+                <svg
+                  class="w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                7:00 PM - 11:00 PM
+              </div>
+              <div class="flex items-center gap-2 text-gray-600">
+                <svg
+                  class="w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                New York, NY
+              </div>
+            </div>
+
+            <!-- Event Description -->
+            <div class="prose max-w-none">
+              <h2 class="text-xl font-semibold mb-4">About This Event</h2>
+              <p class="text-gray-600 mb-6">
+                Join us for an unforgettable evening of live music featuring top
+                artists and emerging talents. Experience amazing performances,
+                delicious food, and create lasting memories.
+              </p>
+
+              <h3 class="text-lg font-semibold mb-3">What to Expect</h3>
+              <ul class="list-disc list-inside text-gray-600 mb-6">
+                <li>Live performances from 6+ artists</li>
+                <li>Food and beverage vendors</li>
+                <li>VIP lounge access (for VIP ticket holders)</li>
+                <li>Meet & greet opportunities</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ticket Purchase Section -->
+        <div class="lg:col-span-1">
+          <div class="sticky top-24">
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+              <h2 class="text-xl font-semibold mb-6">Get Your Tickets</h2>
+
+              <!-- Ticket Types -->
+              <div class="space-y-4 mb-6">
+                <div
+                  class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-orange-500 transition-colors cursor-pointer">
+                  <div>
+                    <h3 class="font-semibold">General Admission</h3>
+                    <p class="text-sm text-gray-500">Regular seating</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="font-semibold">$99.00</p>
+                    <p class="text-sm text-red-500 line-through">$125.00</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Promo Code -->
+              <div class="mb-6">
+                <div class="flex gap-2">
+                  <input
+                    type="text"
+                    placeholder="Enter promo code"
+                    class="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200" />
+                  <button
+                    class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                    Apply
+                  </button>
+                </div>
+              </div>
+
+              <!-- Ticket Quantity -->
+              <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Number of Tickets</label
+                >
+                <div class="flex items-center gap-2">
+                  <button
+                    class="p-2 rounded-lg border border-gray-300 hover:bg-gray-100"
+                    id="decreaseTickets">
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    value="1"
+                    min="1"
+                    max="10"
+                    title="Number of Tickets"
+                    class="w-20 text-center px-4 py-2 rounded-lg border border-gray-300" />
+                  <button
+                    class="p-2 rounded-lg border border-gray-300 hover:bg-gray-100"
+                    id="increaseTickets">
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <!-- Total -->
+              <div class="border-t border-gray-200 pt-4 mb-6">
+                <div class="flex justify-between mb-2">
+                  <span class="text-gray-600">Subtotal</span>
+                  <span>$99.00</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                  <span class="text-gray-600">Discount</span>
+                  <span class="text-red-500">-$26.00</span>
+                </div>
+                <div class="flex justify-between font-semibold">
+                  <span>Total</span>
+                  <span>$73.00</span>
+                </div>
+              </div>
+
+              <!-- Purchase Button -->
+              <button
+                class="w-full bg-orange-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-orange-600 transition-colors">
+                Purchase Tickets
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Sponsors Section____________________________________________________________________________-->
+      <section class="mt-16 mb-12">
+        <h2 class="text-2xl font-bold text-center mb-12">Our Proud Sponsors</h2>
+
+        <div class="max-w-7xl mx-auto px-4 overflow-x-auto">
+          <!-- Sponsors Row -->
+          <div class="flex justify-between items-center min-w-max px-4 gap-12">
+            <!-- Sponsor 1 -->
+            <div
+              class="group p-4 transition-transform duration-200 hover:-translate-y-1">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1200px-Logo_NIKE.svg.png"
+                alt="Nike"
+                class="h-8 w-auto opacity-70 group-hover:opacity-100 transition-opacity" />
+            </div>
+
+            <!-- Sponsor 2 -->
+            <div
+              class="group p-4 transition-transform duration-200 hover:-translate-y-1">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/800px-Adidas_Logo.svg.png"
+                alt="Adidas"
+                class="h-8 w-auto opacity-70 group-hover:opacity-100 transition-opacity" />
+            </div>
+
+            <!-- Sponsor 3 -->
+            <div
+              class="group p-4 transition-transform duration-200 hover:-translate-y-1">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/2560px-Samsung_Logo.svg.png"
+                alt="Samsung"
+                class="h-8 w-auto opacity-70 group-hover:opacity-100 transition-opacity" />
+            </div>
+
+            <!-- Sponsor 4 -->
+            <div
+              class="group p-4 transition-transform duration-200 hover:-translate-y-1">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png"
+                alt="Google"
+                class="h-8 w-auto opacity-70 group-hover:opacity-100 transition-opacity" />
+            </div>
+
+            <!-- Sponsor 5 -->
+            <div
+              class="group p-4 transition-transform duration-200 hover:-translate-y-1">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
+                alt="Apple"
+                class="h-8 w-auto opacity-70 group-hover:opacity-100 transition-opacity" />
+            </div>
+
+            <!-- Sponsor 6 -->
+            <div
+              class="group p-4 transition-transform duration-200 hover:-translate-y-1">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Microsoft_Office_2013-2019_logo.svg/1200px-Microsoft_Office_2013-2019_logo.svg.png"
+                alt="Microsoft"
+                class="h-8 w-auto opacity-70 group-hover:opacity-100 transition-opacity" />
+            </div>
+
+            <!-- Sponsor 7 -->
+            <div
+              class="group p-4 transition-transform duration-200 hover:-translate-y-1">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Tesla_logo.png/600px-Tesla_logo.png"
+                alt="Tesla"
+                class="h-8 w-auto opacity-70 group-hover:opacity-100 transition-opacity" />
+            </div>
+
+            <!-- Sponsor 8 -->
+            <div
+              class="group p-4 transition-transform duration-200 hover:-translate-y-1">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1200px-Amazon_logo.svg.png"
+                alt="Amazon"
+                class="h-8 w-auto opacity-70 group-hover:opacity-100 transition-opacity" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comments Section ---------------------------------------------------------------------------------->
+      <div class="mt-12 border-t pt-8" x-data="{ showEmojis: false }">
+        <h2 class="text-2xl font-semibold mb-8 flex items-center gap-2">
+          <svg
+            class="w-6 h-6 text-gray-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+          </svg>
+          Comments (24)
+        </h2>
+
+        <!-- Add Comment -->
+        <div class="mb-8">
+          <div class="flex items-start gap-4">
+            <!-- User Avatar -->
+            <div
+              class="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center flex-shrink-0">
+              <span class="text-violet-600 font-semibold">M</span>
+            </div>
+
+            <!-- Comment Input Area -->
+            <div class="flex-1">
+              <textarea
+                x-ref="commentText"
+                rows="3"
+                class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 resize-none"
+                placeholder="Share your thoughts about this event..."></textarea>
+
+              <!-- Action Buttons -->
+              <div class="flex items-center justify-between mt-3">
+                <div class="flex items-center gap-2">
+
+                  <!-- Emoji Picker -->
+                  <div class="relative">
+                    <button
+                      @click="showEmojis = !showEmojis"
+                      class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                      <svg
+                        class="w-5 h-5 text-gray-500"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </button>
+
+                    <!-- Emoji Dropdown -->
+                    <div
+                      x-show="showEmojis"
+                      @click.away="showEmojis = false"
+                      class="absolute bottom-full left-0 mb-2 bg-white rounded-xl shadow-lg border border-gray-100 p-3 w-64 grid grid-cols-3 gap-2"
+                      style="display: none">
+                      <button
+                        class="flex items-center justify-center p-3 hover:bg-violet-50 rounded-lg transition-colors text-2xl"
+                        @click="$refs.commentText.value += '👍'; showEmojis = false">
+                        👍
+                      </button>
+                      <button
+                        class="flex items-center justify-center p-3 hover:bg-violet-50 rounded-lg transition-colors text-2xl"
+                        @click="$refs.commentText.value += '❤️'; showEmojis = false">
+                        ❤️
+                      </button>
+                      <button
+                        class="flex items-center justify-center p-3 hover:bg-violet-50 rounded-lg transition-colors text-2xl"
+                        @click="$refs.commentText.value += '😊'; showEmojis = false">
+                        😊
+                      </button>
+                      <button
+                        class="flex items-center justify-center p-3 hover:bg-violet-50 rounded-lg transition-colors text-2xl"
+                        @click="$refs.commentText.value += '🎉'; showEmojis = false">
+                        🎉
+                      </button>
+                      <button
+                        class="flex items-center justify-center p-3 hover:bg-violet-50 rounded-lg transition-colors text-2xl"
+                        @click="$refs.commentText.value += '🔥'; showEmojis = false">
+                        🔥
+                      </button>
+                      <button
+                        class="flex items-center justify-center p-3 hover:bg-violet-50 rounded-lg transition-colors text-2xl"
+                        @click="$refs.commentText.value += '🎸'; showEmojis = false">
+                        🎸
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  class="px-6 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors">
+                  Comment
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comments List -->
+        <div class="space-y-6">
+          <!-- Comment 1 -->
+          <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div class="flex items-start gap-4">
+              <div
+                class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-orange-600 font-semibold">J</span>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between mb-2">
+                  <div>
+                    <h4 class="font-semibold text-gray-900">Khadouj</h4>
+                    <p class="text-sm text-gray-500">2 hours ago</p>
+                  </div>
+                  <!-- Comment Options -->
+                  <div class="relative" x-data="{ showOptions: false }">
+                    <button
+                      @click="showOptions = !showOptions"
+                      class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                      <svg
+                        class="w-5 h-5 text-gray-500"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                      </svg>
+                    </button>
+                    <!-- Options Dropdown -->
+                    <div
+                      x-show="showOptions"
+                      @click.away="showOptions = false"
+                      class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-1"
+                      style="display: none">
+                      <button
+                        class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50">
+                        Edit
+                      </button>
+                      <button
+                        class="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-50">
+                        Delete
+                      </button>
+                      <button
+                        class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50">
+                        Report
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-gray-600 mb-4">
+                  This looks amazing! Can't wait for the event 🎉 The lineup is
+                  incredible! 🔥
+                </p>
+                <div class="flex items-center gap-6">
+                  <button
+                    class="flex items-center gap-2 text-gray-500 hover:text-violet-600">
+                    <svg
+                      class="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                    </svg>
+                    <span>128</span>
+                  </button>
+                  <button
+                    class="flex items-center gap-2 text-gray-500 hover:text-violet-600">
+                    <svg
+                      class="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    <span>Reply</span>
+                  </button>
+                </div>
+
+                <!-- Reply Section -->
+                <div class="mt-4 pl-8 border-l-2 border-gray-100">
+                  <div class="flex items-start gap-4 mb-4">
+                    <div
+                      class="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center flex-shrink-0">
+                      <span class="text-violet-600 font-semibold text-sm"
+                        >M</span
+                      >
+                    </div>
+                    <div class="flex-1">
+                      <div class="flex items-center mb-1">
+                        <h4 class="font-semibold text-gray-900 text-sm">
+                          mamas30
+                        </h4>
+                        <span class="text-xs text-gray-500 ml-2">Just now</span>
+                      </div>
+                      <p class="text-gray-600 text-sm">
+                        Thanks! See you there! 👋
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Load More Comments -->
+        <div class="mt-8 text-center">
+          <button
+            class="px-6 py-3 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100 transition-colors">
+            Load More Comments
+          </button>
+        </div>
+      </div>
+      <!-- fin comment section------------------------------------------------------------------------------ -->
+
+      <!-- Add this to your tailwind.config.js or inline script -->
+      <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              animation: {
+                scroll: 'scroll 30s linear infinite'
+              },
+              keyframes: {
+                scroll: {
+                  '0%': { transform: 'translateX(0)' },
+                  '100%': { transform: 'translateX(-50%)' }
+                }
+              }
+            }
+          }
+        };
+      </script>
+    </main>
+
+    <!-- Footer (reuse from home.html) -->
+
+    <script>
+      // Ticket quantity controls
+      const decreaseBtn = document.getElementById('decreaseTickets');
+      const increaseBtn = document.getElementById('increaseTickets');
+      const quantityInput = document.querySelector('input[type="number"]');
+
+      decreaseBtn.addEventListener('click', () => {
+        if (quantityInput.value > 1) {
+          quantityInput.value = parseInt(quantityInput.value) - 1;
+        }
+      });
+
+      increaseBtn.addEventListener('click', () => {
+        if (quantityInput.value < 10) {
+          quantityInput.value = parseInt(quantityInput.value) + 1;
+        }
+      });
+    </script>
+  </body>
+</html>
