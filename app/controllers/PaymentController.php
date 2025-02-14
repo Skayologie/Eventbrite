@@ -109,7 +109,7 @@ private $event_id;
             $ArrayPDFS = $Ticket->adapteTemplateHTML($eventId);
 
             $mail =  new Mail("jawadyougov@gmail.com");
-            $mail->sendTicket($ArrayPDFS);
+//            $mail->sendTicket($ArrayPDFS);
         } else {
             echo "Erreur de paiement .";
         }

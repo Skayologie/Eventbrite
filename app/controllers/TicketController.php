@@ -11,6 +11,7 @@ class TicketController
         $Ticket = new Model();
         $eventinfo = $Event->GetCheck("events","event_id",$event_id)[0];
         $tickets = $Ticket->GetCheck("tickets","event_id",$event_id);
+        $counter = $Ticket->findBy("tickets",["buyer_id",]);
         // Replace these values dynamically from your database
         $AttachPdfs = [];
         for($i = 0 ; $i < count($tickets) ; $i++){
@@ -21,28 +22,25 @@ class TicketController
                 $price = $eventinfo["event_price"];
                 $startDate = $eventinfo["event_date"];
                 $QrCode = $tickets[$i]["QR_code"];
+                $imageTag = '<img src="'.$QrCode.'" />';
                 $details = $eventinfo["event_type"];
 
-// Load the HTML template
                 $html = file_get_contents('./assets/template/ticket_template.html');
 
-// Replace placeholders with actual values
                 $html = str_replace("{{eventId}}", $eventId, $html);
                 $html = str_replace("{{titleId}}", $titleId, $html);
                 $html = str_replace("{{ticketId}}", $ticketId, $html);
                 $html = str_replace("{{price}}", $price, $html);
                 $html = str_replace("{{startDate}}", $startDate, $html);
-                $html = str_replace("{{QrCode}}", $QrCode, $html);
+                $html = str_replace("{{QrCode}}", $imageTag, $html);
                 $html = str_replace("{{details}}", $details, $html);
                 $html = str_replace("{{ticketId}}", urlencode($ticketId), $html); // QR Code URL
 
-// Generate PDF
                 $dompdf = new Dompdf();
                 $dompdf->loadHtml($html);
                 $dompdf->setPaper('A4', 'portrait');
                 $dompdf->render();
 
-// Save PDF to file
                 $SinglePath = "ticket_$ticketId.pdf";
                 $pdfPath = "./assets/tickets/ticket_$ticketId.pdf";
                 $AttachPdfs[]=$SinglePath;
