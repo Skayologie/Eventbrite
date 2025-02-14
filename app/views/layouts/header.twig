@@ -28,7 +28,7 @@
                 <div class="w-full ml-3" x-data="{ showLocation: false }">
                     <div class="flex gap-3 w-full">
                         <div class="relative">
-                            <input
+                            <input id="searchInput"
                                     type="text"
                                     placeholder="Search events"
                                     class="w-full rounded-full border border-gray-300 bg-gray-100 pl-10 pr-4 py-2 text-gray-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-200"
@@ -104,7 +104,7 @@
                         </div>
 
                         <!-- Search Button -->
-                        <button
+                        <button searchButton
                                 class="bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-orange-600 focus:outline-none transition-all duration-300 hover:shadow-lg active:scale-95 flex items-center justify-center gap-2">
                             <svg
                                     class="w-5 h-5"

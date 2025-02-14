@@ -98,11 +98,10 @@ class Event{
     
 
     public function search_events($searchTerm) {
-        $query = "SELECT events.*, users.name as event_creator, categories.category_name as category_name, users.photo
+        $query = "SELECT events.*, users.fname as event_creator, categories.categorie_name as category_name, users.photo
             FROM events
-            LEFT JOIN users ON users.user_id = events.user_id
-            LEFT JOIN categories ON categories.id = events.event_category
-            LEFT JOIN region ON events.event_region = region.id
+            LEFT JOIN users ON users.user_id = events.event_creator
+            LEFT JOIN categories ON categories.categorie_id = events.event_category
             LEFT JOIN ville ON events.event_city = ville.id
             WHERE events.event_title LIKE ?";
         

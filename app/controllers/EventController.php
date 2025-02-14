@@ -79,15 +79,13 @@ class EventController
 
 
     public function searchEvents(){
-
-
         if(isset($_GET['query'])){
             $searchTerm= htmlspecialchars($_GET['query']);
             $events=$this->event->search_events($searchTerm);
 
-               // Retourner les resultats au format JSON
-        header('Content-Type: application/json');
-        echo json_encode($events);
+            // Retourner les resultats au format JSON
+            header('Content-Type: application/json');
+            echo json_encode($events);
         }
     }
 

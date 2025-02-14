@@ -68,4 +68,18 @@ $router->get("/TEST",EventController::class, "testEvent");
 
 
 
+
+
+
+
+
+
+
+
+
+$router->get("/Search/Event",EventController::class, "searchEvents");
+
+
+
+
 $router->dispatch();
