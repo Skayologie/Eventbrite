@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile - Evently</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet" />
+      <!-- link js user_Profil ------------------------------------------------------->
+  </head>
+  <body class="bg-gray-50">
+    <div class="min-h-screen">
+      <!-- Profile Header -->
+      <div
+        class="bg-gradient-to-r from-orange-500 to-pink-500 h-auto min-h-[240px] pb-32">
+        <div class="container mx-auto px-4">
+          <div class="relative pt-24">
+            <div
+              class="relative z-10 bg-white rounded-xl shadow-lg p-6 mx-auto max-w-4xl -mt-6">
+              <div class="flex flex-col md:flex-row items-center gap-6">
+                <!-- Profile Photo -->
+                <div class="relative group profile-photo shrink-0">
+                  <img
+                    src="https://randomuser.me/api/portraits/men/32.jpg"
+                    alt="Profile"
+                    class="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover profile-image" />
+                  <button
+                    type="button"
+                    title="Edit Profile Photo"
+                    onclick="openPhotoModal()"
+                    class="absolute bottom-0 right-0 bg-orange-500 text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- User Info -->
+                <div class="flex-1 text-center md:text-left w-full">
+                  <div
+                    class="flex items-center justify-center md:justify-between">
+                    <div>
+                      <h1 class="text-2xl font-bold text-gray-900">
+                        hamza jaafar
+                      </h1>
+                      <p class="text-gray-600">jaafar.hamza711@gmail.com</p>
+                      <p class="text-sm text-gray-500">Joined January 2024</p>
+                    </div>
+                    <button
+                      title="Edit Profile"
+                      class="hidden md:flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors">
+                      <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                      </svg>
+                      Edit Profile
+                    </button>
+                  </div>
+                  <div
+                    class="mt-4 flex flex-wrap justify-center md:justify-start gap-4">
+                    <span
+                      class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                      >Event Organizer</span
+                    >
+                    <span
+                      class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm"
+                      >Active</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Content -->
+      <div class="container mx-auto px-4 py-8 -mt-24 md:mt-8">
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Left Column -->
+          <div class="md:col-span-1 space-y-6 order-2 md:order-1">
+            <!-- About Section -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+              <h2 class="text-lg font-semibold text-gray-900 mb-4">About</h2>
+              <p class="text-gray-600">
+                Professional event organizer with a passion for creating
+                memorable experiences. Specializing in tech conferences and
+                music festivals.
+              </p>
+              <div class="mt-4 space-y-3">
+                <div class="flex items-center gap-3 text-gray-600">
+                  <svg
+                    class="w-5 h-5 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span>Born June 15, 1990</span>
+                </div>
+                <div class="flex items-center gap-3 text-gray-600">
+                  <svg
+                    class="w-5 h-5 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>Casablanca, Morocco</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+              <h2 class="text-lg font-semibold text-gray-900 mb-4">
+                Statistics
+              </h2>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                  <div class="text-2xl font-bold text-orange-500">12</div>
+                  <div class="text-sm text-gray-600">Events Created</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                  <div class="text-2xl font-bold text-orange-500">1.2k</div>
+                  <div class="text-sm text-gray-600">Tickets Sold</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="md:col-span-2 space-y-6 order-1 md:order-2">
+            <!-- Upcoming Events -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+              <h2 class="text-lg font-semibold text-gray-900 mb-4">
+                Upcoming Events
+              </h2>
+              <div class="space-y-4">
+                <!-- Event Card -->
+                <div
+                  class="flex gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                  <img
+                    src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30"
+                    alt="Event"
+                    class="w-24 h-16 rounded-lg object-cover" />
+                  <div class="flex-1">
+                    <h3 class="font-medium text-gray-900">
+                      Tech Conference 2024
+                    </h3>
+                    <p class="text-sm text-gray-600">
+                      March 15, 2024 • Casablanca
+                    </p>
+                    <div class="mt-2">
+                      <span class="text-xs font-medium text-orange-500"
+                        >150/200 tickets sold</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Past Events -->
+            <div class="bg-white rounded-xl shadow-sm p-6">
+              <h2 class="text-lg font-semibold text-gray-900 mb-4">
+                Past Events
+              </h2>
+              <div class="space-y-4">
+                <!-- Event Card -->
+                <div class="flex gap-4 p-4 bg-gray-50 rounded-lg">
+                  <img
+                    src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d"
+                    alt="Event"
+                    class="w-24 h-16 rounded-lg object-cover grayscale" />
+                  <div class="flex-1">
+                    <h3 class="font-medium text-gray-900">
+                      Summer Music Festival
+                    </h3>
+                    <p class="text-sm text-gray-600">
+                      August 15, 2023 • Casablanca
+                    </p>
+                    <div class="mt-2 flex items-center gap-2">
+                      <span class="text-xs font-medium text-green-500"
+                        >Completed</span
+                      >
+                      <span class="text-xs text-gray-500">•</span>
+                      <span class="text-xs text-gray-500">500 attendees</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add this before the Edit Profile Modal -->
+    <div id="photoEditModal" class="modal-wrapper">
+      <div class="modal-overlay"></div>
+      <div class="fixed inset-0 flex items-center justify-center z-50">
+        <div class="modal-content bg-white rounded-xl p-6 max-w-md w-full mx-4">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold text-gray-900">
+              Update Profile Photo
+            </h2>
+            <button
+              onclick="closePhotoModal()"
+              class="text-gray-500 hover:text-gray-700">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="space-y-6">
+            <!-- Current Photo Preview -->
+            <div class="relative w-32 h-32 mx-auto">
+              <img
+                id="currentPhoto"
+                src="https://randomuser.me/api/portraits/men/32.jpg"
+                alt="Current profile photo"
+                class="w-full h-full rounded-full object-cover border-4 border-white shadow-lg" />
+            </div>
+
+            <!-- Upload Options -->
+            <div class="space-y-4">
+              <div class="relative">
+                <input
+                  type="file"
+                  id="photoInput"
+                  accept="image/*"
+                  class="hidden"
+                  onchange="previewPhoto(event)" />
+                <button
+                  onclick="document.getElementById('photoInput').click()"
+                  class="w-full px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors flex items-center justify-center gap-2">
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Choose New Photo
+                </button>
+              </div>
+
+              <button
+                onclick="removePhoto()"
+                class="w-full px-4 py-2 border border-red-500 text-red-500 rounded-lg hover:bg-red-50 transition-colors flex items-center justify-center gap-2">
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                Remove Photo
+              </button>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t">
+              <button
+                onclick="closePhotoModal()"
+                class="px-4 py-2 text-gray-700 hover:bg-gray-50 border border-gray-300 rounded-lg">
+                Cancel
+              </button>
+              <button
+                onclick="savePhoto()"
+                class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">
+                Save Photo
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Profile Modal ( Hidden) -->
+    <div id="editProfileModal" class="modal-wrapper">
+      <div class="modal-overlay"></div>
+      <div class="fixed inset-0 flex items-center justify-center z-50">
+        <div class="modal-content bg-white rounded-xl p-6 max-w-md w-full mx-4">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold text-gray-900">Edit Profile</h2>
+            <button
+              type="button"
+              onclick="closeModal()"
+              class="text-gray-500 hover:text-gray-700">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <form class="space-y-4" aria-labelledby="editProfileTitle">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label
+                  for="firstName"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >First Name</label
+                >
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  value="hamza"
+                  title="Enter your first name"
+                  placeholder="Enter first name"
+                  aria-label="First name"
+                  required
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-orange-500" />
+              </div>
+              <div>
+                <label
+                  for="lastName"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >Last Name</label
+                >
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  value="jaafar"
+                  title="Enter your last name"
+                  placeholder="Enter last name"
+                  aria-label="Last name"
+                  required
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-orange-500" />
+              </div>
+            </div>
+            <div>
+              <label
+                for="email"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Email</label
+              >
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value="jaafar@hamza.com"
+                title="Enter your email address"
+                placeholder="Enter email address"
+                aria-label="Email address"
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-orange-500" />
+            </div>
+            <div>
+              <label
+                for="bio"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Bio</label
+              >
+              <textarea
+                id="bio"
+                name="bio"
+                title="Enter your bio"
+                placeholder="Tell us about yourself"
+                aria-label="Biography"
+                rows="3"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-orange-500">
+Professional event organizer with a passion for creating memorable experiences.</textarea
+              >
+            </div>
+            <div>
+              <label
+                for="birthDate"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Birth Date</label
+              >
+              <input
+                type="date"
+                id="birthDate"
+                name="birthDate"
+                value="1990-06-15"
+                title="Select your birth date"
+                aria-label="Birth date"
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-orange-500" />
+            </div>
+            <div>
+              <label
+                for="location"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Location</label
+              >
+              <input
+                type="text"
+                id="location"
+                name="location"
+                value="Casablanca, Morocco"
+                title="Enter your location"
+                placeholder="City, Country"
+                aria-label="Location"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-orange-500" />
+            </div>
+            <div class="flex justify-end gap-3 mt-6">
+              <button
+                type="button"
+                onclick="closeModal()"
+                class="px-4 py-2 text-gray-700 hover:bg-gray-50 border border-gray-300 rounded-lg"
+                title="Cancel changes">
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600"
+                title="Save profile changes">
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
