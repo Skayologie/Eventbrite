@@ -12,10 +12,12 @@ $dotenv->load();
 class Mail
 {
     private PHPMailer $mail;
+    private $email;
 
 
-    public function __construct()
+    public function __construct($email)
     {
+        $this->email = $email;
         $this->mail = new PHPMailer();
         try{
             $this->mail->isSMTP();                                            //Send using SMTP
@@ -62,6 +64,41 @@ class Mail
             $this->mail->send();
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
+        }
+    }
+
+
+    public  function sendTicket($ArrayPDFS){
+
+        try {
+
+            // Sender & Recipient
+            $this->mail->setFrom('Eventbrite@example.com', 'EventBrite | Get Your Tickets');
+            $this->mail->addAddress($this->email); // Change recipient
+
+            // Email Content
+            $this->mail->isHTML(true);
+            $this->mail->Subject = 'Your Event Ticket';
+            $this->mail->Body = 'Hello, <br> Please find your ticket attached.';
+
+            foreach ($ArrayPDFS as $fileName) {
+                $pdfPath = __DIR__ . "/../../public/assets/tickets/" . $fileName;
+
+                if (file_exists($pdfPath)) {
+                    $this->mail->addAttachment($pdfPath);
+                } else {
+                    error_log("File not found: " . $pdfPath);
+                }
+            }
+            $this->mail->addAttachment($pdfPath);
+
+            if ($this->mail->send()) {
+                echo "Email sent successfully!";
+            } else {
+                echo "Mailer Error: " . $this->mail->ErrorInfo;
+            }
+        } catch (Exception $e) {
+            echo "Email sending failed: {$this->mail->ErrorInfo}";
         }
     }
 

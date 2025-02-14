@@ -13,20 +13,13 @@ class TicketModel
         $this->db = $db->getConnection();
     }
 
-    public function createTicket($eventId, $userId, $quantity, $totalPrice, $stripeSessionId)
+    public function createTicket($eventId, $userId, $promocode , $DataQrCode)
     {
-        $sql = "INSERT INTO tickets (event_id, buyer_id,promo_code_id,QR_code) 
-                VALUES (:event_id, :buyer_id, :promo_code_id, :QR_code)";
+        $sql = "INSERT INTO tickets (event_id, buyer_id , promo_code_id,QR_code) 
+                VALUES (?, ?, ?, ?)";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([
-            ':event_id' => $eventId,
-            ':user_id' => $userId,
-            ':quantity' => $quantity,
-            ':total_price' => $totalPrice,
-            ':stripe_session_id' => $stripeSessionId
-        ]);
-
+        $stmt->execute([$eventId,$userId, $promocode,$DataQrCode]);
         return $this->db->lastInsertId();
     }
 
@@ -38,5 +31,17 @@ class TicketModel
             ':status' => $status,
             ':stripe_session_id' => $stripeSessionId
         ]);
+    }
+
+    public function getLastInsertedId()
+    {
+        return $this->db->lastInsertId();
+    }
+
+
+    public function updateTicketQrCode($ticketId, $qrCode , $uniqueCode , $QrCodeImg) {
+        $sql = "UPDATE tickets SET QR_code = ? , TicketUnique = ? , QrCodeImg = ?  WHERE ticket_id = ?";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$qrCode,$uniqueCode,$QrCodeImg,$ticketId]);
     }
 }
