@@ -18,28 +18,39 @@ class HomeController
 
         $isAuth = Session::get("isAuth");
         $role = Session::get("roleID");
-        $fname = Session::get("fname");
+        $email = Session::get("email");
         if ($role === 1){//user
             View::render("front/home",[
                 "title"=>"Home",
                 "isAuth"=>$isAuth,
                 "events"=>$event->show_events(),
                 "Categories"=>$categories->showCategorie(),
+                "role"=>$role,
+                "email"=>$email
             ]);
         }elseif($role === 3){//admin
             View::render("back/Dashboard",[
                 "title"=>"Home",
-                "isAuth"=>$isAuth
+                "isAuth"=>$isAuth,
+                "role"=>$role,
+                "email"=>$email
+
             ]);
         }elseif($role === 2){//organizer
             View::render("front/home",[
                 "title"=>"Home",
-                "isAuth"=>$isAuth
+                "isAuth"=>$isAuth,
+                "role"=>$role,
+                "email"=>$email
+
             ]);
         }else{
             View::render("front/home",[
                 "title"=>"Home",
-                "isAuth"=>$isAuth
+                "isAuth"=>$isAuth,
+                "role"=>$role,
+                "email"=>$email
+
             ]);
         }
 

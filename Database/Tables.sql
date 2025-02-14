@@ -99,8 +99,18 @@ CREATE Table Comments
     event_id        INT,
     comment_content varchar(255),
     commented_at    datetime DEFAULT CURRENT_TIMESTAMP
-)
+);
 
+
+CREATE TABLE support (
+    message_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NULL ,
+    message_content varchar(255),
+    fullname varchar(50),
+    sender_email varchar(255),
+    send_at datetime DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) on DELETE CASCADE
+);
 
 
 

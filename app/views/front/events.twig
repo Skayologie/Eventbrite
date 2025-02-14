@@ -1,0 +1,9 @@
+<h1>{{ title }}</h1>
+<p>Date : {{ event.date }}</p>
+<p>Prix : {{ event.price }} USD</p>
+
+<form action="/payment/checkout/{{ event.id }}/{{ id }}/1/{{ event.price }}" method="GET">
+    <label for="quantity">Quantité :</label>
+    <input type="number" name="quantity" id="quantity" value="1" min="1" required>
+    <button type="submit">Acheter un billet</button>
+</form>

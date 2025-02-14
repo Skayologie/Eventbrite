@@ -172,7 +172,7 @@
                                     id="decreaseTickets">
                                 -
                             </button>
-                            <input
+                            <input id="quantity"
                                     type="number"
                                     value="1"
                                     min="1"
@@ -204,16 +204,26 @@
                     </div>
 
                     <!-- Purchase Button -->
-                    <button
-                            class="w-full bg-orange-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-orange-600 transition-colors">
-                        Purchase Tickets
-                    </button>
+                    <a id="LinkPurch" href="/payment/checkout/{{ eventInfo.event_id }}/{{ eventInfo.event_price }}/1">
+                        <button
+                                class="w-full bg-orange-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-orange-600 transition-colors">
+                            Purchase Tickets
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
+    <script>
+        let pp = $("#LinkPurch").attr("href")
+        let quantity = $("#quantity")
+        quantity.on("change",()=>{
+            let newLink = "/payment/checkout/{{ eventInfo.event_id }}/{{ eventInfo.event_price }}/"+quantity.val()
+            document.getElementById('LinkPurch').setAttribute("href",newLink)
+        })
 
+    </script>
     {% include 'layouts/footer.twig' %}
 
 {% endblock %}

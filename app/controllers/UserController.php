@@ -4,9 +4,11 @@ namespace App\controllers;
 
 use App\core\Auth;
 use App\core\Database;
+use App\core\Model;
 use App\core\Session;
 use App\core\View;
-use App\mail\WelcomeMail;
+use App\mail\Mail;
+use App\models\Orgnizer;
 use App\models\Participant;
 use App\models\RegisteredUser;
 use App\models\User;
@@ -38,7 +40,7 @@ class UserController
 
             $userModel = new UserModel();
             if ($userModel->save($user)){
-                $WelcomeMail = new WelcomeMail();
+                $WelcomeMail = new Mail();
                 $WelcomeMail->Send($user);
                 $resultQ = [
                     "status"=>true,
@@ -75,8 +77,9 @@ class UserController
 
             $userModel = new UserModel();
             if ($userModel->check($user , $Loginpassword)){
-                $result = $userModel->check($user , $Loginpassword);
-                Session::set("userID",$result["id"]??"");
+                $Crud = new Model();
+                $result = $Crud->GetCheck("users" , "email",$Loginemail)[0];
+                Session::set("userID",$result["user_id"]??"");
                 Session::set("roleID",$result["role_id"]);
                 Session::set("email",$result["email"]);
                 Session::set("avatar",$result["photo"]);
@@ -100,7 +103,7 @@ class UserController
                 $resultQ = [
                     "status"=>false,
                     "role" => "notLogged",
-                    "message"=>"Failed , Informations incorrect !"
+                    "message"=>"Failed , Informations incorrect !",
                 ];
 
             }
@@ -126,6 +129,23 @@ class UserController
             header("Location:/Admin/Dashboard");
         }elseif ($role === 1){
             header("Location:/");
+        }
+    }
+
+    public function switch_role(){
+        $role = Session::get("roleID");
+        if ($role === 1){//to be organizer
+            $participant = new Participant();
+            $participant->switch_role();
+            Session::set("roleID",2);
+            header('location:/');
+        }elseif ($role === 2){
+//            $organizer = new Orgnizer();
+//            $organizer->switch_role();
+            Session::set("roleID",1);
+            header('location:/');
+        }else{
+            echo "You dont have permission";
 
         }
     }

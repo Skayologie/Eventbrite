@@ -230,7 +230,7 @@
                                         fill="none" />
                             </svg>
                         </div>
-                        <span class="hidden lg:flex">{{ username }}</span>
+                        <span class="hidden lg:flex">{{ email }}</span>
                         <svg
                                 class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180"
                                 fill="none"
@@ -252,6 +252,8 @@
                                 class="flex gap-2 items-center block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
                         ><i class="fa-solid fa-eye"></i>Browse events</a
                         >
+
+                        {% if role == 2 %}
                         <a
                                 href="#"
                                 class="flex gap-2 items-center block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
@@ -262,31 +264,21 @@
                                 class=" flex gap-2 items-center block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
                         ><i class="fa-solid fa-plus"></i>Create Event</a
                         >
+                        {% endif %}
                         <a
-                                href="/CreateEvent"
+                                href="/ChangeRole"
                                 class="flex gap-2 items-center block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
-                        ><i class="fa-solid fa-repeat"></i>Switch Role</a
+                        ><i class="fa-solid fa-repeat"></i>Switch Role </a
                         >
+                        {% if role == 1 %}
                         <a
                                 href="#"
                                 class="block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
                         >Tickets (0)</a
                         >
-                        <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
-                        >Liked</a
-                        >
-                        <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
-                        >Following</a
-                        >
-                        <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
-                        >Interests</a
-                        >
+                        {% endif %}
+
+
                         <a
                                 href="#"
                                 class="flex gap-2 items-center block px-4 py-2 text-gray-900 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 transform hover:translate-x-1"
