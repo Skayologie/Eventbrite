@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Events - Evently Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet" />
+  </head>
+  <body class="bg-gray-50">
+    <div class="min-h-screen flex">
+      <!-- Reuse the sidebar from dashboard.html -->
+      <aside class="w-64 bg-white shadow-xl">
+        <!-- sidebar code... -->
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 p-8">
+        <div class="max-w-7xl mx-auto">
+          <!-- Header -->
+          <header class="flex justify-between items-center mb-8">
+            <div>
+              <h1 class="text-2xl font-bold text-gray-900">Manage Events</h1>
+              <p class="text-gray-500 mt-1">View and manage all events</p>
+            </div>
+            <!-- Add status filter -->
+            <div class="flex items-center gap-4 flex-wrap">
+              <!-- Enhanced Search -->
+              <div class="flex-1 min-w-[300px] relative">
+                <input
+                  type="text"
+                  id="eventSearch"
+                  placeholder="Search by event name or organizer..."
+                  class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-orange-500" />
+                <svg
+                  class="w-5 h-5 text-gray-400 absolute left-3 top-2.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+
+              <!-- Advanced Filters -->
+              <select
+                title="filter"
+                id="categoryFilter"
+                class="border border-gray-300 rounded-lg px-4 py-2">
+                <option value="">All Categories</option>
+                <option value="music">Music</option>
+                <option value="tech">Tech</option>
+                <option value="sports">Sports</option>
+                <option value="art">Art</option>
+              </select>
+
+              <select
+                title="filter"
+                id="statusFilter"
+                class="border border-gray-300 rounded-lg px-4 py-2">
+                <option value="">All Status</option>
+                <option value="active">Active</option>
+                <option value="pending">Pending</option>
+                <option value="suspended">Suspended</option>
+              </select>
+
+              <button
+                title="filter"
+                id="clearFilters"
+                class="text-gray-600 hover:text-gray-800">
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </button>
+            </div>
+          </header>
+
+          <!-- Add approval modal -->
+          <div
+            id="approvalModal"
+            class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full">
+              <h3 class="text-lg font-bold mb-4" id="modalTitle">
+                Review Event
+              </h3>
+              <div class="mb-4">
+                <p class="text-gray-600 mb-2">Event Details:</p>
+                <div id="eventDetails" class="bg-gray-50 p-4 rounded-lg">
+                  <p class="font-medium" id="eventName"></p>
+                  <p class="text-sm text-gray-500" id="eventOrganizer"></p>
+                </div>
+              </div>
+              <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Feedback (optional)</label
+                >
+                <textarea
+                  placeholder="placeholder"
+                  id="feedbackText"
+                  rows="3"
+                  class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-orange-200 focus:border-orange-500"></textarea>
+              </div>
+              <div class="flex justify-end gap-3">
+                <button
+                  onclick="closeApprovalModal()"
+                  class="px-4 py-2 text-gray-600 hover:text-gray-800">
+                  Cancel
+                </button>
+                <button
+                  id="rejectBtn"
+                  class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                  Reject
+                </button>
+                <button
+                  id="approveBtn"
+                  class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+                  Approve
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Add Action Confirmation Modal -->
+          <div
+            id="confirmationModal"
+            class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full">
+              <h3 class="text-lg font-bold mb-4" id="confirmationTitle">
+                Confirm Action
+              </h3>
+              <p class="text-gray-600 mb-6" id="confirmationMessage"></p>
+              <div class="flex justify-end gap-3">
+                <button
+                  onclick="closeConfirmationModal()"
+                  class="px-4 py-2 text-gray-600 hover:text-gray-800">
+                  Cancel
+                </button>
+                <button
+                  id="confirmAction"
+                  class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Events Table -->
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Event Details
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Category & Status
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Date & Time
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Tickets
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <!-- Active Event -->
+                <tr class="hover:bg-gray-50 transition-colors">
+                  <td class="px-6 py-4">
+                    <div class="flex items-center">
+                      <img
+                        class="h-16 w-24 rounded-lg object-cover"
+                        src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30"
+                        alt="Event" />
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">
+                          Summer Music Festival 2024
+                        </div>
+                        <div class="text-sm text-gray-500">by John Smith</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900 mb-1">Music</div>
+                    <span
+                      class="status-badge px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Active
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Mar 15, 2024</div>
+                    <div class="text-sm text-gray-500">7:00 PM</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">125/200 sold</div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                      <div
+                        class="bg-orange-500 h-2 rounded-full"
+                        style="width: 62.5%"></div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <div class="action-buttons flex items-center gap-2">
+                      <button class="text-orange-500 hover:text-orange-600">
+                        Edit
+                      </button>
+                      <button class="text-gray-500 hover:text-gray-600">
+                        View
+                      </button>
+                      <button class="text-red-500 hover:text-red-600">
+                        Cancel
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Pending Event -->
+                <tr class="hover:bg-gray-50 transition-colors">
+                  <td class="px-6 py-4">
+                    <div class="flex items-center">
+                      <img
+                        class="h-16 w-24 rounded-lg object-cover"
+                        src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d"
+                        alt="Event" />
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">
+                          Tech Conference 2024
+                        </div>
+                        <div class="text-sm text-gray-500">
+                          by Sarah Johnson
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900 mb-1">Tech</div>
+                    <span
+                      class="status-badge px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                      Pending
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Apr 5, 2024</div>
+                    <div class="text-sm text-gray-500">9:00 AM</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">0/300 sold</div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                      <div
+                        class="bg-orange-500 h-2 rounded-full"
+                        style="width: 0%"></div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <div class="action-buttons flex items-center gap-2">
+                      <button class="text-orange-500 hover:text-orange-600">
+                        Edit
+                      </button>
+                      <button class="text-gray-500 hover:text-gray-600">
+                        View
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Canceled Event -->
+                <tr class="hover:bg-gray-50 transition-colors bg-gray-50">
+                  <td class="px-6 py-4">
+                    <div class="flex items-center">
+                      <img
+                        class="h-16 w-24 rounded-lg object-cover filter grayscale"
+                        src="https://images.unsplash.com/photo-1495147466023-ac2c7f7805d2"
+                        alt="Event" />
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">
+                          Art Exhibition
+                        </div>
+                        <div class="text-sm text-gray-500">
+                          by Michael Brown
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900 mb-1">Art</div>
+                    <span
+                      class="status-badge px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                      Canceled
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Feb 28, 2024</div>
+                    <div class="text-sm text-gray-500">3:00 PM</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">45/100 refunded</div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                      <div
+                        class="bg-red-500 h-2 rounded-full"
+                        style="width: 45%"></div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <div class="action-buttons">
+                      <button class="text-gray-500 hover:text-gray-600">
+                        View
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <div class="bg-white px-4 py-3 border-t border-gray-200">
+              <div class="flex items-center justify-between">
+                <p class="text-sm text-gray-700">
+                  Showing <span class="font-medium">1</span> to
+                  <span class="font-medium">3</span> of
+                  <span class="font-medium">12</span> events
+                </p>
+                <nav
+                  class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                  <!-- pagination buttons... -->
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Search functionality
+        const searchInput = document.querySelector(
+          'input[placeholder="Search events..."]'
+        );
+        searchInput.addEventListener('input', e => {
+          const searchTerm = e.target.value.toLowerCase();
+          // Implement search logic here
+          console.log('Searching for:', searchTerm);
+        });
+
+        // Category filter
+        const categoryFilter = document.querySelector(
+          'select[aria-label="Filter by category"]'
+        );
+        categoryFilter.addEventListener('change', () => {
+          const selectedCategory = categoryFilter.value;
+          // Implement filter logic here
+          console.log('Filtering by category:', selectedCategory);
+        });
+
+        // Action buttons
+        document.querySelectorAll('button').forEach(button => {
+          button.addEventListener('click', e => {
+            const action = e.target.textContent;
+            if (['Edit', 'View', 'Cancel'].includes(action)) {
+              e.preventDefault();
+              // Implement action logic here
+              console.log('Action:', action);
+            }
+          });
+        });
+      });
+
+      // Modal and approval functionality
+      let currentEventId = null;
+
+      function openApprovalModal(eventId, eventName, organizer) {
+        currentEventId = eventId;
+        document.getElementById('eventName').textContent = eventName;
+        document.getElementById('eventOrganizer').textContent = organizer;
+        document.getElementById('approvalModal').classList.remove('hidden');
+        document.getElementById('approvalModal').classList.add('flex');
+      }
+
+      function closeApprovalModal() {
+        document.getElementById('approvalModal').classList.add('hidden');
+        document.getElementById('approvalModal').classList.remove('flex');
+        document.getElementById('feedbackText').value = '';
+        currentEventId = null;
+      }
+
+      function handleEventAction(action, eventId) {
+        const feedback = document.getElementById('feedbackText').value;
+
+        // Here you would make an API call to update the event status
+        console.log('Event action:', {
+          eventId,
+          action,
+          feedback,
+          timestamp: new Date().toISOString()
+        });
+
+        // Update UI
+        const eventRow = document.querySelector(`[data-event-id="${eventId}"]`);
+        if (eventRow) {
+          const statusBadge = eventRow.querySelector('.status-badge');
+          const actionButtons = eventRow.querySelector('.action-buttons');
+
+          if (action === 'approve') {
+            statusBadge.className =
+              'status-badge px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800';
+            statusBadge.textContent = 'Approved';
+          } else {
+            statusBadge.className =
+              'status-badge px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800';
+            statusBadge.textContent = 'Rejected';
+          }
+
+          // Update actions
+          actionButtons.innerHTML = `
+            <button class="text-gray-500 hover:text-gray-600">View</button>
+          `;
+        }
+
+        closeApprovalModal();
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        // Approve button handler
+        document.getElementById('approveBtn').addEventListener('click', () => {
+          handleEventAction('approve', currentEventId);
+        });
+
+        // Reject button handler
+        document.getElementById('rejectBtn').addEventListener('click', () => {
+          handleEventAction('reject', currentEventId);
+        });
+
+        // Status filter handler
+        const statusFilter = document.querySelector('select');
+        statusFilter.addEventListener('change', e => {
+          const status = e.target.value;
+          // Implement filtering logic here
+          console.log('Filtering by status:', status);
+        });
+      });
+
+      // Search and Filter functionality
+      const eventSearch = document.getElementById('eventSearch');
+      const categoryFilter = document.getElementById('categoryFilter');
+      const statusFilter = document.getElementById('statusFilter');
+      const clearFilters = document.getElementById('clearFilters');
+
+      function filterEvents() {
+        const searchTerm = eventSearch.value.toLowerCase();
+        const category = categoryFilter.value;
+        const status = statusFilter.value;
+
+        document.querySelectorAll('tbody tr').forEach(row => {
+          const eventName = row
+            .querySelector('.text-gray-900')
+            .textContent.toLowerCase();
+          const organizer = row
+            .querySelector('.text-gray-500')
+            .textContent.toLowerCase();
+          const eventCategory = row
+            .querySelector('td:nth-child(2) .text-gray-900')
+            .textContent.toLowerCase();
+          const eventStatus = row
+            .querySelector('.status-badge')
+            .textContent.toLowerCase();
+
+          const matchesSearch =
+            eventName.includes(searchTerm) || organizer.includes(searchTerm);
+          const matchesCategory = !category || eventCategory === category;
+          const matchesStatus = !status || eventStatus === status;
+
+          row.classList.toggle(
+            'hidden',
+            !(matchesSearch && matchesCategory && matchesStatus)
+          );
+        });
+      }
+
+      // Event listeners
+      eventSearch.addEventListener('input', filterEvents);
+      categoryFilter.addEventListener('change', filterEvents);
+      statusFilter.addEventListener('change', filterEvents);
+      clearFilters.addEventListener('click', () => {
+        eventSearch.value = '';
+        categoryFilter.value = '';
+        statusFilter.value = '';
+        filterEvents();
+      });
+
+      // Action confirmation handling
+      function showConfirmationModal(action, eventId) {
+        const modal = document.getElementById('confirmationModal');
+        const title = document.getElementById('confirmationTitle');
+        const message = document.getElementById('confirmationMessage');
+        const confirmBtn = document.getElementById('confirmAction');
+
+        title.textContent = `Confirm ${action}`;
+        message.textContent = `Are you sure you want to ${action.toLowerCase()} this event? This action cannot be undone.`;
+
+        confirmBtn.onclick = () => handleEventAction(action, eventId);
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+
+      function closeConfirmationModal() {
+        const modal = document.getElementById('confirmationModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+
+      // Add action buttons event listeners
+      document.querySelectorAll('.action-buttons button').forEach(button => {
+        button.addEventListener('click', e => {
+          const action = e.target.textContent.trim();
+          const eventRow = e.target.closest('tr');
+          const eventId = eventRow.dataset.eventId;
+
+          if (['Suspend', 'Delete'].includes(action)) {
+            showConfirmationModal(action, eventId);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
