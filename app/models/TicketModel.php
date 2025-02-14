@@ -41,6 +41,7 @@ class TicketModel
 
     public function updateTicketQrCode($ticketId, $qrCode , $uniqueCode , $QrCodeImg) {
         $sql = "UPDATE tickets SET QR_code = ? , TicketUnique = ? , QrCodeImg = ?  WHERE ticket_id = ?";
+        $_SESSION["UniqueCodesForPdf"][] = $uniqueCode;
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$qrCode,$uniqueCode,$QrCodeImg,$ticketId]);
     }

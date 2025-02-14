@@ -71,7 +71,6 @@ class Mail
     public  function sendTicket($ArrayPDFS){
 
         try {
-
             // Sender & Recipient
             $this->mail->setFrom('Eventbrite@example.com', 'EventBrite | Get Your Tickets');
             $this->mail->addAddress($this->email); // Change recipient
@@ -82,7 +81,7 @@ class Mail
             $this->mail->Body = 'Hello, <br> Please find your ticket attached.';
 
             foreach ($ArrayPDFS as $fileName) {
-                $pdfPath = __DIR__ . "/../../public/assets/tickets/" . $fileName;
+                $pdfPath = __DIR__ . "/../../public/assets/tickets/ticket_" . $fileName.".pdf";
 
                 if (file_exists($pdfPath)) {
                     $this->mail->addAttachment($pdfPath);
@@ -90,9 +89,8 @@ class Mail
                     error_log("File not found: " . $pdfPath);
                 }
             }
-            $this->mail->addAttachment($pdfPath);
 
-            if ($this->mail->send()) {
+            if ($this->mail->send()){
                 echo "Email sent successfully!";
             } else {
                 echo "Mailer Error: " . $this->mail->ErrorInfo;
