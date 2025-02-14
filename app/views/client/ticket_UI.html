@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Ticket</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <section
+      class="bg-gray-100 min-h-screen flex items-center justify-center p-6 font-[Poppins]">
+      <div
+        class="w-full max-w-4xl h-[220px] bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="flex h-full">
+          <!-- Image Section -->
+          <div class="w-1/4 relative">
+            <img
+              src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=300&h=400"
+              class="h-full w-full object-cover"
+              alt="Event" />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent p-4 flex flex-col justify-end">
+              <span
+                class="bg-orange-500 text-xs font-semibold px-2.5 py-1 rounded-md w-fit"
+                >PREMIUM</span
+              >
+              <h3 class="text-lg font-bold text-white mt-2 mb-1">
+                Tech Festival
+              </h3>
+              <p class="text-xs text-gray-300">14 Feb 2025</p>
+            </div>
+          </div>
+
+          <!-- Event Details -->
+          <div class="w-2/4 border-r border-dashed border-gray-200 p-5">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center space-x-3">
+                <div class="p-2 bg-violet-50 rounded-lg">
+                  <svg
+                    class="h-5 w-5 text-violet-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-semibold text-gray-900">EVENTLY PRO</div>
+                  <div class="text-xs text-gray-500">#TF-2025021423</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <div class="text-xs text-gray-500 mb-1">Date & Time</div>
+                <div class="text-sm font-medium">2025-02-14 14:23:30</div>
+              </div>
+              <div>
+                <div class="text-xs text-gray-500 mb-1">Venue</div>
+                <div class="text-sm font-medium">Tech Arena Hall</div>
+              </div>
+              <div>
+                <div class="text-xs text-gray-500 mb-1">Attendee</div>
+                <div class="text-sm font-medium">mamas30</div>
+              </div>
+              <div>
+                <div class="text-xs text-gray-500 mb-1">Type</div>
+                <div class="text-sm font-medium">VIP Access</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- QR & Seat Info -->
+          <div class="w-1/4 p-5">
+            <img
+              src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=EVENTLY-2025-02-14-14-23-30-mamas30"
+              alt="QR Code"
+              class="w-20 h-20 rounded-lg mb-4" />
+            <div class="bg-violet-50 rounded-lg p-3">
+              <div class="grid grid-cols-3 gap-2">
+                <div class="text-center">
+                  <div class="text-xs text-violet-600 mb-1">SEC</div>
+                  <div class="text-lg font-bold text-violet-700">A1</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
