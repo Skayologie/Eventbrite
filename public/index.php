@@ -68,4 +68,19 @@ $router->get("/TEST",EventController::class, "testEvent");
 
 
 
+
+
+
+$router->get("/Download/participants/{event_id}/{type}",UserController::class, "DownloadParticipantList");
+
+
+
+
+
+
+
+
+
+
+
 $router->dispatch();

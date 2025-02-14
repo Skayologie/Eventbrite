@@ -2,10 +2,9 @@
 namespace App\models;
 
 use App\core\Database;
+use App\core\FPDF\FPDF;
 use App\core\Model;
-use App\models\User;
 use PDO;
-use Vendor\setasign\fpdf\FPDF;
 
 
 class Organizer extends User {
@@ -27,11 +26,7 @@ class Organizer extends User {
     
 
     public function download_participants_list_csv($event_id) {
-        $query = "SELECT tickets.*, users.name as participant_name, users.email as participant_email, events.event_title, 
-                  FROM tickets
-                  LEFT JOIN users ON users.user_id = tickets.user_id
-                  LEFT JOIN events ON events.event_id = tickets.event_id
-                  WHERE tickets.event_id = ?";
+        $query = "SELECT tickets.*, CONCAT(users.fname ,' ', users.lname) as participant_name, users.email as participant_email, events.event_title FROM tickets LEFT JOIN users ON users.user_id = tickets.buyer_id LEFT JOIN events ON events.event_id = tickets.event_id WHERE tickets.event_id = ?";
         
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([$event_id]);
@@ -51,17 +46,14 @@ class Organizer extends User {
     }
 
     public function download_participants_list_pdf($event_id) {
-        $query = "SELECT tickets.*, users.name as participant_name, users.email as participant_email, events.event_title
-                  FROM tickets
-                  LEFT JOIN users ON users.user_id = tickets.user_id
-                  LEFT JOIN events ON events.event_id = tickets.event_id
-                  WHERE tickets.event_id = ?";
-        
+        $query = "SELECT tickets.*, CONCAT(users.fname ,' ', users.lname) as participant_name, users.email as participant_email, events.event_title FROM tickets LEFT JOIN users ON users.user_id = tickets.buyer_id LEFT JOIN events ON events.event_id = tickets.event_id WHERE tickets.event_id = ?";
+
+
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([$event_id]);
         $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Initialize FPDF
+//        // Initialize FPDF
         $pdf = new FPDF();
         $pdf->AddPage();
         $pdf->SetFont('Arial', 'B', 12);
@@ -87,5 +79,6 @@ class Organizer extends User {
 
         // Output the PDF
         $pdf->Output('D', 'participants_list.pdf');
+        echo "hello";
         }
 }

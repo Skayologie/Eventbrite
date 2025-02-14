@@ -8,7 +8,7 @@ use App\core\Model;
 use App\core\Session;
 use App\core\View;
 use App\mail\Mail;
-use App\models\Orgnizer;
+use App\models\Organizer;
 use App\models\Participant;
 use App\models\RegisteredUser;
 use App\models\User;
@@ -149,4 +149,18 @@ class UserController
 
         }
     }
+
+    public function DownloadParticipantList($event_id,$type){
+        $organizer = new Organizer();
+        if ($type === "CSV"){
+            $organizer->download_participants_list_csv($event_id);
+            header('Location:/');
+        }elseif ($type === "PDF"){
+            $organizer->download_participants_list_pdf($event_id);
+        }else{
+            header('Location:/Auth/Login');
+        }
+    }
+
+
 }
