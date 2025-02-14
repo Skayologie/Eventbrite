@@ -112,6 +112,7 @@ class Event{
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
 
 
     public function report_event($event_id, $user_id, $report_description) {
