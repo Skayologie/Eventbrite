@@ -54,9 +54,9 @@ class EventController
 
     public function AddEvent(){
         extract($_POST);
-        $EventCreator = 1;
+        $EventCreator = Session::get("userID");
         $promo_code = 3;
-        $result = $this->event->addEvent($EventCreator,$event_title,$event_description,$event_city,$eventlink,$event_price,$event_address,$event_capacity,intval($event_category),$event_type,"pending",$event_date,"",$event_cover="Cover",$promo_code);
+        $result = $this->event->addEvent($EventCreator,$event_title,$event_description,$event_city,$eventlink,$event_price,$event_address,$event_capacity,intval($event_category),$event_type,"pending",$event_date,$event_start_at,$event_end_at,$event_capacity,$event_cover="Cover",$promo_code);
         if ($result){
             $return = [
                 "status"=>true,
@@ -77,4 +77,19 @@ class EventController
         ]);
     }
 
+    public function EventDetails($id){
+        View::render("front/Organizer_Single_Event",[
+            "title"=>"Home",
+            "data"=>$this->event->show_events(["event_id"=>$id])[0],
+            "ticketInfo"=>$this->event->Tickets_Information(33)[0]
+        ]);
+    }
+    public function GetMyEvents(){
+        $id = Session::get("userID");
+        $result = $this->event->GetEventForOrganizer($id);
+        View::render("front/manager_events",[
+            "title"=>"Home",
+            "data"=>$result,
+        ]);
+    }
 }

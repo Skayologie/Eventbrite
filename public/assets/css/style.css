@@ -188,3 +188,76 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
+
+ /* Animations user profil ****************************************************/
+ @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .modal-overlay {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .modal-content {
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  .profile-section {
+    animation: slideUp 0.5s ease-out;
+  }
+
+  .profile-section:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+
+  .profile-section:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+
+  .modal-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 50; /* Higher than header */
+    display: none;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .modal-content {
+    position: relative;
+    z-index: 51;
+    animation: scaleIn 0.3s ease-out;
+  }
