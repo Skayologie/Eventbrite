@@ -4,6 +4,7 @@ namespace App\controllers;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 
+use App\models\Notification;
 use App\Models\TicketModel;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
@@ -73,13 +74,15 @@ class PaymentController
         $quantity = $quantity ?? '';
         $totalPrice = $totalPrice ?? '';
         $session = Session::retrieve($session_id);
-        echo "<pre>";
-        var_dump($session);
-        echo "</pre>";
+
         if ($session && $session['payment_status'] === 'paid') {
+
             // Enregistrer le ticket dans la base de données après paiement réussi
             $this->ticketModel->createTicket($eventId, $userId, $quantity, $totalPrice / 100, $session_id);
-            echo "Paiement réussi !  Votre billet est confirmé.";
+            echo "Paiement réussi ! Votre billet est confirmé.";
+            $notification = new Notification();
+            $notification->addNotification("Your Paiment Has Been Approved Successfully !",$userId);
+
         } else {
             echo "Erreur de paiement .";
         }
