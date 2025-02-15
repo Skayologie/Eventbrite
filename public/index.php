@@ -30,6 +30,8 @@ $router->get("/Event/{event_id}",EventController::class, "index");
 $router->get("/Explore/Event/{category}",HomeController::class, "getEventByCategorie");
 $router->get("/CreateEvent",EventController::class, "createEvent");
 $router->post("/CreateEvent",EventController::class, "AddEvent");
+$router->get("/Organizer/EventDetails/{id}",EventController::class, "EventDetails");
+$router->get("/Organizer/MyEvents",EventController::class, "GetMyEvents");
 $router->get("/ChangeRole",UserController::class, "switch_role");
 $router->get("/logout",Auth::class, "logout");
 $router->get("/Admin/Dashboard",DashboardController::class, "index");

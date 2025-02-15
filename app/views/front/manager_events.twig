@@ -1,0 +1,359 @@
+{% extends("layouts/master.twig") %}
+{% block title %}
+    Create Event
+{% endblock  %}
+{% block content %}
+<div class="min-h-screen flex">
+<!-- Reuse sidebar -->
+    <aside class="w-64 bg-white shadow-xl">
+        {% include 'layouts/aside.twig'  with {'isAuth': true ,'role':2, "email" : "jawadboulmal@gmail.com", "username":"Skayologie" }  %}
+    </aside>
+
+    <div class="flex-1 p-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <header class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">Manage Events</h1>
+                    <p class="text-gray-500 mt-1">View and manage all events</p>
+                </div>
+                <!-- Add status filter -->
+                <div class="flex items-center gap-4 flex-wrap">
+                    <!-- Enhanced Search -->
+                    <div class="flex-1 min-w-[300px] relative">
+                        <input
+                                type="text"
+                                id="eventSearch"
+                                placeholder="Search by event name or organizer..."
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-orange-500" />
+                        <svg
+                                class="w-5 h-5 text-gray-400 absolute left-3 top-2.5"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24">
+                            <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+
+                    <!-- Advanced Filters -->
+                    <select
+                            title="filter"
+                            id="categoryFilter"
+                            class="border border-gray-300 rounded-lg px-4 py-2">
+                        <option value="">All Categories</option>
+                        <option value="music">Music</option>
+                        <option value="tech">Tech</option>
+                        <option value="sports">Sports</option>
+                        <option value="art">Art</option>
+                    </select>
+
+                    <select
+                            title="filter"
+                            id="statusFilter"
+                            class="border border-gray-300 rounded-lg px-4 py-2">
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="pending">Pending</option>
+                        <option value="suspended">Suspended</option>
+                    </select>
+
+                    <button
+                            title="filter"
+                            id="clearFilters"
+                            class="text-gray-600 hover:text-gray-800">
+                        <svg
+                                class="w-5 h-5"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24">
+                            <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Add approval modal -->
+            <div
+                    id="approvalModal"
+                    class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
+                <div class="bg-white rounded-lg p-8 max-w-md w-full">
+                    <h3 class="text-lg font-bold mb-4" id="modalTitle">
+                        Review Event
+                    </h3>
+                    <div class="mb-4">
+                        <p class="text-gray-600 mb-2">Event Details:</p>
+                        <div id="eventDetails" class="bg-gray-50 p-4 rounded-lg">
+                            <p class="font-medium" id="eventName"></p>
+                            <p class="text-sm text-gray-500" id="eventOrganizer"></p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2"
+                        >Feedback (optional)</label
+                        >
+                        <textarea
+                                placeholder="placeholder"
+                                id="feedbackText"
+                                rows="3"
+                                class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-orange-200 focus:border-orange-500"></textarea>
+                    </div>
+                    <div class="flex justify-end gap-3">
+                        <button
+                                onclick="closeApprovalModal()"
+                                class="px-4 py-2 text-gray-600 hover:text-gray-800">
+                            Cancel
+                        </button>
+                        <button
+                                id="rejectBtn"
+                                class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                            Reject
+                        </button>
+                        <button
+                                id="approveBtn"
+                                class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+                            Approve
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Action Confirmation Modal -->
+            <div
+                    id="confirmationModal"
+                    class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
+                <div class="bg-white rounded-lg p-6 max-w-md w-full">
+                    <h3 class="text-lg font-bold mb-4" id="confirmationTitle">
+                        Confirm Action
+                    </h3>
+                    <p class="text-gray-600 mb-6" id="confirmationMessage"></p>
+                    <div class="flex justify-end gap-3">
+                        <button
+                                onclick="closeConfirmationModal()"
+                                class="px-4 py-2 text-gray-600 hover:text-gray-800">
+                            Cancel
+                        </button>
+                        <button
+                                id="confirmAction"
+                                class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                            Confirm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Table -->
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                    <tr>
+                        <th
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Event Details
+                        </th>
+                        <th
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Category & Status
+                        </th>
+                        <th
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Date & Time
+                        </th>
+                        <th
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Tickets
+                        </th>
+                        <th
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Actions
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                    <!-- Active Event -->
+{#                    <tr class="hover:bg-gray-50 transition-colors">#}
+{#                        <td class="px-6 py-4">#}
+{#                            <div class="flex items-center">#}
+{#                                <img#}
+{#                                        class="h-16 w-24 rounded-lg object-cover"#}
+{#                                        src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30"#}
+{#                                        alt="Event" />#}
+{#                                <div class="ml-4">#}
+{#                                    <div class="text-sm font-medium text-gray-900">#}
+{#                                        Summer Music Festival 2024#}
+{#                                    </div>#}
+{#                                    <div class="text-sm text-gray-500">by John Smith</div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </td>#}
+{#                        <td class="px-6 py-4 whitespace-nowrap">#}
+{#                            <div class="text-sm text-gray-900 mb-1">Music</div>#}
+{#                            <span#}
+{#                                    class="status-badge px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">#}
+{#                      Active#}
+{#                    </span>#}
+{#                        </td>#}
+{#                        <td class="px-6 py-4 whitespace-nowrap">#}
+{#                            <div class="text-sm text-gray-900">Mar 15, 2024</div>#}
+{#                            <div class="text-sm text-gray-500">7:00 PM</div>#}
+{#                        </td>#}
+{#                        <td class="px-6 py-4 whitespace-nowrap">#}
+{#                            <div class="text-sm text-gray-900">125/200 sold</div>#}
+{#                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">#}
+{#                                <div#}
+{#                                        class="bg-orange-500 h-2 rounded-full"#}
+{#                                        style="width: 62.5%"></div>#}
+{#                            </div>#}
+{#                        </td>#}
+{#                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">#}
+{#                            <div class="action-buttons flex items-center gap-2">#}
+{#                                <button class="text-orange-500 hover:text-orange-600">#}
+{#                                    Edit#}
+{#                                </button>#}
+{#                                <a href="../../../../Organizer/EventDetails/4">#}
+{#                                    <button class="text-gray-500 hover:text-gray-600">#}
+{#                                        View#}
+{#                                    </button>#}
+{#                                </a>#}
+{#                                <button class="text-red-500 hover:text-red-600">#}
+{#                                    Cancel#}
+{#                                </button>#}
+{#                            </div>#}
+{#                        </td>#}
+{#                    </tr>#}
+
+                    {% for event in data %}
+                        <!-- Pending Event -->
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <img
+                                            class="h-16 w-24 rounded-lg object-cover"
+                                            src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d"
+                                            alt="Event" />
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            {{ event.event_title }}
+                                        </div>
+                                        <div class="text-sm text-gray-500">
+                                            by {{ event.creator_name }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900 mb-1">{{ event.category_name }}</div>
+                                <span class="status-badge px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full  {% if event.event_status == "pending" %}text-yellow-800 bg-yellow-100{% elseif event.event_status == "accepted" %}text-green-800 bg-green-100{% elseif event.event_status == "rejected" %}text-red-800 bg-red-100{% endif %} ">
+                                  {{ event.event_status }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">{{ event.event_date }}</div>
+                                <div class="text-sm text-gray-500">Star At {{ event.start_date }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">{{ event.sold_tickets }}/{{ event.event_capacity }} sold</div>
+                                <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                    <div
+                                            class="bg-orange-500 h-2 rounded-full"
+                                            style="width: {{ event.sold_tickets * 100 / event.event_capacity }}%"></div>
+                                </div>
+                                <div class="text-sm text-gray-900">{{ event.event_capacity - event.sold_tickets  }} Ticket Rest</div>
+
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <div class="action-buttons flex items-center gap-2">
+{#                                    <button class="text-orange-500 hover:text-orange-600">#}
+{#                                        Edit#}
+{#                                    </button>#}
+                                    <a href="/Organizer/EventDetails/{{ event.event_id }}">
+                                        <button class="text-gray-500 hover:text-gray-600">
+                                            View
+                                        </button>
+                                    </a>
+
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+
+
+                    <!-- Canceled Event -->
+{#                    <tr class="hover:bg-gray-50 transition-colors bg-gray-50">#}
+{#                        <td class="px-6 py-4">#}
+{#                            <div class="flex items-center">#}
+{#                                <img#}
+{#                                        class="h-16 w-24 rounded-lg object-cover filter grayscale"#}
+{#                                        src="https://images.unsplash.com/photo-1495147466023-ac2c7f7805d2"#}
+{#                                        alt="Event" />#}
+{#                                <div class="ml-4">#}
+{#                                    <div class="text-sm font-medium text-gray-900">#}
+{#                                        Art Exhibition#}
+{#                                    </div>#}
+{#                                    <div class="text-sm text-gray-500">#}
+{#                                        by Michael Brown#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </td>#}
+{#                        <td class="px-6 py-4 whitespace-nowrap">#}
+{#                            <div class="text-sm text-gray-900 mb-1">Art</div>#}
+{#                            <span#}
+{#                                    class="status-badge px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">#}
+{#                      Canceled#}
+{#                    </span>#}
+{#                        </td>#}
+{#                        <td class="px-6 py-4 whitespace-nowrap">#}
+{#                            <div class="text-sm text-gray-900">Feb 28, 2024</div>#}
+{#                            <div class="text-sm text-gray-500">3:00 PM</div>#}
+{#                        </td>#}
+{#                        <td class="px-6 py-4 whitespace-nowrap">#}
+{#                            <div class="text-sm text-gray-900">45/100 refunded</div>#}
+{#                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">#}
+{#                                <div#}
+{#                                        class="bg-red-500 h-2 rounded-full"#}
+{#                                        style="width: 45%"></div>#}
+{#                            </div>#}
+{#                        </td>#}
+{#                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">#}
+{#                            <div class="action-buttons">#}
+{#                                <button class="text-gray-500 hover:text-gray-600">#}
+{#                                    View#}
+{#                                </button>#}
+{#                            </div>#}
+{#                        </td>#}
+{#                    </tr>#}
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <div class="bg-white px-4 py-3 border-t border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm text-gray-700">
+                            Showing <span class="font-medium">1</span> to
+                            <span class="font-medium">3</span> of
+                            <span class="font-medium">12</span> events
+                        </p>
+                        <nav
+                                class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                            <!-- pagination buttons... -->
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    {% include 'layouts/footer.twig' %}
+
+{% endblock %}
