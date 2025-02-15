@@ -3,7 +3,7 @@
 Home
 {% endblock  %}
 {% block content %}
-    {% include 'layouts/header.twig' with {'isAuth': isAuth , "email" : email, "username":name } %}
+    {% include 'layouts/header.twig' with {'isAuth': isAuth , "email" : email, "username":name , "Notifications":Notifications} %}
     <!-- Hero Section -->
     <section class="xl:pr-20 xl:pl-20 mt-8 rounded-3xl">
         <div

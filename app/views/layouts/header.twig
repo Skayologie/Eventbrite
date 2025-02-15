@@ -161,7 +161,6 @@
                             </div>
                             <span class="hidden lg:flex text-sm"></span>
                         </button>
-
                         <!-- Dropdown Menu -->
                         <div
                                 x-show="showNotifications"
@@ -184,24 +183,24 @@
                             <!-- Notifications List -->
                             <div class="max-h-[400px] overflow-y-auto">
                                 <!-- Notification Item  -->
-                                <div
-                                        class="px-4 py-3 hover:bg-orange-50 border-b border-gray-100 transition-colors duration-300">
-                                    <div class="flex items-start gap-3">
-                                        <div>
-                                            <p class="text-sm text-gray-600">
-                          <span class="font-medium text-gray-900"
-                          >ilyas</span
-                          >
-                                                commented on your event
-                                            </p>
-                                            <span class="text-xs text-gray-500 mt-1 block"
-                                            >2 minutes ago</span
-                                            >
+
+
+                                {% for notification in Notifications %}
+                                    <div class="px-4 py-3 hover:bg-orange-50 border-b border-gray-100 transition-colors duration-300">
+                                        <div class="flex items-start gap-3">
+                                            <div>
+                                                <p class="text-sm text-gray-600">
+                                                    {{ notification.notification_message }}
+                                                </p>
+                                                <span class="text-xs text-gray-500 mt-1 block"
+                                                >{{ notification.notification_time }}</span
+                                                >
+                                            </div>
+                                            <div class="w-2 h-2 bg-orange-500 rounded-full ml-auto mt-2"></div>
+                                            <a href="../../../../MarkAsRead"><i class="fa-solid fa-envelope"></i></a>
                                         </div>
-                                        <div
-                                                class="w-2 h-2 bg-orange-500 rounded-full ml-auto mt-2"></div>
                                     </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

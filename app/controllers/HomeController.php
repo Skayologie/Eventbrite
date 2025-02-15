@@ -6,6 +6,7 @@ use App\core\Session;
 use App\core\View;
 use App\models\Category;
 use App\models\Event;
+use App\models\Notification;
 use App\models\Tag;
 
 class HomeController
@@ -14,11 +15,13 @@ class HomeController
         $db = new Database();
         $event = new Event();
         $categories = new Category();
+        $notifications = new Notification();
 
 
         $isAuth = Session::get("isAuth");
         $role = Session::get("roleID");
         $email = Session::get("email");
+        $User_id = Session::get("userID");;
         if ($role === 1){//user
             View::render("front/home",[
                 "title"=>"Home",
@@ -26,7 +29,8 @@ class HomeController
                 "events"=>$event->show_events(),
                 "Categories"=>$categories->showCategorie(),
                 "role"=>$role,
-                "email"=>$email
+                "email"=>$email,
+                "Notifications"=>$notifications->getNotifications($User_id)
             ]);
         }elseif($role === 3){//admin
             View::render("back/Dashboard",[
@@ -41,8 +45,8 @@ class HomeController
                 "title"=>"Home",
                 "isAuth"=>$isAuth,
                 "role"=>$role,
-                "email"=>$email
-
+                "email"=>$email,
+                "Notifications"=>$notifications->getNotifications($User_id)
             ]);
         }else{
             View::render("front/home",[

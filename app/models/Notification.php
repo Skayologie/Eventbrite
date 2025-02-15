@@ -16,24 +16,20 @@ class Notification{
         $this->db = $db->getConnection();
     }
 
-    public function addNotification($message,$reciever_id,$type='site'){
-        $notification_time = date(DATE_RFC2822);;
+    public function addNotification($message,$type='site'){
+        $notification_time = date("F j, Y, g:i a");;
         $user_id = Session::get("userID");
-        $query= "INSERT INTO notifications(user_id, notification_message, notification_time, is_read,reciever_id) VALUES (?,?,?,0,?)";
+        $query= "INSERT INTO notification(notification_message, notification_time, is_read,receiver_id) VALUES (?,?,0,?)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$user_id,$message,$notification_time,$reciever_id]);
+        $stmt->execute([$message,$notification_time,$user_id]);
         return $this->db->lastInsertId();
     }
 
-    public function getNotification($userId,$limit=10){
-        $query="SELECT * FROM notifications  WHERE user_id = :user_id ORDER BY created_at  DESC LIMIT :limit ";
+    public function getNotifications($userId){
+        $query="SELECT * FROM notification WHERE receiver_id = ? ORDER BY notification_time DESC Limit 5";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([
-            ':user_id' => $userId,
-            ':limit' => $limit
-        ]);
+        $stmt->execute([$userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     }
 
     //Marque une notification comme lue

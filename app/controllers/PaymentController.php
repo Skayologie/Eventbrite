@@ -6,6 +6,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\core\Qr;
 use App\mail\Mail;
+use App\models\Notification;
 use App\Models\TicketModel;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
@@ -115,8 +116,10 @@ private $event_id;
                 }
             }
 
-            $mail = new Mail("dojaoualla@gmail.com");
+            $mail = new Mail("jawadboulmal@gmail.com");
+            $notification = new Notification();
             $mail->sendTicket($Atachmment);
+            $notification->addNotification("Your Purchase Has Been Approved Successfully !",$userId);
         } else {
             echo "Erreur de paiement .";
         }
