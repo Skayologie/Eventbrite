@@ -164,7 +164,13 @@ class Event{
         return $result;
     }
 
-
+    public function GetEventParticipants($event_id){
+        $query = "SELECT tickets.*, COUNT(ticket_id) AS total_ticket , CONCAT(users.fname ,' ', users.lname) as participant_name, users.email as participant_email, events.event_title FROM tickets LEFT JOIN users ON users.user_id = tickets.buyer_id LEFT JOIN events ON events.event_id = tickets.event_id WHERE tickets.event_id = ? GROUP BY event_id , buyer_id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([$event_id]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
     
     
 

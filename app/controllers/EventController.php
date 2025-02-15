@@ -81,7 +81,8 @@ class EventController
         View::render("front/Organizer_Single_Event",[
             "title"=>"Home",
             "data"=>$this->event->show_events(["event_id"=>$id])[0],
-            "ticketInfo"=>$this->event->Tickets_Information(33)[0]
+            "ticketInfo"=>$this->event->Tickets_Information($id)[0],
+            "participants"=>$this->event->GetEventParticipants($id)
         ]);
     }
     public function GetMyEvents(){
@@ -92,4 +93,6 @@ class EventController
             "data"=>$result,
         ]);
     }
+
+
 }
