@@ -32,7 +32,7 @@ class HomeController
             View::render("front/home",[
                 "title"=>"Home",
                 "isAuth"=>$isAuth,
-                "events"=>$event->show_events(),
+                "events"=>$event->show_events(["event_status"=>"accepted"]),
                 "Categories"=>$categories->showCategorie(),
                 "role"=>$role,
                 "email"=>$email,
