@@ -47,6 +47,8 @@ $router->post("/AddTag",TagController::class, "addTag");
 //Categories
 $router->get("/Categories",CategorieController::class, "index");
 $router->post("/DeleteCategorie/{id}",CategorieController::class, "deleteCategorie");
+$router->get("/GetCategories",CategorieController::class, "GetCategories");
+$router->post("/AddCategorie",CategorieController::class, "addCategorie");
 
 $router->get("/checkRole",UserController::class, "checkRole");
 

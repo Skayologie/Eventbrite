@@ -15,8 +15,26 @@ class CategorieController
     }
     public function index(){
         View::render("back/categorie",[
-            "Categories"=>$this->category->showCategorie()
+            "Categories"=>$this->category->showAllCategories()
         ]);
+    }
+
+    public function addCategorie(){
+        header('Content-Type: application/json');
+
+        extract($_POST);
+        if($this->category->addCategorie([$CategorieName])){
+            $result = [
+                "status"=>true,
+                "message"=>"$CategorieName Has been Added successfully !"
+            ];
+        }else{
+            $result = [
+                "status"=>false,
+                "message"=>"Failed To add Tag $CategorieName "
+            ];
+        }
+        echo json_encode($result);
     }
     public function deleteCategorie($id){
         if($this->category->deleteCategory($id)){

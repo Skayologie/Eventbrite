@@ -187,7 +187,7 @@ Home
                                     <div
                                             class="relative h-full flex flex-col items-center justify-center text-white">
                                         <h3 class="text-xl font-semibold text-center">{{ category.categorie_name }}</h3>
-                                        <p class="text-sm mt-2 opacity-90">1.2K Events</p>
+                                        <p class="text-sm mt-2 opacity-90">{{ category.Categorie_Count }}{% if category.Categorie_Count == 1 %} Event {% else %} Events {% endif %}</p>
                                     </div>
                                 </div>
                             </div>
