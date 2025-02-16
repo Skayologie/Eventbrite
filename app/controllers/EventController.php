@@ -30,7 +30,7 @@ class EventController
         $event = new Event();
         $comment = new Comment();
         $role = Session::get("roleID");
-        if ($role === 2){
+        if ($role === 1){
             View::render("front/Event",[
                 "title"=>"Home",
                 "eventInfo"=>$event->show_events(["event_id"=>$event_id])[0],
