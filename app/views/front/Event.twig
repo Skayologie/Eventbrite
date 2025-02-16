@@ -299,7 +299,7 @@
 
         <!-- Comments Section ---------------------------------------------------------------------------------->
         <form method="POST" action="/comments/add/{{eventInfo.event_id}}">
-        <div class="mt-12 border-t pt-8" x-data="{ showEmojis: false }">
+            <div class="mt-12 border-t pt-8" x-data="{ showEmojis: false }">
             <h2 class="text-2xl font-semibold mb-8 flex items-center gap-2">
                 <svg
                         class="w-6 h-6 text-gray-600"
@@ -404,7 +404,8 @@
                     </div>
                 </div>
             </div>
-</form>
+        </div>
+        </form>
             <!-- Comments List -->
             <div class="space-y-6">
             {% for comment in comments %}

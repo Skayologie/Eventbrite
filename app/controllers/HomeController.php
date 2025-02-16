@@ -38,7 +38,6 @@ class HomeController
                 "isAuth"=>$isAuth,
                 "role"=>$role,
                 "email"=>$email
-
             ]);
         }elseif($role === 2){//organizer
             View::render("front/home",[
