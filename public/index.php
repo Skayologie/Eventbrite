@@ -36,6 +36,8 @@ $router->get("/ChangeRole",UserController::class, "switch_role");
 $router->get("/logout",Auth::class, "logout");
 $router->get("/Admin/Dashboard",DashboardController::class, "index");
 $router->get("/Admin/Users",UserController::class, "index");
+$router->get("/Admin/Events",EventController::class, "index");
+$router->get("/Admin/Events/ManageEvent/{id}/{option}",EventController::class, "ApproveRejectEvent");
 $router->get("/checkRole",UserController::class, "checkRole");
 
 //Tag

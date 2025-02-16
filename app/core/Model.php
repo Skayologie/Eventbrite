@@ -46,7 +46,7 @@ class Model
         }
     }
 
-    public function Edit($id,$table,$data){
+    public function Edit($id,$table,$data,$column="id"){
         try {
             $conn = $this->conn;
             $args = array();
@@ -54,7 +54,7 @@ class Model
             foreach ($data as $key => $value) {
                 $args[] = "$key = ?";
             }
-            $sql = "UPDATE $table SET " . implode(',', $args) . " WHERE id = $id";
+            $sql = "UPDATE $table SET " . implode(',', $args) . " WHERE $column = $id";
             $stmt = $conn->prepare($sql);
             $result =  $stmt->execute(array_values($data));
         } catch (\PDOException $th) {

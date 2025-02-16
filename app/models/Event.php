@@ -72,7 +72,9 @@ class Event{
         return $this->model->Edit($event_id, $table, $data);
     }
 
-    
+    public function approverejectEvent($event_id,$option){
+        return $this->model->Edit($event_id, "events", ["event_status"=>$option],"event_id");
+    }
     public function deleteEvent($event_id) {
         $conn = $this->pdo;
         $sql = "DELETE FROM events WHERE event_id = :event_id";
@@ -82,7 +84,7 @@ class Event{
 
 
     public function show_events($conditions = []) {
-        $query = "SELECT TIME_FORMAT(event_start_at, '%H:%i') AS start_date ,TIME_FORMAT(event_end_at, '%H:%i') AS end_date , events.*, users.fname as creator_name, categories.categorie_name as category_name, users.photo FROM events INNER JOIN users ON users.user_id = events.event_creator LEFT JOIN categories ON categories.categorie_id = events.event_category LEFT JOIN ville ON events.event_city = ville.id";
+        $query = "SELECT TIME_FORMAT(event_start_at, '%H:%i') AS start_date ,TIME_FORMAT(event_end_at, '%H:%i') AS end_date , events.*, users.fname as creator_name, users.email , categories.categorie_name as category_name, users.photo FROM events INNER JOIN users ON users.user_id = events.event_creator LEFT JOIN categories ON categories.categorie_id = events.event_category LEFT JOIN ville ON events.event_city = ville.id";
         if (!empty($conditions)) {
             $whereConditions = [];
             foreach ($conditions as $key => $val) {

@@ -22,12 +22,20 @@ class EventController
         $UserDatabase = new Database();
         $this->event = new Event();
     }
-    public function index($event_id){
+    public function index($event_id=0){
         $event = new Event();
-        View::render("front/Event",[
-            "title"=>"Home",
-            "eventInfo"=>$event->show_events(["event_id"=>$event_id])[0]
-        ]);
+        $role = Session::get("roleID");
+        if ($role === 2){
+            View::render("front/Event",[
+                "title"=>"Home",
+                "eventInfo"=>$event->show_events(["event_id"=>$event_id])[0]
+            ]);
+        }elseif ($role === 3){
+            View::render("back/events",[
+                "title"=>"Home",
+                "events"=>$event->show_events()
+            ]);
+        }
 
     }
     public function createEvent(){
@@ -92,6 +100,11 @@ class EventController
             "title"=>"Home",
             "data"=>$result,
         ]);
+    }
+
+    public function ApproveRejectEvent($eventid,$option){
+        $this->event->approverejectEvent($eventid,$option);
+        header('Location:../../../../Admin/Events');
     }
 
 
