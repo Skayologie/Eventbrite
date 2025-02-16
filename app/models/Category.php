@@ -16,7 +16,7 @@ class Category extends Model {
 
 
     public function showCategorie() {
-        $sql = "SELECT categories.categorie_name ,COUNT(*) AS Categorie_Count FROM events JOIN categories ON categories.categorie_id = events.event_category GROUP BY categories.categorie_name";
+        $sql = "SELECT categories.categorie_id , categories.categorie_name ,COUNT(*) AS Categorie_Count FROM events JOIN categories ON categories.categorie_id = events.event_category GROUP BY categories.categorie_name";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

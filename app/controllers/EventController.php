@@ -4,6 +4,7 @@ namespace App\controllers;
 
 use App\core\Auth;
 use App\core\Database;
+use App\core\FileHandler;
 use App\core\Model;
 use App\core\Session;
 use App\core\View;
@@ -62,21 +63,40 @@ class EventController
 
     public function AddEvent(){
         extract($_POST);
-        $EventCreator = Session::get("userID");
-        $promo_code = 3;
-        $result = $this->event->addEvent($EventCreator,$event_title,$event_description,$event_city,$eventlink,$event_price,$event_address,$event_capacity,intval($event_category),$event_type,"pending",$event_date,$event_start_at,$event_end_at,$event_capacity,$event_cover="Cover",$promo_code);
-        if ($result){
-            $return = [
-                "status"=>true,
-                "message"=>"Event Added Successfully",
-            ];
+        if (isset($event_title) &&
+            isset($event_description)){
+            $EventCreator = Session::get("userID");
+            $allowed_types = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
+            if (!isset($_FILES["coverImage"])){
+                $return = [
+                    "status"=>true,
+                    "message"=>"The Image is not added !",
+                ];
+                return $return;
+            }
+            $Cover = $_FILES["coverImage"];
+            $path = $Cover;
+            $upload_dir = "./assets/images/EventsCover/";
+            $cover = FileHandler::handle_file_upload($path,$allowed_types,$upload_dir,"event_".$event_title . "_" . $event_date);
+            if ($cover){
+                $promo_code = 3;
+                $result = $this->event->addEvent($EventCreator,$event_title,$event_description,$event_city,$eventlink,$event_price,$event_address,$event_capacity,intval($event_category),$event_type,"pending",$event_date,$event_start_at,$event_end_at,$event_capacity,$cover["path"],$promo_code);
+                if ($result){
+                    $return = [
+                        "status"=>true,
+                        "message"=>"Event Added Successfully",
+                    ];
+                }else{
+                    $return = [
+                        "status"=>false,
+                        "message"=>"Failed , Event Not Created !",
+                    ];
+                }
+                header("Location:Organizer/MyEvents");
+            }
         }else{
-            $return = [
-                "status"=>false,
-                "message"=>"Failed , Event  Successfully",
-            ];
+            header("Location:Organizer/MyEvents");
         }
-        var_dump($return);
     }
     public function testEvent(){
         View::render("front/test",[

@@ -11,6 +11,12 @@ use App\models\Tag;
 
 class HomeController
 {
+    private $event;
+
+    public function __construct(){
+        $UserDatabase = new Database();
+        $this->event = new Event();
+    }
     public function index(){
         $db = new Database();
         $event = new Event();
@@ -41,12 +47,15 @@ class HomeController
 
             ]);
         }elseif($role === 2){//organizer
-            View::render("front/home",[
+            $id = Session::get("userID");
+            $result = $this->event->GetEventForOrganizer($id);
+            View::render("front/manager_events",[
                 "title"=>"Home",
                 "isAuth"=>$isAuth,
                 "role"=>$role,
                 "email"=>$email,
-                "Notifications"=>$notifications->getNotifications($User_id)
+                "Notifications"=>$notifications->getNotifications($User_id),
+                "data"=>$result,
             ]);
         }else{
             View::render("front/home",[
