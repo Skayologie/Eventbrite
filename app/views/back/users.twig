@@ -76,90 +76,44 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <!-- Active User -->
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4">
-                            <div class="flex items-center">
-                                <img class="h-10 w-10 rounded-full object-cover" src="https://randomuser.me/api/portraits/men/1.jpg" alt="User avatar"/>
-                                <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900">John Smith</div>
-                                    <div class="text-sm text-gray-500">john.smith@example.com</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">Jan 15, 2024</div>
-                            <div class="text-xs text-gray-500">2:30 PM</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Active
-                    </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <div class="flex items-center gap-3">
-                                <button class="text-orange-500 hover:text-orange-600 transition-colors">Edit</button>
-                                <button class="text-red-500 hover:text-red-600 transition-colors">Ban</button>
-                            </div>
-                        </td>
-                    </tr>
 
-                    <!-- Banned User -->
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4">
-                            <div class="flex items-center">
-                                <img class="h-10 w-10 rounded-full object-cover" src="https://randomuser.me/api/portraits/women/2.jpg" alt="User avatar"/>
-                                <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900">Sarah Johnson</div>
-                                    <div class="text-sm text-gray-500">sarah.j@example.com</div>
+                    {% for user in Users %}
+                        <!-- Pending User -->
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <img class="h-10 w-10 rounded-full object-cover" src="https://randomuser.me/api/portraits/men/3.jpg" alt="User avatar"/>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">{{ user.fullname }}</div>
+                                        <div class="text-sm text-gray-500">{{user.email}}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">Dec 20, 3</div>
-                            <div class="text-xs text-gray-500">11:15 AM</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                      Banned
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">{{ user.DateJoined }}</div>
+                                <div class="text-xs text-gray-500">{{ user.TimeJoined }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full
+                            {% if user.status == "active" %}
+                                bg-green-100 text-green-800
+                            {% elseif user.status == "suspend" %}
+                                bg-red-100 text-red-800
+                            {% endif %}">
+                      {{ user.status }}
                     </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <div class="flex items-center gap-3">
-                                <button class="text-orange-500 hover:text-orange-600 transition-colors">Edit</button>
-                                <button class="text-green-500 hover:text-green-600 transition-colors">Activate</button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <!-- Pending User -->
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4">
-                            <div class="flex items-center">
-                                <img class="h-10 w-10 rounded-full object-cover" src="https://randomuser.me/api/portraits/men/3.jpg" alt="User avatar"/>
-                                <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900">Michael Brown</div>
-                                    <div class="text-sm text-gray-500">m.brown@example.com</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <div class="flex items-center gap-3">
+                                    {% if user.status == "active" %}
+                                        <a href="/Admin/Users/ManageUsers/{{ user.user_id }}/suspend"><button class="text-red-500 hover:text-red-600 transition-colors">Suspend</button></a>
+                                    {% elseif user.status == "suspend" %}
+                                        <a href="/Admin/Users/ManageUsers/{{ user.user_id }}/active"><button class="text-green-500 hover:text-green-600 transition-colors">Active</button></a>
+                                    {% endif %}
                                 </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">Feb 1, 2024</div>
-                            <div class="text-xs text-gray-500">9:45 AM</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                      Pending
-                    </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <div class="flex items-center gap-3">
-                                <button class="text-green-500 hover:text-green-600 transition-colors">Approve</button>
-                                <button class="text-red-500 hover:text-red-600 transition-colors">Reject</button>
-                            </div>
-                        </td>
-                    </tr>
-
+                            </td>
+                        </tr>
+                    {% endfor %}
                     <!-- Add more user rows as needed -->
                     </tbody>
                 </table>

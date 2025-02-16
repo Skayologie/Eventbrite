@@ -25,6 +25,10 @@ class UserModel
     }
 
 
+    public function suspendactiveUser($user_id,$option){
+        return $this->CRUD->Edit($user_id, "users", ["status"=>$option],"user_id");
+    }
+
     public function save(RegisteredUser $user)
     {
         $CRUD       = $this->CRUD;
@@ -69,6 +73,14 @@ class UserModel
 
     public function logout(){
         $this->Auth->logout();
+    }
+
+    public function getAllUsers(){
+        $query = "SELECT * , CONCAT(fname,' ',lname) AS fullname , CONVERT(joined_at , time) AS TimeJoined ,CONVERT(joined_at , date) AS DateJoined FROM users;";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
 

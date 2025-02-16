@@ -22,8 +22,22 @@ class UserController
         $UserDatabase = new Database();
     }
     public function index(){
-        View::render("back/users",[]);
+        $Users = new UserModel();
+        View::render(
+            "back/users",
+            [
+                "Users"=>$Users->getAllUsers(),
+            ]
+        );
     }
+
+
+    public function SuspendactiveUser($user_id,$option){
+        $User = new UserModel();
+        $User->suspendactiveUser($user_id,$option);
+        header("Location:../../../../Admin/Users");
+    }
+
     public function register(){
         header('Content-Type: application/json');
         try {
