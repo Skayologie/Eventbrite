@@ -65,6 +65,10 @@ $router->post("/Support/SendMessage",SupportController::class,'sendMessage');
 //$TESTS
 $router->get("/TEST",EventController::class, "testEvent");
 
+// Google OAuth Routes
+$router->get('/auth/google', UserController::class, 'googleLogin');
+$router->get('/auth/google/callback', UserController::class, 'googleCallback');
+
 
 
 

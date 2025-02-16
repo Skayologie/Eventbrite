@@ -112,6 +112,10 @@ CREATE TABLE support (
     FOREIGN KEY (user_id) REFERENCES users(user_id) on DELETE CASCADE
 );
 
-
+-- Google auth
+ALTER TABLE users 
+ADD COLUMN google_id VARCHAR(255) NULL,
+ADD COLUMN provider VARCHAR(10) NOT NULL DEFAULT 'local',
+ADD COLUMN is_verified TINYINT(1) NOT NULL DEFAULT 0;
 
 
