@@ -298,7 +298,8 @@
         </section>
 
         <!-- Comments Section ---------------------------------------------------------------------------------->
-        <div class="mt-12 border-t pt-8" x-data="{ showEmojis: false }">
+        <form method="POST" action="/comments/add/{{eventInfo.event_id}}">
+            <div class="mt-12 border-t pt-8" x-data="{ showEmojis: false }">
             <h2 class="text-2xl font-semibold mb-8 flex items-center gap-2">
                 <svg
                         class="w-6 h-6 text-gray-600"
@@ -326,6 +327,7 @@
                     <!-- Comment Input Area -->
                     <div class="flex-1">
               <textarea
+                      name="comment_content"
                       x-ref="commentText"
                       rows="3"
                       class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 resize-none"
@@ -394,6 +396,7 @@
                             </div>
 
                             <button
+                                    type="submit"
                                     class="px-6 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors">
                                 Comment
                             </button>
@@ -401,21 +404,23 @@
                     </div>
                 </div>
             </div>
-
+        </div>
+        </form>
             <!-- Comments List -->
             <div class="space-y-6">
+            {% for comment in comments %}
                 <!-- Comment 1 -->
                 <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
                     <div class="flex items-start gap-4">
                         <div
                                 class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
-                            <span class="text-orange-600 font-semibold">J</span>
+                            <span class="text-orange-600 font-semibold">{{comment.username}}</span>
                         </div>
                         <div class="flex-1">
                             <div class="flex items-center justify-between mb-2">
                                 <div>
-                                    <h4 class="font-semibold text-gray-900">Khadouj</h4>
-                                    <p class="text-sm text-gray-500">2 hours ago</p>
+                                    <h4 class="font-semibold text-gray-900">{{comment.username}}</h4>
+                                    <p class="text-sm text-gray-500">{{comment.commented_at|date('Y-m-d \\a\\t H:i')}}</p>
                                 </div>
                                 <!-- Comment Options -->
                                 <div class="relative" x-data="{ showOptions: false }">
@@ -456,67 +461,14 @@
                                 </div>
                             </div>
                             <p class="text-gray-600 mb-4">
-                                This looks amazing! Can't wait for the event 🎉 The lineup is
-                                incredible! 🔥
+                                {{comment.comment_content}}
                             </p>
                             <div class="flex items-center gap-6">
-                                <button
-                                        class="flex items-center gap-2 text-gray-500 hover:text-violet-600">
-                                    <svg
-                                            class="w-5 h-5"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                        <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                                    </svg>
-                                    <span>128</span>
-                                </button>
-                                <button
-                                        class="flex items-center gap-2 text-gray-500 hover:text-violet-600">
-                                    <svg
-                                            class="w-5 h-5"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                        <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                                    </svg>
-                                    <span>Reply</span>
-                                </button>
-                            </div>
-
-                            <!-- Reply Section -->
-                            <div class="mt-4 pl-8 border-l-2 border-gray-100">
-                                <div class="flex items-start gap-4 mb-4">
-                                    <div
-                                            class="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center flex-shrink-0">
-                      <span class="text-violet-600 font-semibold text-sm"
-                      >M</span
-                      >
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="flex items-center mb-1">
-                                            <h4 class="font-semibold text-gray-900 text-sm">
-                                                mamas30
-                                            </h4>
-                                            <span class="text-xs text-gray-500 ml-2">Just now</span>
-                                        </div>
-                                        <p class="text-gray-600 text-sm">
-                                            Thanks! See you there! 👋
-                                        </p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
 
             <!-- Load More Comments -->
