@@ -93,6 +93,15 @@ class UserController
             if ($userModel->check($user , $Loginpassword)){
                 $Crud = new Model();
                 $result = $Crud->GetCheck("users" , "email",$Loginemail)[0];
+                if($result['status']==="suspend"){
+                    $resultQ = [
+                        "status"=>false,
+                        "message"=>"Your Account Has Been Suspended By Admin , Contact The Support @JawadBoulmal !",
+                        "durationTime"=>5000
+                    ];
+                    echo json_encode($resultQ);
+                    return ;
+                }
                 Session::set("userID",$result["user_id"]??"");
                 Session::set("roleID",$result["role_id"]);
                 Session::set("email",$result["email"]);
