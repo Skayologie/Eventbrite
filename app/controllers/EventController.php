@@ -12,21 +12,26 @@ use App\models\Participant;
 use App\models\RegisteredUser;
 use App\models\User;
 use App\models\UserModel;
+use App\models\Comment;
 
 class EventController
 {
     private $db;
     private $Auth;
     private Event $event;
+    private Comment $comment;
     public function __construct(){
         $UserDatabase = new Database();
         $this->event = new Event();
+        $this->comment = new Comment();
     }
     public function index($event_id){
         $event = new Event();
+        $comment = new Comment();
         View::render("front/Event",[
             "title"=>"Home",
-            "eventInfo"=>$event->show_events(["event_id"=>$event_id])[0]
+            "eventInfo"=>$event->show_events(["event_id"=>$event_id])[0],
+            "comments" =>$comment->get_comments($event_id)
         ]);
 
     }

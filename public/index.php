@@ -7,6 +7,7 @@ use App\controllers\HomeController;
 use App\controllers\SupportController;
 use App\controllers\TagController;
 use App\controllers\UserController;
+use App\controllers\CommentController;
 use App\core\Auth;
 use App\core\Router;
 use App\core\Session;
@@ -65,6 +66,10 @@ $router->get("/payment/cancel", PaymentController::class, "cancel");
 
 
 $router->post("/Support/SendMessage",SupportController::class,'sendMessage');
+
+//Comments
+$router->post("/comments/add/{event_id}",CommentController::class,'addComment');
+
 
 //$TESTS
 $router->get("/TEST",EventController::class, "testEvent");
