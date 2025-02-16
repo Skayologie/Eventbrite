@@ -30,6 +30,8 @@ $router->get("/Event/{event_id}",EventController::class, "index");
 $router->get("/Explore/Event/{category}",HomeController::class, "getEventByCategorie");
 $router->get("/CreateEvent",EventController::class, "createEvent");
 $router->post("/CreateEvent",EventController::class, "AddEvent");
+$router->get("/Organizer/EventDetails/{id}",EventController::class, "EventDetails");
+$router->get("/Organizer/MyEvents",EventController::class, "GetMyEvents");
 $router->get("/ChangeRole",UserController::class, "switch_role");
 $router->get("/logout",Auth::class, "logout");
 $router->get("/Admin/Dashboard",DashboardController::class, "index");
@@ -45,6 +47,8 @@ $router->post("/AddTag",TagController::class, "addTag");
 //Categories
 $router->get("/Categories",CategorieController::class, "index");
 $router->post("/DeleteCategorie/{id}",CategorieController::class, "deleteCategorie");
+$router->get("/GetCategories",CategorieController::class, "GetCategories");
+$router->post("/AddCategorie",CategorieController::class, "addCategorie");
 
 $router->get("/checkRole",UserController::class, "checkRole");
 
@@ -64,6 +68,21 @@ $router->post("/Support/SendMessage",SupportController::class,'sendMessage');
 
 //$TESTS
 $router->get("/TEST",EventController::class, "testEvent");
+
+
+
+
+
+
+
+$router->get("/Download/participants/{event_id}/{type}",UserController::class, "DownloadParticipantList");
+
+
+
+
+
+
+
 
 
 

@@ -11,6 +11,9 @@
     "google/apiclient": "^2.0",
     "phpmailer/phpmailer": "^6.9",
     "google/apiclient": "^2.0",
-    "stripe/stripe-php": "^16.5"
+    "stripe/stripe-php": "^16.5",
+    "chillerlan/php-qrcode": "^5.0",
+    "ext-openssl": "*",
+    "dompdf/dompdf": "^3.1"
   }
 }

@@ -4,7 +4,7 @@
 {% endblock  %}
 {% block content %}
     <div class="flex">
-        {% include 'layouts/aside.twig' with {active:"dashboard"}  %}
+        {% include 'layouts/aside.twig' with {active:"dashboard","role":role}  %}
         <div class="my-10 w-[80%] mx-auto">
             <!-- Header -->
             {% include 'layouts/adminheader.twig'   %}

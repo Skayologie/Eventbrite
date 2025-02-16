@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="flex">
-    {% include 'layouts/aside.twig' with {active:"dashboard"}  %}
+    {% include 'layouts/aside.twig' with {active:"dashboard","role":3}  %}
     <div class="my-10 w-[80%] mx-auto">
         <button id="openModal"
                 class="px-4 py-2 my-5 bg-orange-600 text-white rounded-md shadow-md hover:bg-orange-700 transition">
@@ -19,10 +19,10 @@
                     <button id="closeModal" class="text-gray-500 hover:text-red-500 text-xl">&times;</button>
                 </div>
 
-                <form id="addTagForm">
+                <form id="addTagForm" method="post">
                     <!-- Tag Name Input -->
                     <div class="relative mb-4">
-                        <input type="text" id="tagName" name="tagName" required
+                        <input type="text" id="CategorieName" name="categorieName" required
                                class="peer w-full p-3 border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 outline-none"
                                placeholder=" " />
                         <label for="tagName"
@@ -33,7 +33,7 @@
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit"
+                    <button type="button"  id="AddCategorie"
                             class="w-full px-4 py-2 text-white bg-orange-600 rounded-md shadow-md hover:bg-orange-700 transition">
                         Add Category
                     </button>
@@ -82,6 +82,7 @@
 </div>
 <script>
 
+
     $(".delete-tag").each(function() {
         $(this).on("click", function() {
             let button = $(this)
@@ -114,6 +115,43 @@
                 }});
         });
     });
+
+    $("#AddCategorie").on("click",()=>{
+        console.log(this)
+        let button = $("#AddCategorie")
+        button.addClass("cursor-not-allowed");
+        $.ajax({
+            url: "http://localhost:4444/AddCategorie",
+            method: "post",
+            data:{
+                CategorieName : $("#CategorieName").val(),
+            },
+            success: function (response) {
+                let button = $("#AddCategorie")
+                button.removeClass("cursor-not-allowed");
+                response = JSON.parse(response)
+                if (response.status) {
+                    // Remove the row smoothly
+                    button.closest("tr").fadeOut(300, function() {
+                        $(this).remove();
+                    });
+                } else {
+                    alert("Error deleting tag: " + response.message);
+                }
+                $("#MessageSection").html(response.message);
+                let icon = response.status ? "success" : "error" ;
+                swal({
+                    position: "top-end",
+                    icon: icon,
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            }
+        })
+    })
+
+
 </script>
 
 {% endblock %}
