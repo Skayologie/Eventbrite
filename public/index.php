@@ -67,6 +67,8 @@ $router->get("/payment",PaymentController::class, "index");
 $router->get("/payment/checkout/{event_id}/{pricePerTicket}/{quantity}", PaymentController::class, "checkout");
 
 $router->get("/payment/success", PaymentController::class, "success");
+$router->get("/payment/finished", PaymentController::class, "finishPayment");
+
 $router->get("/payment/cancel", PaymentController::class, "cancel");
 
 

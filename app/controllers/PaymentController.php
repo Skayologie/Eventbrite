@@ -81,6 +81,15 @@ private $event_id;
         exit();
     }
 
+    public function finishPayment(){
+        if (\App\core\Session::get("onPaiment")){
+            View::render('front/paimentFinished');
+            \App\core\Session::remove("onPaiment");
+        }else{
+            header("Location:/");
+        }
+    }
+
     public function success(){
         Stripe::setApiKey('sk_test_51QqwsCKabufyYHDhhkwGsNPRFcskyaFR2FcAQGvRkzhzeaf7nCmzSX9RM43aIuRlkCgUmeYbk9mVw9slhMoNRWJP00dU51vbNx');
         $session_id= $_SESSION['SessionPayment']  ?? '' ;
@@ -115,11 +124,12 @@ private $event_id;
                     $Atachmment[] = $uniqueCode;
                 }
             }
-
+            \App\core\Session::set("onPaiment",true);
             $mail = new Mail("jawadboulmal@gmail.com");
             $notification = new Notification();
             $mail->sendTicket($Atachmment);
             $notification->addNotification("Your Purchase Has Been Approved Successfully !",$userId);
+            header('Location:../../../../../payment/finished');
         } else {
             echo "Erreur de paiement .";
         }
