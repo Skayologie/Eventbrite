@@ -2,6 +2,7 @@
 
 namespace App\controllers;
 use App\core\Model;
+use App\core\Session;
 use Dompdf\Dompdf;
 
 class TicketController
@@ -17,9 +18,9 @@ class TicketController
         $ticketId = $ticketid;
         $price = $eventinfo["event_price"];
         $startDate = $eventinfo["event_date"];
-        $QrCode = $image;
-        $imageTag = '<img src="'.$QrCode.'" />';
+        $startTime = $eventinfo["event_start_at"];
         $details = $eventinfo["event_type"];
+        $venue = $eventinfo["event_address"];
 
         $html = file_get_contents('./assets/template/ticket_template.html');
 
@@ -27,9 +28,11 @@ class TicketController
         $html = str_replace("{{titleId}}", $titleId, $html);
         $html = str_replace("{{ticketId}}", $ticketId, $html);
         $html = str_replace("{{price}}", $price, $html);
-        $html = str_replace("{{startDate}}", $startDate, $html);
-        $html = str_replace("{{QrCode}}", $imageTag, $html);
+        $html = str_replace("{{startDate}}", $startDate .' '. $startTime, $html);
+        $html = str_replace("{{QrCode}}", $image, $html);
         $html = str_replace("{{details}}", $details, $html);
+        $html = str_replace("{{venue}}", $venue, $html);
+        $html = str_replace("{{Attendee}}", Session::get("email"), $html);
         $html = str_replace("{{ticketId}}", urlencode($ticketId), $html); // QR Code URL
 
         $dompdf = new Dompdf();

@@ -1,145 +1,216 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Ticket</title>
     <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Using web-safe fonts for better email compatibility */
         body {
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f0f2f5;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f3f4f6;
+            padding: 20px;
+            width: 100%;
         }
 
+        /* Main container with fixed dimensions */
         .ticket-container {
-            width:100%;
-            height: 100%;
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            position: relative;
+            width: 800px;
+            height: 220px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
         }
 
-        .ticket-header {
-            background: #6366f1;
-            padding: 20px;
-            color: white;
-            position: relative;
+        /* Using table layout for better email client compatibility */
+        .ticket-table {
+            width: 100%;
+            height: 220px;
+            border-collapse: collapse;
+            table-layout: fixed;
         }
 
-        .event-name {
-            font-size: 24px;
+        /* Image cell */
+        .image-cell {
+            width: 25%;
+            position: relative;
+            background-color: #000000;
+        }
+
+        .event-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+        }
+
+        .premium-badge {
+            display: inline-block;
+            background-color: #f97316;
+            color: #ffffff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
             font-weight: bold;
-            margin: 0;
+            margin-bottom: 8px;
         }
 
-        .event-subtitle {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-top: 5px;
+        .event-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 4px;
         }
 
-        .ticket-body {
+        .event-date {
+            color: #d1d5db;
+            font-size: 12px;
+        }
+
+        /* Details cell */
+        .details-cell {
+            width: 50%;
             padding: 20px;
+            border-right: 2px dashed #e5e7eb;
+            vertical-align: top;
         }
 
-        .ticket-info {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+        .header-container {
             margin-bottom: 20px;
         }
 
-        .info-item {
-            display: flex;
-            flex-direction: column;
+        .event-info {
+            font-size: 16px;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .ticket-number {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .details-grid {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .details-grid td {
+            padding: 8px 0;
+            width: 50%;
         }
 
         .info-label {
             font-size: 12px;
             color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
             margin-bottom: 4px;
         }
 
         .info-value {
-            font-size: 16px;
-            color: #111827;
+            font-size: 14px;
             font-weight: 500;
+            color: #111827;
         }
 
-        .ticket-footer {
-            padding: 15px 20px;
-            background: #f9fafb;
-            border-top: 1px dashed #e5e7eb;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* QR code cell */
+        .qr-cell {
+            width: 25%;
+            padding: 20px;
+            vertical-align: top;
         }
 
         .qr-code {
-            width: 60px;
-            height: 60px;
-            background: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            color: #666;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
         }
 
-        .ticket-id {
-            font-family: monospace;
-            font-size: 14px;
-            color: #4b5563;
+        .seat-info {
+            background-color: #f5f3ff;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
         }
 
-        .price-tag {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 8px 12px;
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
+        .seat-label {
+            font-size: 12px;
+            color: #7c3aed;
+            margin-bottom: 4px;
+        }
+
+        .seat-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #6d28d9;
         }
     </style>
 </head>
 <body>
 <div class="ticket-container">
-    <div class="ticket-header">
-        <h1 class="event-name">{{titleId}}</h1>
-        <p class="event-subtitle">Main Stage Performance</p>
-        <div class="price-tag">{{price}}</div>
-    </div>
-
-    <div class="ticket-body">
-        <div class="ticket-info">
-            <div class="info-item">
-                <span class="info-label">{{startDate}}</span>
-                <span class="info-value">JUL 15, 2025</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Time</span>
-                <span class="info-value">19:30</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Venue</span>
-                <span class="info-value">Sunset Arena</span>
-            </div>
-            <div class="info-item">
-                <span class="info-label">Ticket id</span>
-                <span class="info-value">{{ticketId}}</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="ticket-footer">
-        <div class="ticket-id">TKT-2025-07-15-1234</div>
-        <div class="qr-code">{{QR CODE}}</div>
-    </div>
+    <table class="ticket-table">
+        <tr>
+            <td class="image-cell">
+                <img class="event-image" src="../../assets/images/s" alt="Event">
+                <div class="image-overlay">
+                    <span class="premium-badge">{{details}}</span>
+                    <div class="event-title">{{titleId}}</div>
+                    <div class="event-date">{{startDate}}</div>
+                </div>
+            </td>
+            <td class="details-cell">
+                <div class="header-container">
+                    <div class="event-info">{{price}} DH</div>
+                    <div class="ticket-number">{{ticketId}}</div>
+                </div>
+                <table class="details-grid">
+                    <tr>
+                        <td>
+                            <div class="info-label">Date</div>
+                            <div class="info-value">{{startDate}}</div>
+                        </td>
+                        <td>
+                            <div class="info-label">Venue</div>
+                            <div class="info-value">{{venue}}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="info-label">Attendee</div>
+                            <div class="info-value">{{Attendee}}</div>
+                        </td>
+                        <td>
+                            <div class="info-label">Type</div>
+                            <div class="info-value">{{details}}</div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td class="qr-cell">
+                <img class="qr-code" src="{{QrCode}}" alt="QR Code">
+                <div class="seat-info">
+                    <div class="seat-label">SEC</div>
+                    <div class="seat-value">A1</div>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
