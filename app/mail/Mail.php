@@ -36,7 +36,7 @@ class Mail
         try {
             //Recipients
             $this->mail->setFrom('Eventbrite@gmail.com', 'EventBrite');
-            $this->mail->addAddress($user->getEmail());               //Name is optional
+            $this->mail->addAddress($this->email);               //Name is optional
 
             //Content
             $this->mail->isHTML(true);                                  //Set email format to HTML
