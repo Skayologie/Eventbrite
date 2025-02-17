@@ -26,7 +26,7 @@ class EventController
         $this->event = new Event();
         $this->comment = new Comment();
     }
-    public function index($event_id=0){
+    public function index($event_id){
         $event = new Event();
         $comment = new Comment();
         $role = Session::get("roleID");
