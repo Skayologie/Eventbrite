@@ -28,6 +28,7 @@ $router->get("/Auth/{type}",Auth::class, "index");
 $router->post("/register",UserController::class, "register");
 $router->post("/login",UserController::class, "login");
 $router->get("/Event/{event_id}",EventController::class, "index");
+$router->post("/SearchEvent",EventController::class, "searchEvent");
 $router->get("/Explore/Event/{category}",HomeController::class, "getEventByCategorie");
 $router->get("/CreateEvent",EventController::class, "createEvent");
 $router->post("/CreateEvent",EventController::class, "AddEvent");

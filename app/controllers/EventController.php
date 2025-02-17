@@ -128,6 +128,13 @@ class EventController
         ]);
     }
 
+    public function searchEvent(){
+        header('Content-Type: application/json');
+        extract($_POST);
+        $result = $this->event->search_events($searchTerm);
+        echo json_encode($result);
+    }
+
     public function ApproveRejectEvent($eventid,$option){
         $this->event->approverejectEvent($eventid,$option);
         header('Location:../../../../Admin/Events');
