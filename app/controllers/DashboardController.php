@@ -18,7 +18,8 @@ class DashboardController
                 "TotalUsers"=>$Stats->getTotalUtilisateurs(),
                 "TotalEvents"=>$Stats->getTotalEvenements(),
                 "TotalSoldTicket"=>$Stats->getTotalBilletsVendus(),
-                "TotalRevenue"=>$Stats->getRevenuTotal()
+                "TotalRevenue"=>$Stats->getRevenuTotal(),
+                "role"=>3
             ]);
         }elseif ($role === 1){
             View::render("front/home",["isAuth"=>true]);

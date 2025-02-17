@@ -39,6 +39,7 @@ class EventController
         }elseif ($role === 3){
             View::render("back/events",[
                 "title"=>"Home",
+                "role"=>3,
                 "events"=>$event->show_events()
             ]);
         }
@@ -116,7 +117,9 @@ class EventController
             "title"=>"Home",
             "data"=>$this->event->show_events(["event_id"=>$id])[0],
             "ticketInfo"=>$this->event->Tickets_Information($id)[0],
-            "participants"=>$this->event->GetEventParticipants($id)
+            "participants"=>$this->event->GetEventParticipants($id),
+            "role"=>Session::get("roleID"),
+
         ]);
     }
     public function GetMyEvents(){
