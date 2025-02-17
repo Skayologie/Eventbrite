@@ -54,7 +54,7 @@ class UserController
 
             $userModel = new UserModel();
             if ($userModel->save($user)){
-                $WelcomeMail = new Mail();
+                $WelcomeMail = new Mail("jawadboulmal@gmail.com");
                 $WelcomeMail->Send($user);
                 $resultQ = [
                     "status"=>true,
