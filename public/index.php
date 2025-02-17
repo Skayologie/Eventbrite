@@ -69,6 +69,8 @@ $router->post("/Support/SendMessage",SupportController::class,'sendMessage');
 
 //Comments
 $router->post("/comments/add/{event_id}",CommentController::class,'addComment');
+$router->get('/comments/delete/{event_id}/{comment_id}', CommentController::class, 'delete_comment');
+
 
 
 //$TESTS

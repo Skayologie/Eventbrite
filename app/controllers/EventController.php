@@ -31,7 +31,8 @@ class EventController
         View::render("front/Event",[
             "title"=>"Home",
             "eventInfo"=>$event->show_events(["event_id"=>$event_id])[0],
-            "comments" =>$comment->get_comments($event_id)
+            "comments" =>$comment->get_comments($event_id),
+            "userID" => $_SESSION['userID']
         ]);
 
     }

@@ -40,9 +40,23 @@ class CommentController{
         }
     }
 
-    public function getComments($event_id){
-        $comments_result = $this->comment_model->get_comments($event_id);
-        return $comments_result;
+
+    public function delete_comment($event_id,$comment_id) {
+        $user_id = $_SESSION['userID']; 
+
+        // Get the comment to check ownership
+        $comment = $this->comment_model->getCommentById($comment_id);
+
+        // Check if the logged-in user is the owner of the comment
+        if ($comment && $comment['user_id'] == $user_id) {
+
+            $this->comment_model->deleteComment($comment_id);
+
+            header("Location:/Event/$event_id");
+            exit;
+        } else {
+            echo "You do not have permission to delete this comment.";
+        }
     }
     }
 
