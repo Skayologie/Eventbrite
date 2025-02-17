@@ -44,6 +44,19 @@ class Comment{
         return $result;
     }
 
+    public function getCommentById($comment_id) {
+        $query = "SELECT * FROM comments WHERE comment_id = ?";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([$comment_id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteComment($comment_id) {
+        $query = "DELETE FROM comments WHERE comment_id = ?";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([$comment_id]);
+    }
+
 
 
 

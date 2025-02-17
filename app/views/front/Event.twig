@@ -406,6 +406,7 @@
             </div>
 </form>
             <!-- Comments List -->
+            
             <div class="space-y-6">
             {% for comment in comments %}
                 <!-- Comment 1 -->
@@ -413,7 +414,7 @@
                     <div class="flex items-start gap-4">
                         <div
                                 class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
-                            <span class="text-orange-600 font-semibold">{{comment.username}}</span>
+                            <span class="text-orange-600 font-semibold">{{comment.username|first|upper}}</span>
                         </div>
                         <div class="flex-1">
                             <div class="flex items-center justify-between mb-2">
@@ -422,6 +423,7 @@
                                     <p class="text-sm text-gray-500">{{comment.commented_at|date('Y-m-d \\a\\t H:i')}}</p>
                                 </div>
                                 <!-- Comment Options -->
+                                {% if comment.user_id == userID %}
                                 <div class="relative" x-data="{ showOptions: false }">
                                     <button
                                             @click="showOptions = !showOptions"
@@ -448,16 +450,19 @@
                                                 class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50">
                                             Edit
                                         </button>
-                                        <button
+                                        
+                                        <a href="/comments/delete/{{eventInfo.event_id}}/{{comment.comment_id}}"
                                                 class="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-50">
                                             Delete
-                                        </button>
+                                        </a>
                                         <button
                                                 class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50">
                                             Report
                                         </button>
                                     </div>
                                 </div>
+                                
+                                {% endif %}
                             </div>
                             <p class="text-gray-600 mb-4">
                                 {{comment.comment_content}}
@@ -466,9 +471,12 @@
                             </div>
                         </div>
                     </div>
+                    </div>
+                    
                 </div>
                 {% endfor %}
             </div>
+            
 
             <!-- Load More Comments -->
             <div class="mt-8 text-center">
@@ -477,7 +485,7 @@
                     Load More Comments
                 </button>
             </div>
-        </div>
+        
         <!-- fin comment section------------------------------------------------------------------------------ -->
 
     </div>
